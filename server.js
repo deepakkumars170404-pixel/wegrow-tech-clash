@@ -225,8 +225,8 @@ function assignNewPlayerToTeam(player) {
   console.log(`Mid-game joiner '${player.name}' automatically assigned to ${targetTeam.name}!`);
 }
 
-// Initial seed
-seedDummyPlayers();
+// Initial seed (Disabled for live student session - students join dynamically!)
+// seedDummyPlayers();
 
 let allRounds = [];
 try {
@@ -357,30 +357,42 @@ wss.on('connection', (ws) => {
 
       switch (data.type) {
         case 'REGISTER_PLAYER': {
+          const pid = data.playerId || ws.playerId;
+          ws.playerId = pid;
           const newPlayer = {
-            id: ws.playerId,
+            id: pid,
             name: data.name || 'Player',
-            role: data.role || 'player',
+            role: data.role || 'dev',
             teamId: null,
             teamName: null,
             score: 0,
             correctCount: 0,
             wrongCount: 0
           };
-          gameState.players[ws.playerId] = newPlayer;
+          gameState.players[pid] = newPlayer;
           assignNewPlayerToTeam(newPlayer);
           broadcastState();
           break;
         }
 
         case 'RECONNECT_PLAYER': {
-          const pid = data.playerId;
+          const pid = data.playerId || ws.playerId;
           ws.playerId = pid;
-          if (!gameState.players[pid]) {
+          let player = gameState.players[pid];
+          if (!player && data.name) {
+            player = Object.values(gameState.players).find(p => p.name.toLowerCase() === data.name.toLowerCase());
+            if (player) {
+              delete gameState.players[player.id];
+              player.id = pid;
+              gameState.players[pid] = player;
+            }
+          }
+
+          if (!player) {
             const reconnectedPlayer = {
               id: pid,
               name: data.name || 'Player',
-              role: data.role || 'player',
+              role: data.role || 'dev',
               teamId: null,
               teamName: null,
               score: 0,
@@ -390,8 +402,8 @@ wss.on('connection', (ws) => {
             gameState.players[pid] = reconnectedPlayer;
             assignNewPlayerToTeam(reconnectedPlayer);
           } else {
-            if (data.name) gameState.players[pid].name = data.name;
-            if (data.role) gameState.players[pid].role = data.role;
+            if (data.name) player.name = data.name;
+            if (data.role) player.role = data.role;
           }
           updateLeaderboard();
           broadcastState();
@@ -653,7 +665,6 @@ wss.on('connection', (ws) => {
           gameState.lastAnswerResult = null;
           gameState.teams.forEach(t => { t.score = 0; t.correctCount = 0; t.wrongCount = 0; t.members = []; });
           gameState.players = {};
-          seedDummyPlayers();
           updateLeaderboard();
           broadcastState();
           break;

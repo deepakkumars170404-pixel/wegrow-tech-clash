@@ -224,6 +224,31 @@
   }
   .phone-opt-btn:active { background: var(--accent); color: #090d16; transform: scale(0.98); }
 
+  .player-hero-card {
+    background: #0f172a;
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    padding: 10px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease;
+  }
+  .player-hero-name { font-size: 15px; font-weight: 800; color: #f8fafc; }
+  .player-hero-team {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid currentColor;
+  }
+
   /* Full Screen Flash Overlays */
   .flash-overlay {
     position: fixed; inset: 0; z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column;
@@ -326,6 +351,11 @@
 
 <!-- SCREEN 3: GAME / BUZZER / ANSWER -->
 <div class="screen" id="screen-buzzer">
+  <div class="player-hero-card" id="buzzer-hero-card">
+    <div class="player-hero-name" id="hero-player-name">👤 Player</div>
+    <div class="player-hero-team" id="hero-team-badge">TEAM ALPHA</div>
+  </div>
+
   <div class="buzzer-container" id="buzzer-main-box">
     <div class="status-pill locked" id="buzzer-pill">LOCKED 🔒</div>
 
@@ -457,6 +487,10 @@
     }
     myName = nameInput;
 
+    if (!myPlayerId) {
+      myPlayerId = 'p_' + Math.random().toString(36).substr(2, 9);
+    }
+
     // Save in localStorage for persistent session
     localStorage.setItem('tc_player_id', myPlayerId);
     localStorage.setItem('tc_player_name', myName);
@@ -464,12 +498,17 @@
 
     ws.send(JSON.stringify({
       type: 'REGISTER_PLAYER',
+      playerId: myPlayerId,
       name: myName,
       role: myRole
     }));
 
-    showScreen('screen-lobby');
-    document.getElementById('lobby-greeting').textContent = `Welcome ${myName}! 👋`;
+    if (currentGameState && currentGameState.currentView === 'game') {
+      showScreen('screen-buzzer');
+    } else {
+      showScreen('screen-lobby');
+      document.getElementById('lobby-greeting').textContent = `Welcome ${myName}! 👋`;
+    }
   }
 
   function showScreen(screenId) {
@@ -480,10 +519,16 @@
   function handleStateUpdate(state) {
     currentGameState = state;
 
-    // Look for my team assignment
+    // 1. MUST CHECK myName: If student has NOT entered name, ALWAYS show login first!
+    if (!myName) {
+      showScreen('screen-login');
+      return;
+    }
+
+    // 2. Look for my team assignment by ID or Name
     let foundTeam = null;
     state.teams.forEach(t => {
-      if (t.members.some(m => m.id === myPlayerId)) {
+      if (t.members.some(m => m.id === myPlayerId || (myName && m.name.toLowerCase() === myName.toLowerCase()))) {
         foundTeam = t;
       }
     });
@@ -497,6 +542,16 @@
       document.getElementById('header-team').style.color = myTeamColor;
       document.getElementById('header-team').style.borderColor = myTeamColor;
 
+      const heroName = document.getElementById('hero-player-name');
+      if (heroName) heroName.textContent = `👤 ${myName}`;
+      const heroTeam = document.getElementById('hero-team-badge');
+      if (heroTeam) {
+        heroTeam.textContent = myTeamName.toUpperCase();
+        heroTeam.style.color = myTeamColor;
+      }
+      const heroCard = document.getElementById('buzzer-hero-card');
+      if (heroCard) heroCard.style.borderColor = myTeamColor;
+
       document.getElementById('assigned-team-info').textContent = `You are in ${myTeamName}!`;
       document.getElementById('assigned-team-info').style.color = myTeamColor;
 
@@ -504,11 +559,21 @@
       const teamScorePill = document.getElementById('header-team-score');
       teamScorePill.textContent = `🏆 ${foundTeam.score || 0} pts`;
       teamScorePill.style.borderColor = myTeamColor;
+    } else {
+      // Re-send registration if not found in any team
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'RECONNECT_PLAYER',
+          playerId: myPlayerId,
+          name: myName,
+          role: myRole
+        }));
+      }
     }
 
     // Update personal score
-    if (state.players && state.players[myPlayerId]) {
-      const myP = state.players[myPlayerId];
+    if (state.players && (state.players[myPlayerId] || Object.values(state.players).find(p => p.name.toLowerCase() === myName.toLowerCase()))) {
+      const myP = state.players[myPlayerId] || Object.values(state.players).find(p => p.name.toLowerCase() === myName.toLowerCase());
       const myScorePill = document.getElementById('header-my-score');
       myScorePill.textContent = `⭐ ${myP.score || 0} pts`;
     }
@@ -518,8 +583,8 @@
       showScreen('screen-buzzer');
       updateGameUI(state);
     } else if (state.currentView === 'lobby') {
-      if (myName) showScreen('screen-lobby');
-      else showScreen('screen-login');
+      showScreen('screen-lobby');
+      document.getElementById('lobby-greeting').textContent = `Welcome ${myName}! 👋`;
     }
 
     // Render leaderboard modal content
@@ -648,12 +713,16 @@
       });
     } else {
       // Free text / verbal confirm for detective/debate
-      const b = document.createElement('button');
-      b.className = 'phone-opt-btn';
+      const b = document.createElement('div');
       b.style.textAlign = 'center';
-      b.style.background = '#059669';
-      b.textContent = 'Answer Spoken to Judge ✅';
-      b.onclick = () => submitAnswer(-1, 'done');
+      b.style.padding = '18px';
+      b.style.background = '#1e293b';
+      b.style.border = '2px solid var(--accent)';
+      b.style.borderRadius = '12px';
+      b.style.fontSize = '18px';
+      b.style.fontWeight = '900';
+      b.style.color = '#38bdf8';
+      b.innerHTML = '🎙️ Speak your answer aloud to the host / Smartboard!';
       container.appendChild(b);
     }
   }
