@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tech Clash — Smartboard Arena Pro</title>
+<style>
+  :root {
+    --bg: #090d16;
+    --card: #131b2e;
+    --accent: #00f2fe;
+    --purple: #8b5cf6;
+    --green: #10b981;
+    --red: #f43f5e;
+    --yellow: #fbbf24;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; user-select: none; }
+  body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+  header {
+    background: #0f172a;
+    border-bottom: 2px solid #1e293b;
+    padding: 10px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .arena-logo { font-size: 24px; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  
+  .team-scores { display: flex; gap: 14px; }
+  .score-chip {
+    background: #1e293b;
+    border: 2px solid #334155;
+    padding: 6px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .score-chip:hover { transform: translateY(-2px); }
+  .score-chip.active { border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+
+  .round-indicator {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  main { flex: 1; position: relative; overflow: hidden; display: flex; }
+
+  /* LOBBY VIEW */
+  #view-lobby {
+    position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center;
+  }
+  #view-lobby.active { display: flex; }
+
+  .qr-box {
+    background: white;
+    padding: 14px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .join-url { font-size: 26px; font-weight: 900; color: var(--accent); font-family: monospace; margin-bottom: 14px; }
+
+  .teams-preview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; max-width: 1100px; margin-top: 20px; }
+  .team-roster-card {
+    background: var(--card);
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+    min-height: 180px;
+  }
+  .team-roster-card h3 { font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid #334155; padding-bottom: 6px; }
+  .member-list { list-style: none; font-size: 14px; color: var(--muted); }
+  .member-list li { padding: 3px 0; }
+
+  .lobby-action-bar { display: flex; gap: 14px; margin-top: 24px; }
+  .action-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .action-btn.primary { background: linear-gradient(135deg, var(--accent), var(--purple)); border: none; }
+  .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+
+  /* GAME VIEW */
+  #view-game { position: absolute; inset: 0; display: none; }
+  #view-game.active { display: flex; }
+
+  .game-left {
+    flex: 1;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .question-badge {
+    background: #1e293b;
+    color: var(--accent);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    border: 1px solid #334155;
+  }
+
+  .question-title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.4;
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+
+  .interactive-container { width: 100%; max-width: 880px; }
+
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mcq-opt {
+    background: var(--card);
+    border: 2px solid #1e293b;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: left;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mcq-opt.correct { border-color: var(--green); background: rgba(16, 185, 129, 0.2); color: #6ee7b7; transform: scale(1.02); }
+  .mcq-opt.wrong { border-color: var(--red); background: rgba(244, 63, 94, 0.15); opacity: 0.5; }
+
+  .connections-grid { display: flex; justify-content: center; gap: 20px; }
+  .clue-box {
+    background: var(--card);
+    border: 2px solid #1e293b;
+    border-radius: 16px;
+    padding: 30px 40px;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--accent);
+    min-width: 250px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+
+  .detective-box { display: flex; flex-direction: column; gap: 12px; width: 100%; text-align: left; }
+  .clue-step {
+    background: var(--card);
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 18px;
+    display: none;
+  }
+  .clue-step.revealed { display: block; animation: slideDown 0.3s ease; }
+  .clue-step b { color: var(--yellow); }
+
+  .answer-banner {
+    margin-top: 20px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    padding: 16px 24px;
+    color: #a7f3d0;
+    font-size: 20px;
+    font-weight: 700;
+    display: none;
+    max-width: 880px;
+    width: 100%;
+    text-align: left;
+    animation: fadeIn 0.3s ease;
+  }
+  .answer-banner.show { display: block; }
+
+  /* Right Sidebar */
+  .game-right {
+    width: 320px;
+    background: #0f172a;
+    border-left: 2px solid #1e293b;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .buzzer-header { display: flex; justify-content: space-between; align-items: center; }
+  .buzzer-status-tag { font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 6px; }
+  .buzzer-status-tag.open { background: rgba(16, 185, 129, 0.2); color: var(--green); border: 1px solid var(--green); }
+  .buzzer-status-tag.locked { background: #334155; color: var(--muted); }
+
+  .queue-list { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .queue-item {
+    background: var(--card);
+    border: 2px solid #334155;
+    padding: 12px 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .queue-item.first { border-color: var(--yellow); box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
+  .queue-rank { font-size: 20px; font-weight: 900; }
+  .queue-name { font-size: 16px; font-weight: 700; }
+  .queue-team { font-size: 12px; color: var(--muted); }
+
+  .active-turn-box {
+    background: rgba(245, 158, 11, 0.15);
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--yellow);
+    text-align: center;
+    display: none;
+  }
+  .active-turn-box.show { display: block; animation: pulseGlow 1.2s infinite; }
+
+  footer {
+    background: #0f172a;
+    border-top: 2px solid #1e293b;
+    padding: 12px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .touch-controls { display: flex; gap: 14px; }
+  .touch-btn {
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+  }
+  .touch-btn:hover { transform: translateY(-2px); }
+  .btn-correct { background: #059669; }
+  .btn-wrong { background: #dc2626; }
+  .btn-reveal { background: #4f46e5; }
+  .btn-next { background: #0284c7; }
+  .btn-test { background: #334155; border: 1px dashed var(--accent); }
+
+  .smart-flash {
+    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+    padding: 14px 30px; border-radius: 30px; font-size: 24px; font-weight: 900; z-index: 9999;
+    display: none;
+  }
+  .smart-flash.correct { display: block; background: #10b981; color: white; animation: popDown 0.3s ease; }
+  .smart-flash.wrong { display: block; background: #ef4444; color: white; animation: popDown 0.3s ease; }
+
+  #view-winner {
+    position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  }
+  #view-winner.active { display: flex; }
+  .trophy-emoji { font-size: 90px; animation: bounce 1s infinite; margin-bottom: 20px; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popDown { from { opacity: 0; transform: translate(-50%, -20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+  @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); } 50% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.8); } }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="/soundfx.js"></script>
+<script src="/confetti.js"></script>
+</head>
+<body onclick="if(window.soundFX) window.soundFX.ensureContext();">
+
+<div class="smart-flash" id="smart-flash-banner">CORRECT! +100 PTS</div>
+
+<header>
+  <div class="arena-logo">⚡ TECH CLASH ARENA PRO</div>
+
+  <div class="team-scores" id="team-scores-bar">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="round-indicator" id="round-indicator">Lobby Phase</div>
+</header>
+
+<main>
+  <!-- 1. LOBBY VIEW -->
+  <div class="active" id="view-lobby">
+    <div style="font-size: 34px; font-weight: 900; margin-bottom: 10px;">Connect Mobile Devices</div>
+    <p style="color: var(--muted); font-size: 18px; margin-bottom: 20px;">Connect to Wi-Fi and scan the QR code with phone camera</p>
+
+    <div class="qr-box" id="qrcode"></div>
+    <div class="join-url" id="join-url-text">Loading IP...</div>
+
+    <div class="teams-preview" id="teams-preview-grid">
+      <!-- 4 Team Cards -->
+    </div>
+
+    <div class="lobby-action-bar">
+      <button class="action-btn" onclick="shuffleTeams()">🔀 Smart Auto-Balance Teams</button>
+      <button class="action-btn primary" onclick="startGame()">START TOURNAMENT ▶</button>
+    </div>
+  </div>
+
+  <!-- 2. GAME VIEW -->
+  <div id="view-game">
+    <div class="game-left">
+      <div class="question-badge" id="q-round-badge">Round 1 • Question 1 of 30</div>
+      <div class="question-title" id="q-title">Loading Question...</div>
+
+      <div class="interactive-container" id="q-content">
+        <!-- Rendered based on round type -->
+      </div>
+
+      <div class="answer-banner" id="q-answer-banner">
+        <!-- Revealed Answer & Explanation -->
+      </div>
+    </div>
+
+    <!-- Live Buzzer Queue Sidebar -->
+    <div class="game-right">
+      <div class="buzzer-header">
+        <h3 style="font-size: 18px; font-weight: 800;">🚨 Buzzer Queue</h3>
+        <span class="buzzer-status-tag locked" id="sidebar-buzzer-status">LOCKED 3s</span>
+      </div>
+
+      <div class="active-turn-box" id="sidebar-active-turn">
+        📱 TEAM ANSWERING ON PHONE...
+      </div>
+
+      <div class="queue-list" id="sidebar-queue-list">
+        <div style="color: var(--muted); font-size: 14px; text-align: center; margin-top: 30px;">
+          Waiting for buzzers...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. WINNER VIEW -->
+  <div id="view-winner">
+    <div class="trophy-emoji">🏆</div>
+    <h1 style="font-size: 52px; font-weight: 900; margin-bottom: 14px;">ARENA CHAMPIONS!</h1>
+    <h2 style="font-size: 36px; color: var(--accent); margin-bottom: 24px;" id="winner-team-name">Team Alpha</h2>
+    <p style="font-size: 20px; color: var(--muted); max-width: 700px; margin-bottom: 30px;">
+      Supreme victory after 3 hours of intense multi-domain technology clashes!
+    </p>
+    <button class="action-btn primary" onclick="resetTournament()">Play Again 🔄</button>
+  </div>
+</main>
+
+<footer>
+  <div style="font-size: 15px; color: var(--muted); font-weight: 700;" id="footer-status">
+    Smartboard Touch Ready 🟢
+  </div>
+
+  <div class="touch-controls">
+    <button class="touch-btn btn-test" onclick="simulateBotBuzz()" title="Test Buzzer without phone">🤖 TEST BOT BUZZ</button>
+    <button class="touch-btn btn-wrong" onclick="markWrong()">❌ WRONG / PASS</button>
+    <button class="touch-btn btn-reveal" onclick="toggleReveal()">💡 REVEAL ANSWER</button>
+    <button class="touch-btn btn-correct" onclick="markCorrect()">✅ CORRECT (+100)</button>
+    <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
+  </div>
+</footer>
+
+<script>
+  let ws = null;
+  let allRounds = [];
+  let currentRound = null;
+  let currentQ = null;
+  let autoTimer = null;
+  let prevQueueLength = 0;
+  let lastResultHandledTime = 0;
+
+  async function loadData() {
+    try {
+      const res = await fetch('/questions.json');
+      allRounds = await res.json();
+    } catch (e) {
+      console.error('Failed to load questions.json', e);
+    }
+  }
+
+  function connectWs() {
+    const loc = window.location;
+    const wsUrl = (loc.protocol === 'https:' ? 'wss://' : 'ws://') + loc.host;
+    ws = new WebSocket(wsUrl);
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'INIT' || data.type === 'STATE_UPDATE') {
+        renderGlobalState(data.state);
+      }
+    };
+
+    ws.onclose = () => setTimeout(connectWs, 2000);
+  }
+
+  loadData().then(() => {
+    connectWs();
+    initQr();
+  });
+
+  let currentServerIp = '192.168.29.60';
+
+  function initQr(newIp) {
+    if (newIp) currentServerIp = newIp;
+    let url;
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      url = window.location.origin + '/player.html';
+    } else {
+      const portStr = window.location.port ? (':' + window.location.port) : ':3000';
+      url = 'http://' + currentServerIp + portStr + '/player.html';
+    }
+    const urlText = document.getElementById('join-url-text');
+    if (urlText) urlText.textContent = url;
+    const qrEl = document.getElementById('qrcode');
+    if (qrEl) {
+      qrEl.innerHTML = '';
+      new QRCode(qrEl, {
+        text: url,
+        width: 170,
+        height: 170,
+        colorDark: '#090d16',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+  }
+
+  function renderGlobalState(state) {
+    if (state.networkIp && state.networkIp !== currentServerIp) {
+      initQr(state.networkIp);
+    }
+    const scoreBar = document.getElementById('team-scores-bar');
+    scoreBar.innerHTML = '';
+    state.teams.forEach(t => {
+      const chip = document.createElement('div');
+      chip.className = 'score-chip' + (state.activeAnsweringTeamId === t.id ? ' active' : '');
+      chip.style.borderColor = t.color;
+      chip.innerHTML = `<span style="color:${t.color};">${t.name}:</span> <span>${t.score} pts</span>`;
+      chip.onclick = () => {
+        if (window.soundFX) window.soundFX.playCorrect();
+        ws.send(JSON.stringify({ type: 'ADD_SCORE', teamId: t.id, points: 50 }));
+      };
+      scoreBar.appendChild(chip);
+    });
+
+    document.getElementById('view-lobby').classList.toggle('active', state.currentView === 'lobby');
+    document.getElementById('view-game').classList.toggle('active', state.currentView === 'game');
+    document.getElementById('view-winner').classList.toggle('active', state.currentView === 'winner');
+
+    if (state.currentView === 'lobby') {
+      document.getElementById('round-indicator').textContent = `Lobby (${state.playerCount} Players)`;
+      renderLobbyRosters(state.teams);
+    } else if (state.currentView === 'game') {
+      currentRound = allRounds[state.currentRoundIdx];
+      if (currentRound) {
+        currentQ = currentRound.questions[state.currentQuestionIdx];
+        document.getElementById('round-indicator').textContent = currentRound.name;
+        renderQuestionUI(currentRound, currentQ, state);
+      }
+      renderBuzzerSidebar(state);
+    } else if (state.currentView === 'winner') {
+      const sorted = [...state.teams].sort((a,b) => b.score - a.score);
+      document.getElementById('winner-team-name').textContent = `${sorted[0].name} (${sorted[0].score} pts)`;
+      if (window.soundFX) window.soundFX.playFanfare();
+      if (window.launchConfetti) window.launchConfetti();
+    }
+
+    if (state.lastAnswerResult && state.lastAnswerResult.time > lastResultHandledTime) {
+      lastResultHandledTime = state.lastAnswerResult.time;
+      showSmartboardFlash(state.lastAnswerResult);
+    }
+  }
+
+  function showSmartboardFlash(res) {
+    const banner = document.getElementById('smart-flash-banner');
+    if (res.status === 'correct') {
+      banner.className = 'smart-flash correct';
+      banner.textContent = `✅ ${res.teamName || 'Team'} CORRECT! +100 PTS`;
+      if (window.soundFX) window.soundFX.playCorrect();
+      if (window.launchConfetti) window.launchConfetti();
+      document.getElementById('q-answer-banner').classList.add('show');
+    } else {
+      banner.className = 'smart-flash wrong';
+      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG! PASSING...`;
+      if (window.soundFX) window.soundFX.playWrong();
+    }
+
+    setTimeout(() => {
+      banner.className = 'smart-flash';
+    }, 2000);
+  }
+
+  function renderLobbyRosters(teams) {
+    const grid = document.getElementById('teams-preview-grid');
+    grid.innerHTML = '';
+    teams.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'team-roster-card';
+      card.style.borderColor = t.color;
+
+      let membersHtml = t.members.map(m => `<li>• ${m.name} <small>(${m.role.toUpperCase()})</small></li>`).join('');
+      if (!membersHtml) membersHtml = '<li style="color:#64748b;">No players yet</li>';
+
+      card.innerHTML = `
+        <h3 style="color:${t.color};">${t.name} (${t.members.length})</h3>
+        <ul class="member-list">${membersHtml}</ul>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderQuestionUI(round, q, state) {
+    document.getElementById('q-round-badge').textContent = `${round.name} • Question ${state.currentQuestionIdx + 1} of ${round.questions.length}`;
+    document.getElementById('q-title').textContent = q.q || q.topic || "Tech Connections / Detective Challenge";
+
+    const contentBox = document.getElementById('q-content');
+    contentBox.innerHTML = '';
+
+    if (round.type === 'mcq' || round.type === 'millionaire' || round.type === 'rapid') {
+      const grid = document.createElement('div');
+      grid.className = 'mcq-grid';
+      q.options.forEach((opt, idx) => {
+        const div = document.createElement('div');
+        div.className = 'mcq-opt';
+        div.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
+        grid.appendChild(div);
+      });
+      contentBox.appendChild(grid);
+    } else if (round.type === 'connections') {
+      const flex = document.createElement('div');
+      flex.className = 'connections-grid';
+      q.clues.forEach(clue => {
+        const box = document.createElement('div');
+        box.className = 'clue-box';
+        box.textContent = clue;
+        flex.appendChild(box);
+      });
+      contentBox.appendChild(flex);
+    } else if (round.type === 'imposter') {
+      const grid = document.createElement('div');
+      grid.className = 'mcq-grid';
+      q.items.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'mcq-opt';
+        div.style.textAlign = 'center';
+        div.style.fontSize = '22px';
+        div.textContent = item;
+        grid.appendChild(div);
+      });
+      contentBox.appendChild(grid);
+    } else if (round.type === 'detective') {
+      const div = document.createElement('div');
+      div.className = 'detective-box';
+      div.innerHTML = `
+        <div class="clue-step revealed" id="clue-1"><b>Clue 1 (300 Pts):</b> ${q.clue1}</div>
+        <div class="clue-step" id="clue-2"><b>Clue 2 (200 Pts):</b> ${q.clue2}</div>
+        <div class="clue-step" id="clue-3"><b>Clue 3 (100 Pts):</b> ${q.clue3}</div>
+      `;
+      contentBox.appendChild(div);
+    } else if (round.type === 'debate') {
+      const div = document.createElement('div');
+      div.style.fontSize = '24px';
+      div.style.color = '#fbbf24';
+      div.textContent = 'All 4 teams present your 60-second debate argument!';
+      contentBox.appendChild(div);
+    }
+
+    const ansBanner = document.getElementById('q-answer-banner');
+    ansBanner.className = 'answer-banner';
+    ansBanner.innerHTML = `
+      <div style="font-size:22px; margin-bottom:6px;"><b>Answer:</b> ${q.ansText || q.reality}</div>
+      <div style="font-size:16px; color:#cbd5e1;"><b>Explanation:</b> ${q.expl}</div>
+    `;
+
+    if (state.buzzerState === 'locked') {
+      startAuto3SecBuzzer();
+    }
+  }
+
+  function startAuto3SecBuzzer() {
+    if (autoTimer) clearTimeout(autoTimer);
+    let count = 3;
+    const tag = document.getElementById('sidebar-buzzer-status');
+    tag.className = 'buzzer-status-tag locked';
+    tag.textContent = `LOCKED in ${count}s`;
+
+    autoTimer = setInterval(() => {
+      count--;
+      if (count > 0) {
+        if (window.soundFX) window.soundFX.playTick();
+        tag.textContent = `LOCKED in ${count}s`;
+      } else {
+        clearInterval(autoTimer);
+        autoTimer = null;
+        if (window.soundFX) window.soundFX.playUnlock();
+        ws.send(JSON.stringify({ type: 'OPEN_BUZZER' }));
+      }
+    }, 1000);
+  }
+
+  function renderBuzzerSidebar(state) {
+    const tag = document.getElementById('sidebar-buzzer-status');
+    const activeTurn = document.getElementById('sidebar-active-turn');
+
+    if (state.buzzerState === 'open') {
+      tag.className = 'buzzer-status-tag open';
+      tag.textContent = 'OPEN! 🚨';
+      activeTurn.className = 'active-turn-box';
+    } else if (state.buzzerState === 'buzzing') {
+      tag.className = 'buzzer-status-tag open';
+      tag.textContent = 'ANSWERING 🎙️';
+      activeTurn.className = 'active-turn-box show';
+      const answeringTeam = state.teams.find(t => t.id === state.activeAnsweringTeamId);
+      activeTurn.textContent = `📱 ${answeringTeam ? answeringTeam.name : 'TEAM'} ANSWERING ON PHONE!`;
+    } else {
+      activeTurn.className = 'active-turn-box';
+    }
+
+    if (state.buzzerQueue.length > prevQueueLength) {
+      if (window.soundFX) window.soundFX.playBuzzer();
+    }
+    prevQueueLength = state.buzzerQueue.length;
+
+    const list = document.getElementById('sidebar-queue-list');
+    list.innerHTML = '';
+    if (state.buzzerQueue.length === 0) {
+      list.innerHTML = '<div style="color:var(--muted); font-size:14px; text-align:center; margin-top:30px;">Waiting for buzzers...</div>';
+      return;
+    }
+
+    state.buzzerQueue.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'queue-item' + (idx === 0 ? ' first' : '');
+      div.innerHTML = `
+        <div class="queue-rank">${idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}</div>
+        <div>
+          <div class="queue-name">${item.playerName}</div>
+          <div class="queue-team">${item.teamName}</div>
+        </div>
+      `;
+      list.appendChild(div);
+    });
+  }
+
+  function simulateBotBuzz() {
+    ws.send(JSON.stringify({ type: 'SIMULATE_BOT_BUZZ' }));
+  }
+
+  function shuffleTeams() {
+    if (window.soundFX) window.soundFX.playTick();
+    ws.send(JSON.stringify({ type: 'SHUFFLE_TEAMS' }));
+  }
+
+  function startGame() {
+    if (window.soundFX) window.soundFX.playUnlock();
+    ws.send(JSON.stringify({ type: 'START_GAME' }));
+  }
+
+  function toggleReveal() {
+    if (window.soundFX) window.soundFX.playCorrect();
+    const banner = document.getElementById('q-answer-banner');
+    banner.classList.toggle('show');
+
+    if (currentQ && currentQ.ans !== undefined) {
+      const opts = document.querySelectorAll('.mcq-opt');
+      if (opts[currentQ.ans]) opts[currentQ.ans].classList.add('correct');
+    }
+  }
+
+  function markCorrect() {
+    ws.send(JSON.stringify({ type: 'HOST_MARK_CORRECT' }));
+    document.getElementById('q-answer-banner').classList.add('show');
+  }
+
+  function markWrong() {
+    ws.send(JSON.stringify({ type: 'HOST_MARK_WRONG' }));
+
+    const c2 = document.getElementById('clue-2');
+    const c3 = document.getElementById('clue-3');
+    if (c2 && !c2.classList.contains('revealed')) {
+      c2.classList.add('revealed');
+    } else if (c3 && !c3.classList.contains('revealed')) {
+      c3.classList.add('revealed');
+    }
+  }
+
+  function nextQuestion() {
+    if (window.soundFX) window.soundFX.playTick();
+    let nextQ = (window.currentQIdx || 0) + 1;
+    let nextR = window.currentRIdx || 0;
+    const curRound = allRounds[nextR];
+
+    if (curRound && nextQ >= curRound.questions.length) {
+      nextR++;
+      nextQ = 0;
+    }
+
+    if (nextR >= allRounds.length) {
+      ws.send(JSON.stringify({ type: 'DECLARE_WINNER' }));
+      return;
+    }
+
+    window.currentRIdx = nextR;
+    window.currentQIdx = nextQ;
+
+    ws.send(JSON.stringify({
+      type: 'CHANGE_QUESTION',
+      roundIdx: nextR,
+      questionIdx: nextQ
+    }));
+  }
+
+  function resetTournament() {
+    window.currentRIdx = 0;
+    window.currentQIdx = 0;
+    ws.send(JSON.stringify({ type: 'RESET_ALL' }));
+  }
+</script>
+
+</body>
+</html>

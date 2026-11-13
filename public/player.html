@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tech Clash — Mobile Player</title>
+<style>
+  :root {
+    --bg: #090d16;
+    --card: #131b2e;
+    --accent: #00f2fe;
+    --purple: #8b5cf6;
+    --green: #10b981;
+    --red: #f43f5e;
+    --yellow: #fbbf24;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; touch-action: manipulation; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+  header {
+    background: #0f172a;
+    padding: 12px 18px;
+    border-bottom: 2px solid #1e293b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .app-title { font-weight: 900; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .team-tag { background: #1e293b; border: 1px solid #334155; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: bold; }
+
+  .screen { flex: 1; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; }
+  .screen.active { display: flex; }
+
+  /* Login */
+  .login-card {
+    background: var(--card);
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+  .login-card h2 { font-size: 22px; margin-bottom: 8px; color: var(--accent); }
+  .login-card p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+  .input-group { margin-bottom: 16px; text-align: left; }
+  .input-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+  .input-field {
+    width: 100%;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: white;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .role-select { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .role-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: var(--muted);
+    padding: 10px 6px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .role-btn.selected { background: var(--accent); color: #090d16; border-color: var(--accent); }
+
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    border: none;
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 900;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  /* Lobby Waiting */
+  .lobby-card {
+    background: var(--card);
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 380px;
+  }
+  .pulse-icon { font-size: 50px; animation: bounce 1.5s infinite; margin-bottom: 15px; }
+
+  /* Buzzer Screen */
+  .buzzer-container {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .status-pill {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .status-pill.locked { background: #334155; color: var(--muted); }
+  .status-pill.ready { background: rgba(16, 185, 129, 0.25); color: var(--green); border: 2px solid var(--green); animation: pulseGlow 1.2s infinite; }
+  .status-pill.buzzed { background: rgba(245, 158, 11, 0.2); color: var(--yellow); border: 1px solid var(--yellow); }
+  .status-pill.blocked { background: rgba(244, 63, 94, 0.2); color: var(--red); border: 1px solid var(--red); }
+
+  .giant-buzzer {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #10b981, #047857);
+    border: 10px solid #064e3b;
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5), inset 0 -12px 25px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    font-weight: 900;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+  .giant-buzzer:active { transform: scale(0.9); }
+  .giant-buzzer.disabled {
+    background: radial-gradient(circle at 35% 35%, #475569, #1e293b);
+    border-color: #0f172a;
+    box-shadow: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Answer Mode on Mobile */
+  .answer-panel {
+    width: 100%;
+    max-width: 380px;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    animation: fadeIn 0.3s ease;
+  }
+  .answer-panel.show { display: flex; }
+  .options-btn-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .phone-opt-btn {
+    background: #1e293b;
+    border: 2px solid #334155;
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+  }
+  .phone-opt-btn:active { background: var(--accent); color: #090d16; }
+
+  /* Full Screen Flash Overlays */
+  .flash-overlay {
+    position: fixed; inset: 0; z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column;
+  }
+  .flash-overlay.correct {
+    display: flex; background: rgba(16, 185, 129, 0.95); animation: flashPop 0.4s ease;
+  }
+  .flash-overlay.wrong {
+    display: flex; background: rgba(239, 68, 68, 0.95); animation: flashShake 0.4s ease;
+  }
+  .flash-title { font-size: 42px; font-weight: 900; color: white; margin-bottom: 8px; }
+  .flash-sub { font-size: 20px; color: white; font-weight: 700; }
+
+  @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); } }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes flashPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes flashShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-15px); }
+    40%, 80% { transform: translateX(15px); }
+  }
+</style>
+<script src="/soundfx.js"></script>
+</head>
+<body onclick="if(window.soundFX) window.soundFX.ensureContext();">
+
+<header>
+  <div class="app-title">⚡ TECH CLASH</div>
+  <div class="team-tag" id="header-team">Connecting...</div>
+</header>
+
+<!-- SCREEN 1: LOGIN -->
+<div class="screen active" id="screen-login">
+  <div class="login-card">
+    <h2>Enter Arena</h2>
+    <p>Enter your name and track to join the tournament</p>
+
+    <div class="input-group">
+      <label>Your Name:</label>
+      <input type="text" id="player-name" class="input-field" placeholder="Ex: Alex / Priya / John" autocomplete="off">
+    </div>
+
+    <div class="input-group">
+      <label>Your Track / Specialization:</label>
+      <div class="role-select">
+        <button type="button" class="role-btn selected" onclick="selectRole('dev', this)">💻 Full Stack</button>
+        <button type="button" class="role-btn" onclick="selectRole('analyst', this)">📊 Data Analyst</button>
+        <button type="button" class="role-btn" onclick="selectRole('scientist', this)">🤖 Data Scientist</button>
+      </div>
+    </div>
+
+    <button type="button" class="submit-btn" onclick="registerPlayer()">JOIN TOURNAMENT 🚀</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: LOBBY -->
+<div class="screen" id="screen-lobby">
+  <div class="lobby-card">
+    <div class="pulse-icon">⏳</div>
+    <h2 id="lobby-greeting">Welcome!</h2>
+    <p style="margin-top: 10px; color: var(--muted);">Teams are being formed on the Smartboard... Please wait!</p>
+    <div style="margin-top: 20px; font-weight: bold; color: var(--accent);" id="assigned-team-info">Waiting for Team Assignment</div>
+  </div>
+</div>
+
+<!-- SCREEN 3: GAME / BUZZER / ANSWER -->
+<div class="screen" id="screen-buzzer">
+  <div class="buzzer-container" id="buzzer-main-box">
+    <div class="status-pill locked" id="buzzer-pill">LOCKED 🔒</div>
+
+    <div class="giant-buzzer disabled" id="buzzer-btn" onclick="pressBuzzer()">
+      BUZZ!
+    </div>
+
+    <div class="queue-info" id="buzzer-queue-info">Waiting for question...</div>
+  </div>
+
+  <!-- Real-time Mobile Answer Panel for Buzzed Team -->
+  <div class="answer-panel" id="mobile-answer-panel">
+    <div style="color: var(--yellow); font-size: 20px; font-weight: 900;">🎯 YOUR TURN! Select Your Answer</div>
+    <div class="options-btn-grid" id="mobile-options-container">
+      <!-- Options injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Flash Animation Overlay -->
+<div class="flash-overlay" id="flash-overlay">
+  <div class="flash-title" id="flash-title">CORRECT!</div>
+  <div class="flash-sub" id="flash-sub">+100 POINTS 🎉</div>
+</div>
+
+<script>
+  let ws = null;
+  let allRounds = [];
+  let myPlayerId = null;
+  let myName = '';
+  let myRole = 'dev';
+  let myTeamId = null;
+  let myTeamName = null;
+  let myTeamColor = '#38bdf8';
+  let lastResultHandledTime = 0;
+
+  async function loadData() {
+    try {
+      const res = await fetch('/questions.json');
+      allRounds = await res.json();
+    } catch(e) { console.error('questions load err', e); }
+  }
+
+  function connectWs() {
+    const loc = window.location;
+    const wsUrl = (loc.protocol === 'https:' ? 'wss://' : 'ws://') + loc.host;
+    ws = new WebSocket(wsUrl);
+
+    ws.onopen = () => {
+      document.getElementById('header-team').textContent = 'Online 🟢';
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'INIT') {
+        myPlayerId = data.playerId;
+        handleStateUpdate(data.state);
+      } else if (data.type === 'STATE_UPDATE') {
+        handleStateUpdate(data.state);
+      }
+    };
+
+    ws.onclose = () => {
+      document.getElementById('header-team').textContent = 'Disconnected 🔴';
+      setTimeout(connectWs, 2000);
+    };
+  }
+
+  loadData().then(connectWs);
+
+  function selectRole(role, btn) {
+    myRole = role;
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  function registerPlayer() {
+    const nameInput = document.getElementById('player-name').value.trim();
+    if (!nameInput) {
+      alert('Please enter your name!');
+      return;
+    }
+    myName = nameInput;
+
+    ws.send(JSON.stringify({
+      type: 'REGISTER_PLAYER',
+      name: myName,
+      role: myRole
+    }));
+
+    showScreen('screen-lobby');
+    document.getElementById('lobby-greeting').textContent = `Welcome ${myName}! 👋`;
+  }
+
+  function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+  }
+
+  function handleStateUpdate(state) {
+    let foundTeam = null;
+    state.teams.forEach(t => {
+      if (t.members.some(m => m.id === myPlayerId)) {
+        foundTeam = t;
+      }
+    });
+
+    if (foundTeam) {
+      myTeamId = foundTeam.id;
+      myTeamName = foundTeam.name;
+      myTeamColor = foundTeam.color;
+
+      document.getElementById('header-team').textContent = `${myTeamName}`;
+      document.getElementById('header-team').style.color = myTeamColor;
+      document.getElementById('header-team').style.borderColor = myTeamColor;
+
+      document.getElementById('assigned-team-info').textContent = `You are in ${myTeamName}!`;
+      document.getElementById('assigned-team-info').style.color = myTeamColor;
+    }
+
+    if (state.currentView === 'game') {
+      showScreen('screen-buzzer');
+      updateGameUI(state);
+    } else if (state.currentView === 'lobby') {
+      if (myName) showScreen('screen-lobby');
+      else showScreen('screen-login');
+    }
+
+    // Flash Animation Trigger if new result arrived
+    if (state.lastAnswerResult && state.lastAnswerResult.time > lastResultHandledTime) {
+      lastResultHandledTime = state.lastAnswerResult.time;
+      triggerResultFlash(state.lastAnswerResult);
+    }
+  }
+
+  function updateGameUI(state) {
+    const pill = document.getElementById('buzzer-pill');
+    const btn = document.getElementById('buzzer-btn');
+    const queueInfo = document.getElementById('buzzer-queue-info');
+    const answerPanel = document.getElementById('mobile-answer-panel');
+    const buzzerBox = document.getElementById('buzzer-main-box');
+
+    const isLockedTeam = state.lockedTeamsForQuestion.includes(myTeamId);
+    const isMyTeamAnswering = (state.activeAnsweringTeamId === myTeamId);
+    const myTeamBuzzed = state.buzzerQueue.some(b => b.teamId === myTeamId);
+
+    // If my team buzzed first -> Show Option Buttons directly on my phone!
+    if (isMyTeamAnswering && state.buzzerState === 'buzzing') {
+      buzzerBox.style.display = 'none';
+      answerPanel.className = 'answer-panel show';
+      renderMobileOptions(state);
+      return;
+    } else {
+      buzzerBox.style.display = 'flex';
+      answerPanel.className = 'answer-panel';
+    }
+
+    if (isLockedTeam) {
+      pill.className = 'status-pill blocked';
+      pill.textContent = 'TEAM LOCKED ❌';
+      btn.className = 'giant-buzzer disabled';
+      queueInfo.textContent = 'Wrong answer - Your team is locked for this question!';
+    } else if (myTeamBuzzed) {
+      pill.className = 'status-pill buzzed';
+      pill.textContent = 'BUZZED! 🔔';
+      btn.className = 'giant-buzzer disabled';
+      const rank = state.buzzerQueue.findIndex(b => b.teamId === myTeamId) + 1;
+      queueInfo.textContent = `Your team is #${rank} in the buzzer queue!`;
+    } else if (state.buzzerState === 'open') {
+      pill.className = 'status-pill ready';
+      pill.textContent = 'BUZZER OPEN! 🚨';
+      btn.className = 'giant-buzzer';
+      queueInfo.textContent = 'TAP FAST TO BUZZ IN!';
+    } else {
+      pill.className = 'status-pill locked';
+      pill.textContent = 'WAITING ⏳';
+      btn.className = 'giant-buzzer disabled';
+      queueInfo.textContent = 'Question is being displayed... Get ready!';
+    }
+  }
+
+  function renderMobileOptions(state) {
+    const container = document.getElementById('mobile-options-container');
+    container.innerHTML = '';
+
+    const curRound = allRounds[state.currentRoundIdx];
+    const curQ = curRound ? curRound.questions[state.currentQuestionIdx] : null;
+    if (!curQ) return;
+
+    if (curRound.type === 'mcq' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
+      curQ.options.forEach((opt, idx) => {
+        const b = document.createElement('button');
+        b.className = 'phone-opt-btn';
+        b.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
+        b.onclick = () => submitAnswer(idx);
+        container.appendChild(b);
+      });
+    } else if (curRound.type === 'imposter') {
+      curQ.items.forEach((item, idx) => {
+        const b = document.createElement('button');
+        b.className = 'phone-opt-btn';
+        b.textContent = item;
+        b.onclick = () => submitAnswer(idx);
+        container.appendChild(b);
+      });
+    } else {
+      // Free text / single confirm
+      const b = document.createElement('button');
+      b.className = 'phone-opt-btn';
+      b.style.textAlign = 'center';
+      b.style.background = '#059669';
+      b.textContent = 'Answer Explained to Judge ✅';
+      b.onclick = () => submitAnswer(-1, 'done');
+      container.appendChild(b);
+    }
+  }
+
+  function submitAnswer(idx, text = '') {
+    ws.send(JSON.stringify({
+      type: 'SUBMIT_STUDENT_ANSWER',
+      selectedOptionIndex: idx,
+      textAnswer: text
+    }));
+  }
+
+  function triggerResultFlash(res) {
+    const overlay = document.getElementById('flash-overlay');
+    const title = document.getElementById('flash-title');
+    const sub = document.getElementById('flash-sub');
+
+    if (res.status === 'correct') {
+      overlay.className = 'flash-overlay correct';
+      title.textContent = 'CORRECT! 🎉';
+      sub.textContent = `${res.teamName || 'Team'} +100 POINTS`;
+      if (window.soundFX) window.soundFX.playCorrect();
+      if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
+    } else {
+      overlay.className = 'flash-overlay wrong';
+      title.textContent = 'WRONG! ❌';
+      sub.textContent = `${res.teamName || 'Team'} -20 PTS • PASSING!`;
+      if (window.soundFX) window.soundFX.playWrong();
+      if (navigator.vibrate) navigator.vibrate(400);
+    }
+
+    setTimeout(() => {
+      overlay.className = 'flash-overlay';
+    }, 1500);
+  }
+
+  function pressBuzzer() {
+    const btn = document.getElementById('buzzer-btn');
+    if (btn.classList.contains('disabled')) return;
+
+    if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
+
+    ws.send(JSON.stringify({
+      type: 'PLAYER_BUZZ'
+    }));
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1948 @@
+[
+  {
+    "id": 1,
+    "name": "Round 1: The Bidding MCQ",
+    "type": "mcq",
+    "description": "4 Options • Point Bidding • Universal Tech Fundamentals",
+    "questions": [
+      {
+        "q": "When you type 'google.com' in a browser, where does the operating system look first to find the IP address?",
+        "options": [
+          "Google Main Data Center",
+          "OS / Browser Local DNS Cache",
+          "Satellite Link",
+          "Wi-Fi Router Gateway"
+        ],
+        "ans": 1,
+        "ansText": "OS / Browser Local DNS Cache",
+        "expl": "The operating system checks its local cache first to save network lookup time."
+      },
+      {
+        "q": "Why does data disappear from RAM when the computer powers off, but stays safe on an SSD?",
+        "options": [
+          "SSDs have a built-in battery",
+          "SSDs use non-volatile Flash NAND cells",
+          "Magnets retain the data",
+          "Windows OS restores it"
+        ],
+        "ans": 1,
+        "ansText": "SSDs use non-volatile Flash NAND cells",
+        "expl": "RAM requires constant electrical charge (volatile); SSDs trap electrons permanently in NAND cells."
+      },
+      {
+        "q": "When clicking a link and you get '404 Not Found', what does the first digit '4' signify?",
+        "options": [
+          "Internal Server Error (5xx)",
+          "Client / User-side Error (4xx)",
+          "Network Cable Failure",
+          "Security Block"
+        ],
+        "ans": 1,
+        "ansText": "Client / User-side Error (4xx)",
+        "expl": "4xx status codes mean the client requested a resource or URL that does not exist."
+      },
+      {
+        "q": "4 employees earn ₹25,000, but the CEO earns ₹1,00,00,000. Which metric best represents typical employee salary without distortion?",
+        "options": [
+          "Mean (Average)",
+          "Median (Middle Value)",
+          "Mode",
+          "Variance"
+        ],
+        "ans": 1,
+        "ansText": "Median (Middle Value)",
+        "expl": "Outliers distort the arithmetic mean; the median gives the true central tendency."
+      },
+      {
+        "q": "Where does 'Cloud Computing' physically exist in the real world?",
+        "options": [
+          "In atmospheric clouds",
+          "In massive air-conditioned data centers across the globe",
+          "In cellular radio waves",
+          "Exclusively in space satellites"
+        ],
+        "ans": 1,
+        "ansText": "In massive air-conditioned data centers across the globe",
+        "expl": "Cloud computing is renting computing resources hosted in global enterprise server farms."
+      },
+      {
+        "q": "During flash sales or railway booking, why do payments succeed but tickets fail to book?",
+        "options": [
+          "Bank server crashed",
+          "Database Row Locking & Concurrency Conflict",
+          "Device out of memory",
+          "The train departed"
+        ],
+        "ans": 1,
+        "ansText": "Database Row Locking & Concurrency Conflict",
+        "expl": "Thousands of users attempt to reserve the final seat simultaneously, triggering transactional locks."
+      },
+      {
+        "q": "How does Google Autocomplete predict your search query in milliseconds as you type?",
+        "options": [
+          "Reading user thoughts",
+          "Trie (Prefix Tree) Data Structure & Search Frequency",
+          "Camera optical detection",
+          "Automated background bots"
+        ],
+        "ans": 1,
+        "ansText": "Trie (Prefix Tree) Data Structure & Search Frequency",
+        "expl": "Trie trees store billions of common search phrases in memory for fast instant prefix matching."
+      },
+      {
+        "q": "What core protection does 'HTTPS' provide over traditional 'HTTP'?",
+        "options": [
+          "Guaranteed zero viruses",
+          "End-to-End SSL/TLS Encryption of transit data",
+          "Double internet download speed",
+          "Free unlimited bandwidth"
+        ],
+        "ans": 1,
+        "ansText": "End-to-End SSL/TLS Encryption of transit data",
+        "expl": "HTTPS encrypts network packets so eavesdroppers on public Wi-Fi see only scrambled ciphertext."
+      },
+      {
+        "q": "What is the primary difference between traditional programming and Machine Learning?",
+        "options": [
+          "ML doesn't require computers",
+          "Traditional code uses hand-coded rules; ML learns rules from data patterns",
+          "They are identical",
+          "ML is always 100% bug-free"
+        ],
+        "ans": 1,
+        "ansText": "Traditional code uses hand-coded rules; ML learns rules from data patterns",
+        "expl": "Humans write rules in software; ML algorithms discover patterns and create predictive models from historical data."
+      },
+      {
+        "q": "Why did JSON largely replace XML as the standard data interchange format on the web?",
+        "options": [
+          "JSON is free",
+          "Lightweight, human-readable, and natively parsed by JavaScript",
+          "Invented by Google",
+          "Supports more lines of code"
+        ],
+        "ans": 1,
+        "ansText": "Lightweight, human-readable, and natively parsed by JavaScript",
+        "expl": "JSON eliminates heavy tag overhead and maps directly to native JavaScript key-value objects."
+      },
+      {
+        "q": "What does browser 'Incognito / Private Mode' actually do?",
+        "options": [
+          "Hides you completely from government & hackers",
+          "Prevents local saving of history and cookies on your device",
+          "Provides free unlimited internet",
+          "Changes your real IP address"
+        ],
+        "ans": 1,
+        "ansText": "Prevents local saving of history and cookies on your device",
+        "expl": "It only stops local session storage; your ISP, network admin, and destination websites still log your IP."
+      },
+      {
+        "q": "Which database type is best suited for social networks, friend recommendations, and connection graphs?",
+        "options": [
+          "Spreadsheet Excel",
+          "Graph Database (e.g., Neo4j)",
+          "Access DB",
+          "Flat Text File"
+        ],
+        "ans": 1,
+        "ansText": "Graph Database (e.g., Neo4j)",
+        "expl": "Graph databases treat nodes and relationships as first-class citizens, making link traversal instant."
+      },
+      {
+        "q": "What operating system concept allows you to play music, code, and browse websites simultaneously on one CPU?",
+        "options": [
+          "Multi-tasking & Preemptive CPU Scheduling",
+          "Hyper-Drive Mode",
+          "Virtual RAM Booster",
+          "Multi-Monitor Extension"
+        ],
+        "ans": 0,
+        "ansText": "Multi-tasking & Preemptive CPU Scheduling",
+        "expl": "The CPU scheduler switches execution contexts in microsecond time slices, giving the illusion of concurrency."
+      },
+      {
+        "q": "If an internet connection is advertised at 100 Mbps, why is maximum download speed ~12.5 MB/s?",
+        "options": [
+          "ISP is throttling",
+          "8 Bits = 1 Byte (100 Megabits / 8 = 12.5 MegaBytes)",
+          "Damaged Ethernet cable",
+          "Weak Wi-Fi antenna"
+        ],
+        "ans": 1,
+        "ansText": "8 Bits = 1 Byte (100 Megabits / 8 = 12.5 MegaBytes)",
+        "expl": "ISPs measure in bits (small b), while computer files are stored in bytes (capital B)."
+      },
+      {
+        "q": "In Git version control, what is a 'Commit' conceptually equivalent to in video games?",
+        "options": [
+          "Deleting game data",
+          "A 'Save Game / Checkpoint' bookmark",
+          "Turning off the PC",
+          "Disconnecting the internet"
+        ],
+        "ans": 1,
+        "ansText": "A 'Save Game / Checkpoint' bookmark",
+        "expl": "A commit saves a permanent snapshot of code state that can be rolled back anytime."
+      },
+      {
+        "q": "What cyber attack involves trying millions of password combinations automatically every second?",
+        "options": [
+          "Phishing",
+          "Brute Force Attack",
+          "Trojan Horse",
+          "Ransomware"
+        ],
+        "ans": 1,
+        "ansText": "Brute Force Attack",
+        "expl": "Brute force attempts every possible key permutation until the password unlocks."
+      },
+      {
+        "q": "What web technology allows websites to behave like installable native mobile apps with offline support?",
+        "options": [
+          "PWA (Progressive Web App)",
+          "MP4",
+          "Adobe Flash",
+          "Web 1.0"
+        ],
+        "ans": 0,
+        "ansText": "PWA (Progressive Web App)",
+        "expl": "PWAs use Service Workers and web manifests to deliver app-like experiences without app store installation."
+      },
+      {
+        "q": "When an AI hiring model favored male applicants over female applicants, what caused this error?",
+        "options": [
+          "AI developed emotions",
+          "Training Data Bias (historical company hiring data favored men)",
+          "Compiler defect",
+          "Server overheating"
+        ],
+        "ans": 1,
+        "ansText": "Training Data Bias (historical company hiring data favored men)",
+        "expl": "'Garbage in, garbage out' — machine learning reproduces human biases present in historical training records."
+      },
+      {
+        "q": "Classical computers store information as 0 or 1. What quantum property allows storing both 0 and 1 simultaneously?",
+        "options": [
+          "Super-Bit",
+          "Superposition",
+          "Double Byte",
+          "Quantum Core"
+        ],
+        "ans": 1,
+        "ansText": "Superposition",
+        "expl": "Superposition enables qubits to evaluate exponentially more combinatorial paths at once."
+      },
+      {
+        "q": "Why does calling an API 10,000 times in one minute return HTTP Status '429 Too Many Requests'?",
+        "options": [
+          "Hardware network fault",
+          "API Rate Limiting protection",
+          "Disk full error",
+          "Authentication token invalid"
+        ],
+        "ans": 1,
+        "ansText": "API Rate Limiting protection",
+        "expl": "Rate limiting protects servers from resource starvation, cascading failures, and DDoS attacks."
+      },
+      {
+        "q": "If 1 Byte equals 8 Bits, how many bits make up one 'Nibble'?",
+        "options": [
+          "2 Bits",
+          "4 Bits",
+          "6 Bits",
+          "16 Bits"
+        ],
+        "ans": 1,
+        "ansText": "4 Bits",
+        "expl": "A nibble is a four-bit aggregation, equal to half of an octet (byte)."
+      },
+      {
+        "q": "If power fails during a bank money transfer between withdrawal and deposit, what ensures money isn't lost?",
+        "options": [
+          "Bank keeps the funds",
+          "Database Transaction Rollback (ACID Atomicity)",
+          "Funds vanish into the cloud",
+          "Government intervention"
+        ],
+        "ans": 1,
+        "ansText": "Database Transaction Rollback (ACID Atomicity)",
+        "expl": "Atomicity guarantees 'all or nothing' execution; any incomplete step reverts all changes to the clean initial state."
+      },
+      {
+        "q": "When a computer powers on, what low-level firmware program boots the OS into RAM?",
+        "options": [
+          "Google Chrome",
+          "BIOS / Bootloader",
+          "Antivirus software",
+          "Text Editor Notepad"
+        ],
+        "ans": 1,
+        "ansText": "BIOS / Bootloader",
+        "expl": "Basic Input/Output System performs hardware power-on self tests (POST) and hands control to the OS loader."
+      },
+      {
+        "q": "In business analytics, what does 'Customer Churn Rate 20%' mean?",
+        "options": [
+          "Profits surged by 20%",
+          "20% of customers cancelled or stopped using the service",
+          "20% more servers deployed",
+          "20% reduction in operating costs"
+        ],
+        "ans": 1,
+        "ansText": "20% of customers cancelled or stopped using the service",
+        "expl": "Churn rate is the percentage of subscribers or customers who discontinue subscriptions over a period."
+      },
+      {
+        "q": "What malware encrypts computer storage drives and demands payment to restore access?",
+        "options": [
+          "Spam Mail",
+          "Ransomware",
+          "Tracking Cookies",
+          "Phishing"
+        ],
+        "ans": 1,
+        "ansText": "Ransomware",
+        "expl": "Ransomware locks critical system data using cryptographic ciphers until a ransom is paid."
+      },
+      {
+        "q": "What front-end performance technique delays image loading until the user scrolls them into viewport?",
+        "options": [
+          "Fast Loading",
+          "Lazy Loading",
+          "Hard Loading",
+          "Eager Loading"
+        ],
+        "ans": 1,
+        "ansText": "Lazy Loading",
+        "expl": "Lazy loading reduces initial page bundle size and conserves client data by deferring offscreen assets."
+      },
+      {
+        "q": "What recommendation system algorithm powers YouTube and Amazon 'Customers also bought' feeds?",
+        "options": [
+          "Bubble Sort",
+          "Collaborative Filtering",
+          "Binary Search",
+          "Caesar Cipher"
+        ],
+        "ans": 1,
+        "ansText": "Collaborative Filtering",
+        "expl": "Collaborative filtering builds predictions about user interests by collecting preferences from many similar users."
+      },
+      {
+        "q": "Why is thermal paste applied between the CPU die and the metallic heatsink?",
+        "options": [
+          "To prevent rust",
+          "To eliminate microscopic air gaps and maximize heat transfer",
+          "For aesthetic polish",
+          "To conduct electricity"
+        ],
+        "ans": 1,
+        "ansText": "To eliminate microscopic air gaps and maximize heat transfer",
+        "expl": "Air is a poor heat conductor; thermal paste ensures seamless conductive thermal dissipation to cooling fans."
+      },
+      {
+        "q": "What is the industry term for showing two variations of a button to different user segments to measure conversion?",
+        "options": [
+          "Alpha Testing",
+          "A/B Testing (Split Testing)",
+          "Regression Testing",
+          "Static Code Analysis"
+        ],
+        "ans": 1,
+        "ansText": "A/B Testing (Split Testing)",
+        "expl": "A/B testing evaluates two variants against user metrics to determine which variant statistically performs better."
+      },
+      {
+        "q": "While AWS S3 handles static images, what storage type is required for low-latency database engines?",
+        "options": [
+          "USB Pen Drive",
+          "Block Storage (e.g., AWS EBS / NVMe Volume)",
+          "Magnetic Tape",
+          "Floppy Disk"
+        ],
+        "ans": 1,
+        "ansText": "Block Storage (e.g., AWS EBS / NVMe Volume)",
+        "expl": "Databases require raw block-level read/write operations with sub-millisecond I/O latency."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Round 2: Tech Connections",
+    "type": "connections",
+    "description": "Connect 2 Clues/Images • Identify the Tech Tool or Concept",
+    "questions": [
+      {
+        "clues": [
+          "🐱 Cat",
+          "🎣 Fishing Rod"
+        ],
+        "ansText": "Phishing",
+        "expl": "Deceptive social engineering attack baiting credentials through fake portals."
+      },
+      {
+        "clues": [
+          "🚗 Car",
+          "📦 Cargo Container"
+        ],
+        "ansText": "Docker",
+        "expl": "Standardized container platform running apps consistently in any environment."
+      },
+      {
+        "clues": [
+          "🍪 Baked Biscuit",
+          "🌐 Web Browser"
+        ],
+        "ansText": "Cookie",
+        "expl": "Small packets of data stored locally by browsers to remember session state."
+      },
+      {
+        "clues": [
+          "🔥 Burning Flame",
+          "🧱 Brick Wall"
+        ],
+        "ansText": "Firewall",
+        "expl": "Network security barrier monitoring and filtering inbound and outbound traffic."
+      },
+      {
+        "clues": [
+          "🐕 Dog Bark",
+          "🕸️ Spider Web"
+        ],
+        "ansText": "Dark Web",
+        "expl": "Encrypted portion of the internet requiring specialized routing software like Tor."
+      },
+      {
+        "clues": [
+          "🦷 Blue Color",
+          "🦷 Human Tooth"
+        ],
+        "ansText": "Bluetooth",
+        "expl": "Short-range wireless technology named after 10th-century Danish King Harald Bluetooth."
+      },
+      {
+        "clues": [
+          "☕ Coffee Mug",
+          "📜 Code Script"
+        ],
+        "ansText": "Java / JavaScript",
+        "expl": "Iconic programming languages symbolized by steaming coffee mugs."
+      },
+      {
+        "clues": [
+          "🐞 Ladybug Insect",
+          "💻 Laptop Computer"
+        ],
+        "ansText": "Software Bug",
+        "expl": "A defect or flaw in computer software producing unintended outcomes."
+      },
+      {
+        "clues": [
+          "🐙 Octopus",
+          "🐱 Feline Cat"
+        ],
+        "ansText": "GitHub (Octocat)",
+        "expl": "The beloved Octocat mascot of the world's premier Git code repository platform."
+      },
+      {
+        "clues": [
+          "⚡ Lightning Flash",
+          "🛒 Shopping Cart"
+        ],
+        "ansText": "Flash Sale / Cache",
+        "expl": "High-concurrency instant checkout bursts demanding high-throughput caching."
+      },
+      {
+        "clues": [
+          "☁️ Atmospheric Cloud",
+          "🔥 Flare Signal"
+        ],
+        "ansText": "Cloudflare",
+        "expl": "Global CDN and cyber defense network mitigating massive DDoS floods."
+      },
+      {
+        "clues": [
+          "🪟 Glass Window",
+          "1️⃣1️⃣ Number 11"
+        ],
+        "ansText": "Windows 11",
+        "expl": "Microsoft's flagship operating system powering enterprise computing."
+      },
+      {
+        "clues": [
+          "🐍 Python Serpent",
+          "💻 Syntax Code"
+        ],
+        "ansText": "Python Language",
+        "expl": "The premier readable programming language dominating Data Science & AI."
+      },
+      {
+        "clues": [
+          "🍎 Red Apple",
+          "⌚ Wrist Watch"
+        ],
+        "ansText": "Apple Watch",
+        "expl": "Leading biometric smartwatch integrating consumer health tracking."
+      },
+      {
+        "clues": [
+          "⛓️ Concrete Block",
+          "🔗 Metal Chain"
+        ],
+        "ansText": "Blockchain",
+        "expl": "Decentralized immutable distributed ledger securing cryptocurrency assets."
+      },
+      {
+        "clues": [
+          "🤖 Automaton Robot",
+          "💬 Speech Bubble"
+        ],
+        "ansText": "Chatbot / ChatGPT",
+        "expl": "Conversational artificial intelligence communicating via natural language."
+      },
+      {
+        "clues": [
+          "🗄️ File Cabinets",
+          "⚾ Baseball Base"
+        ],
+        "ansText": "Database",
+        "expl": "Structured electronic repository storing organized records for rapid query access."
+      },
+      {
+        "clues": [
+          "🐧 Arctic Penguin",
+          "💻 Black Terminal"
+        ],
+        "ansText": "Linux (Tux)",
+        "expl": "The open-source operating system kernel represented by Tux the penguin."
+      },
+      {
+        "clues": [
+          "🧠 Human Brain",
+          "🕸️ Linked Network"
+        ],
+        "ansText": "Neural Network",
+        "expl": "Computational model inspired by biological neurons driving modern Deep Learning."
+      },
+      {
+        "clues": [
+          "🔑 Brass Key",
+          "📋 Wooden Board"
+        ],
+        "ansText": "Keyboard",
+        "expl": "Primary alphanumeric input peripheral converting keystrokes to digital signals."
+      },
+      {
+        "clues": [
+          "🍕 Pizza Slice",
+          "📊 Circle Chart"
+        ],
+        "ansText": "Pie Chart",
+        "expl": "Circular statistical graphic divided into proportional slices to illustrate numerical proportions."
+      },
+      {
+        "clues": [
+          "🪟 Wooden Table",
+          "📊 Chemical AU"
+        ],
+        "ansText": "Tableau",
+        "expl": "Enterprise business intelligence platform translating tabular data into visual dashboards."
+      },
+      {
+        "clues": [
+          "📦 Water Drop",
+          "📦 Cardboard Box"
+        ],
+        "ansText": "Dropbox",
+        "expl": "Pioneering cloud file hosting and multi-device file synchronization service."
+      },
+      {
+        "clues": [
+          "🔍 Magnifying Glass",
+          "⚙️ Machine Engine"
+        ],
+        "ansText": "Search Engine (Google)",
+        "expl": "Information retrieval engine crawling the web to deliver indexed results in milliseconds."
+      },
+      {
+        "clues": [
+          "🐘 Yellow Elephant",
+          "📊 Big Data"
+        ],
+        "ansText": "Apache Hadoop",
+        "expl": "The open-source distributed storage framework symbolized by a yellow toy elephant."
+      },
+      {
+        "clues": [
+          "🎭 Disguise Mask",
+          "🌐 Numeric IP"
+        ],
+        "ansText": "VPN (Virtual Private Network)",
+        "expl": "Encrypted tunnel masking user IP addresses and protecting public communication."
+      },
+      {
+        "clues": [
+          "🚦 Traffic Cop",
+          "🏢 3 Server Towers"
+        ],
+        "ansText": "Load Balancer",
+        "expl": "System architecture component distributing client traffic evenly across server clusters."
+      },
+      {
+        "clues": [
+          "🔄 Green Recycle",
+          "🗑️ Waste Bin"
+        ],
+        "ansText": "Garbage Collection",
+        "expl": "Automatic memory management process reclaiming unreferenced object allocations in RAM."
+      },
+      {
+        "clues": [
+          "🐙 Sea Octopus",
+          "⚓ Ship Steering Helm"
+        ],
+        "ansText": "Kubernetes (K8s)",
+        "expl": "Open-source container orchestration platform managing automated deployments at scale."
+      },
+      {
+        "clues": [
+          "🌳 Oak Tree",
+          "🔍 Binary Search"
+        ],
+        "ansText": "B-Tree Indexing",
+        "expl": "Self-balancing tree data structure optimizing search, sequential access, and insertions in DBs."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Round 3: Odd One Out (The Imposter)",
+    "type": "imposter",
+    "description": "4 Items • Spot the Imposter • Core Conceptual Logic",
+    "questions": [
+      {
+        "items": [
+          "Python",
+          "C++",
+          "Java",
+          "HTML"
+        ],
+        "ans": 3,
+        "ansText": "HTML",
+        "expl": "The other three are computational programming languages with logic; HTML is purely declarative markup."
+      },
+      {
+        "items": [
+          "Chrome",
+          "Firefox",
+          "Safari",
+          "Windows"
+        ],
+        "ans": 3,
+        "ansText": "Windows",
+        "expl": "The other three are web browser applications; Windows is an Operating System."
+      },
+      {
+        "items": [
+          "Instagram",
+          "WhatsApp",
+          "Oculus",
+          "YouTube"
+        ],
+        "ans": 3,
+        "ansText": "YouTube",
+        "expl": "The other three belong to Meta (Facebook); YouTube is owned by Google (Alphabet)."
+      },
+      {
+        "items": [
+          "Keyboard",
+          "Mouse",
+          "Webcam",
+          "Monitor"
+        ],
+        "ans": 3,
+        "ansText": "Monitor",
+        "expl": "The other three are input peripherals capturing data; a monitor is an output display device."
+      },
+      {
+        "items": [
+          "Excel",
+          "PowerBI",
+          "Tableau",
+          "Photoshop"
+        ],
+        "ans": 3,
+        "ansText": "Photoshop",
+        "expl": "The other three are data analytics & reporting tools; Photoshop is a raster graphics editor."
+      },
+      {
+        "items": [
+          "MongoDB",
+          "MySQL",
+          "Oracle",
+          "SQL Server"
+        ],
+        "ans": 0,
+        "ansText": "MongoDB",
+        "expl": "The other three are relational SQL databases; MongoDB is a document-oriented NoSQL engine."
+      },
+      {
+        "items": [
+          "JPG",
+          "PNG",
+          "GIF",
+          "MP3"
+        ],
+        "ans": 3,
+        "ansText": "MP3",
+        "expl": "The other three are raster image formats; MP3 is an audio compression format."
+      },
+      {
+        "items": [
+          "Siri",
+          "Alexa",
+          "Google Assistant",
+          "Calculator"
+        ],
+        "ans": 3,
+        "ansText": "Calculator",
+        "expl": "The other three are NLP-driven AI voice assistants; Calculator is a static arithmetic utility."
+      },
+      {
+        "items": [
+          "Bit",
+          "Byte",
+          "Gigabyte",
+          "Centimeter"
+        ],
+        "ans": 3,
+        "ansText": "Centimeter",
+        "expl": "The other three measure digital storage capacity; Centimeter measures spatial physical length."
+      },
+      {
+        "items": [
+          "Phishing",
+          "DDoS Attack",
+          "Ransomware",
+          "Antivirus"
+        ],
+        "ans": 3,
+        "ansText": "Antivirus",
+        "expl": "The other three are malicious cyber threats; Antivirus is defensive security software."
+      },
+      {
+        "items": [
+          "Tesla",
+          "SpaceX",
+          "Neuralink",
+          "Amazon"
+        ],
+        "ans": 3,
+        "ansText": "Amazon",
+        "expl": "The other three are led by Elon Musk; Amazon was founded by Jeff Bezos."
+      },
+      {
+        "items": [
+          "Cookie",
+          "Cache",
+          "Session",
+          "Motherboard"
+        ],
+        "ans": 3,
+        "ansText": "Motherboard",
+        "expl": "The other three are web/software state mechanisms; Motherboard is physical hardware circuitry."
+      },
+      {
+        "items": [
+          "React",
+          "Angular",
+          "Vue",
+          "Node.js"
+        ],
+        "ans": 3,
+        "ansText": "Node.js",
+        "expl": "The other three are client-side frontend UI frameworks; Node.js is a server-side JavaScript runtime."
+      },
+      {
+        "items": [
+          "LAN",
+          "WAN",
+          "MAN",
+          "RAM"
+        ],
+        "ans": 3,
+        "ansText": "RAM",
+        "expl": "The other three are geographical network architectures; RAM is volatile computer memory."
+      },
+      {
+        "items": [
+          "ChatGPT",
+          "Claude",
+          "Gemini",
+          "MS Word"
+        ],
+        "ans": 3,
+        "ansText": "MS Word",
+        "expl": "The other three are Generative AI Large Language Models; MS Word is a standard text processor."
+      },
+      {
+        "items": [
+          "Git Commit",
+          "Git Push",
+          "Git Pull",
+          "Format Drive"
+        ],
+        "ans": 3,
+        "ansText": "Format Drive",
+        "expl": "The other three are version control commands; formatting wipes disk files completely."
+      },
+      {
+        "items": [
+          "Mean",
+          "Median",
+          "Mode",
+          "SQL Query"
+        ],
+        "ans": 3,
+        "ansText": "SQL Query",
+        "expl": "The other three are mathematical measures of central tendency; SQL is a database query language."
+      },
+      {
+        "items": [
+          "CPU",
+          "RAM",
+          "SSD",
+          "Google Chrome"
+        ],
+        "ans": 3,
+        "ansText": "Google Chrome",
+        "expl": "The other three are tangible physical hardware; Google Chrome is application software."
+      },
+      {
+        "items": [
+          "HTTP",
+          "FTP",
+          "SMTP",
+          "C++"
+        ],
+        "ans": 3,
+        "ansText": "C++",
+        "expl": "The other three are OSI network protocols; C++ is a compiled programming language."
+      },
+      {
+        "items": [
+          "Bar Chart",
+          "Pie Chart",
+          "Scatter Plot",
+          "For Loop"
+        ],
+        "ans": 3,
+        "ansText": "For Loop",
+        "expl": "The other three are data visualization figures; For Loop is an algorithmic control flow structure."
+      },
+      {
+        "items": [
+          "Superposition",
+          "Entanglement",
+          "Qubit",
+          "Binary 0/1"
+        ],
+        "ans": 3,
+        "ansText": "Binary 0/1",
+        "expl": "The other three are fundamental quantum computing phenomena; binary is classical logic."
+      },
+      {
+        "items": [
+          "GitHub",
+          "GitLab",
+          "Bitbucket",
+          "Notepad"
+        ],
+        "ans": 3,
+        "ansText": "Notepad",
+        "expl": "The other three are cloud Git repository platforms; Notepad is a basic text editor."
+      },
+      {
+        "items": [
+          "Redis",
+          "Memcached",
+          "RAM Cache",
+          "Hard Disk Tape"
+        ],
+        "ans": 3,
+        "ansText": "Hard Disk Tape",
+        "expl": "The other three are ultra-fast in-memory stores; tape drive is slow archival storage."
+      },
+      {
+        "items": [
+          "Linear Regression",
+          "Decision Tree",
+          "Random Forest",
+          "HTML Tag"
+        ],
+        "ans": 3,
+        "ansText": "HTML Tag",
+        "expl": "The other three are machine learning models; HTML Tag is document presentation syntax."
+      },
+      {
+        "items": [
+          "2FA OTP",
+          "Fingerprint Lock",
+          "Face ID",
+          "Open Wi-Fi"
+        ],
+        "ans": 3,
+        "ansText": "Open Wi-Fi",
+        "expl": "The other three are identity authentication mechanisms; Open Wi-Fi is an unencrypted connection."
+      },
+      {
+        "items": [
+          "Zomato",
+          "Swiggy",
+          "Uber Eats",
+          "Docker Container"
+        ],
+        "ans": 3,
+        "ansText": "Docker Container",
+        "expl": "The other three are consumer food delivery apps; Docker is container virtualization infrastructure."
+      },
+      {
+        "items": [
+          "Inner Join",
+          "Left Join",
+          "Right Join",
+          "Instagram Post"
+        ],
+        "ans": 3,
+        "ansText": "Instagram Post",
+        "expl": "The other three are SQL table relational operations; Instagram Post is social media content."
+      },
+      {
+        "items": [
+          "Overfitting",
+          "Underfitting",
+          "Data Leakage",
+          "Clean Code"
+        ],
+        "ans": 3,
+        "ansText": "Clean Code",
+        "expl": "The other three are empirical model training defects; Clean Code is an engineering standard."
+      },
+      {
+        "items": [
+          "Dark Theme",
+          "Responsive UI",
+          "Fast Loading",
+          "SQL Injection"
+        ],
+        "ans": 3,
+        "ansText": "SQL Injection",
+        "expl": "The other three are positive frontend attributes; SQL Injection is a severe security vulnerability."
+      },
+      {
+        "items": [
+          "AirDrop",
+          "Bluetooth",
+          "Nearby Share",
+          "Wired LAN Cable"
+        ],
+        "ans": 3,
+        "ansText": "Wired LAN Cable",
+        "expl": "The other three are wireless device-to-device protocols; Ethernet cable is physical copper wiring."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Round 4: Tech Detective (Who Am I?)",
+    "type": "detective",
+    "description": "3 Step-by-Step Clues • Early Buzz = Maximum Points (300/200/100)",
+    "questions": [
+      {
+        "clue1": "I began in 1994 as a modest online bookstore operating from a Seattle garage.",
+        "clue2": "Today, majority of the global internet runs on my hyperscale cloud servers.",
+        "clue3": "My corporate logo features a smile arrow pointing from letter 'A' to 'Z'.",
+        "ansText": "Amazon (AWS)",
+        "expl": "Jeff Bezos founded Amazon, growing it into the world's largest e-commerce and cloud provider."
+      },
+      {
+        "clue1": "My creator wrote me over a Christmas holiday in 1989 as a hobby project.",
+        "clue2": "My name does not come from a dangerous snake, but from a BBC comedy series called 'Monty Python'.",
+        "clue3": "Today, I am the undisputed #1 programming language for Data Science and Machine Learning.",
+        "ansText": "Python Programming Language",
+        "expl": "Guido van Rossum developed Python, known for its ultra-readable indentation-based syntax."
+      },
+      {
+        "clue1": "I was created in 1995 in just 10 days by a programmer named Brendan Eich.",
+        "clue2": "Part of my name was chosen purely for marketing hype; I share no engine design with my namesake.",
+        "clue3": "Today, over 98% of all websites in the world depend on me to execute interactive client-side logic.",
+        "ansText": "JavaScript",
+        "expl": "JavaScript powers browser interactivity alongside HTML and CSS across the entire World Wide Web."
+      },
+      {
+        "clue1": "I started in 1997 as a mail-order DVD rental service that drove Blockbuster out of business.",
+        "clue2": "My streaming service accounts for approximately 15% of all global downstream internet traffic.",
+        "clue3": "My mobile and TV apps greet viewers with an unmistakable 'Tudum' sound effect.",
+        "ansText": "Netflix",
+        "expl": "Reed Hastings and Marc Randolph pioneered the modern subscription video on-demand industry."
+      },
+      {
+        "clue1": "I was created by Linus Torvalds out of frustration with existing proprietary version control systems.",
+        "clue2": "My core vocabulary includes Commit, Push, Pull, Branch, and Rebase.",
+        "clue3": "My cloud counterpart features a mascot that is half-cat, half-octopus called Octocat.",
+        "ansText": "Git / GitHub",
+        "expl": "Git is the ubiquitous distributed version control system tracking software history globally."
+      },
+      {
+        "clue1": "My original research project name in 1996 was 'Backrub' evaluating page backlink graph authority.",
+        "clue2": "My name is a deliberate misspelling of the mathematical number 1 followed by 100 zeros (Googol).",
+        "clue3": "Today, searching for information anywhere on the web has turned my brand into a common English verb.",
+        "ansText": "Google Search",
+        "expl": "Larry Page and Sergey Brin founded Google at Stanford, revolutionizing search engine indexing."
+      },
+      {
+        "clue1": "I was unveiled in January 2007 by Steve Jobs as three devices combined: an iPod, a phone, and an internet communicator.",
+        "clue2": "I discarded physical plastic keyboards in favor of a sleek capacitive multi-touch glass display.",
+        "clue3": "My aluminum back features a silhouette of an apple with a single bite taken out.",
+        "ansText": "Apple iPhone",
+        "expl": "The iPhone ignited the modern app economy and transformed worldwide mobile computing."
+      },
+      {
+        "clue1": "I reached 100 million active users in just 60 days, breaking all historical consumer software records.",
+        "clue2": "I was developed in San Francisco by an AI research laboratory led by Sam Altman called OpenAI.",
+        "clue3": "The last three letters of my name stand for 'Generative Pre-trained Transformer'.",
+        "ansText": "ChatGPT",
+        "expl": "ChatGPT democratized generative artificial intelligence and conversational LLMs worldwide."
+      },
+      {
+        "clue1": "I was introduced in 2008 in a 9-page cryptography whitepaper published under the pseudonym Satoshi Nakamoto.",
+        "clue2": "My protocol has an absolute mathematical hard cap of 21 million units that can ever be mined.",
+        "clue3": "I am recognized as the original decentralized cryptocurrency secured by proof-of-work proof.",
+        "ansText": "Bitcoin",
+        "expl": "Bitcoin established peer-to-peer electronic cash without intermediaries or central banks."
+      },
+      {
+        "clue1": "I am represented by a friendly blue whale carrying stacked shipping containers on its back.",
+        "clue2": "I solved the infamous engineering complaint: 'It works on my local machine, but breaks on the server!'",
+        "clue3": "I standardized software containerization and runtime image packaging across cloud engineering.",
+        "ansText": "Docker",
+        "expl": "Solomon Hykes launched Docker, isolating application binaries and dependencies cleanly."
+      },
+      {
+        "clue1": "I was founded in 2004 in a Harvard dorm room under the original domain 'TheFacebook.com'.",
+        "clue2": "I later acquired Instagram, WhatsApp, and VR company Oculus into my portfolio.",
+        "clue3": "My parent holding company officially rebranded in 2021 as 'Meta'.",
+        "ansText": "Facebook (Meta)",
+        "expl": "Mark Zuckerberg's social networking platform connects over 3 billion monthly active users."
+      },
+      {
+        "clue1": "I was conceived in the 1970s at IBM Research under the initial project name 'SEQUEL'.",
+        "clue2": "My core operations revolve around four fundamental keywords: SELECT, INSERT, UPDATE, and DELETE.",
+        "clue3": "I am the standard ANSI declarative language powering relational database querying for half a century.",
+        "ansText": "SQL (Structured Query Language)",
+        "expl": "SQL remains the timeless universal query dialect for business intelligence and data pipelines."
+      },
+      {
+        "clue1": "I spent my early decades engineering specialized GPU silicon primarily for 3D PC video gamers.",
+        "clue2": "When the Generative AI boom arrived, my parallel Tensor Core chips became mandatory infrastructure.",
+        "clue3": "My CEO Jensen Huang famously delivers product keynotes wearing an iconic black leather motorcycle jacket.",
+        "ansText": "NVIDIA",
+        "expl": "NVIDIA pioneered GPU accelerated computing and now underpins foundational AI training clusters."
+      },
+      {
+        "clue1": "I am named after 10th-century King Harald of Denmark who successfully united disparate Scandinavian tribes.",
+        "clue2": "Just like the king, I unite disparate consumer electronics devices over short-range radio signals without wires.",
+        "clue3": "My blue logo combines two ancient Nordic runes: Hagall (H) and Bjarkan (B).",
+        "ansText": "Bluetooth",
+        "expl": "Bluetooth was standardized by telecom engineers in Sweden for short-range personal area networks."
+      },
+      {
+        "clue1": "My official operating system mascot is an amicable, chubby penguin named Tux.",
+        "clue2": "Over 90% of the world's public cloud instances, supercomputers, and Android devices run on my kernel.",
+        "clue3": "I am the most successful collaborative free open-source operating system project in human history.",
+        "ansText": "Linux",
+        "expl": "Linus Torvalds released the Linux kernel in 1991, reshaping global enterprise technology."
+      },
+      {
+        "clue1": "I was founded in San Francisco in 2009 under the initial name 'UberCab' with just three black towncars.",
+        "clue2": "Without owning a single vehicle fleet, I became the largest on-demand ride-hailing company on Earth.",
+        "clue3": "My primary Indian rival in the ride-hailing mobility sector is Ola.",
+        "ansText": "Uber",
+        "expl": "Travis Kalanick and Garrett Camp pioneered algorithmic ride dispatching via GPS-enabled smartphones."
+      },
+      {
+        "clue1": "When Microsoft released me in 1985 on Apple Macintosh, critics dismissed me as a simple bookkeeper grid.",
+        "clue2": "Today, even trillion-dollar multinational banks run a staggering percentage of their financial logic on me.",
+        "clue3": "VLOOKUP, Pivot Tables, and a recognizable emerald green icon are my defining characteristics.",
+        "ansText": "Microsoft Excel",
+        "expl": "Excel remains the world's most enduring and widely used computational spreadsheet software."
+      },
+      {
+        "clue1": "I was originally founded by Andy Rubin in 2003 and acquired by Google in 2005 for $50 million.",
+        "clue2": "My legacy operating system versions were named after confections like Cupcake, Donut, KitKat, and Oreo.",
+        "clue3": "Today, I power over 70% of all active smartphones worldwide symbolized by a green robotic bugdroid.",
+        "ansText": "Android OS",
+        "expl": "Android is Google's open-source mobile platform dominating global smartphone penetration."
+      },
+      {
+        "clue1": "I was invented in 1989 at CERN in Switzerland by British scientist Sir Tim Berners-Lee.",
+        "clue2": "I linked academic research documents across computer networks using hyperlinked HTML documents.",
+        "clue3": "Almost every legacy website address in the world opened with three repeated letters of my acronym: 'WWW'.",
+        "ansText": "World Wide Web (WWW)",
+        "expl": "Tim Berners-Lee released the Web without royalties, sparking the modern digital age."
+      },
+      {
+        "clue1": "I disrupted the CD music industry by offering legal streaming access to millions of tracks for a flat fee.",
+        "clue2": "I was founded in Stockholm, Sweden in 2006 by entrepreneurs Daniel Ek and Martin Lorentzon.",
+        "clue3": "My brand is recognized worldwide by three curved black soundwaves inside a vibrant lime green circle.",
+        "ansText": "Spotify",
+        "expl": "Spotify revolutionized global music economics by popularizing subscription cloud audio streaming."
+      },
+      {
+        "clue1": "For over a decade, my microblogging platform was symbolized by an iconic blue songbird.",
+        "clue2": "Users broadcast their concise real-time opinions to the world within strict 140-character tweet limits.",
+        "clue3": "In 2022, Elon Musk acquired my network, killed the bird mascot, and rebranded the service simply as 'X'.",
+        "ansText": "Twitter (X)",
+        "expl": "Twitter shaped breaking news, citizen journalism, and global discourse in real time."
+      },
+      {
+        "clue1": "I was released by Microsoft in 2015 as a free, lightweight, cross-platform source code editor.",
+        "clue2": "My ecosystem boasts tens of thousands of developer extensions, built-in Git, and integrated terminals.",
+        "clue3": "Industry surveys consistently rank me as the #1 code editor used by over 80% of software engineers daily.",
+        "ansText": "Visual Studio Code (VS Code)",
+        "expl": "VS Code is Microsoft's open-source Electron-based editor dominating modern software authoring."
+      },
+      {
+        "clue1": "I am a credit-card-sized single-board computer engineered in the UK for educational computing.",
+        "clue2": "Hobbyists, students, and engineers use my $35 board to build robotics, IoT nodes, and retro emulators.",
+        "clue3": "My brand name features a delicious red berry fruit.",
+        "ansText": "Raspberry Pi",
+        "expl": "Eben Upton created the Raspberry Pi to promote foundational computer science education in schools."
+      },
+      {
+        "clue1": "My founders started in 2007 by renting air mattresses on their apartment floor to design conference attendees.",
+        "clue2": "Without owning hotel real estate, I built an international hospitality marketplace across 220 countries.",
+        "clue3": "My name is a portmanteau combining 'Airbed' and 'Breakfast'.",
+        "ansText": "Airbnb",
+        "expl": "Brian Chesky and Joe Gebbia turned peer-to-peer home sharing into a multi-billion-dollar travel giant."
+      },
+      {
+        "clue1": "I was founded in Bangalore in 2007 by two ex-Amazon engineers named Sachin and Binny Bansal.",
+        "clue2": "In 2018, American retail behemoth Walmart acquired a 77% controlling stake in me for $16 billion.",
+        "clue3": "My annual festive discount shopping bonanza is titled 'The Big Billion Days'.",
+        "ansText": "Flipkart",
+        "expl": "Flipkart spearheaded Indian e-commerce infrastructure, online payments, and local supply chain logistics."
+      },
+      {
+        "clue1": "I was designed at Google in 2009 by Robert Griesemer, Rob Pike, and Ken Thompson to speed up backend compiling.",
+        "clue2": "My mascot is an adorable, friendly blue gopher creature.",
+        "clue3": "Docker, Kubernetes, and Terraform are all written natively in my syntax; my name is just two letters.",
+        "ansText": "Golang (Go)",
+        "expl": "Go delivers compiled machine code performance with lightweight concurrent goroutines for distributed systems."
+      },
+      {
+        "clue1": "I was authored at Facebook in 2011 by Jordan Walke to optimize dynamic newsfeed re-renders.",
+        "clue2": "Component-driven design, Virtual DOM diffing, JSX syntax, and Hooks are my core design principles.",
+        "clue3": "Represented by a cyan atomic nucleus, I am the undisputed #1 frontend UI library on the web.",
+        "ansText": "React.js",
+        "expl": "React revolutionised declarative user interface development across web and mobile ecosystems."
+      },
+      {
+        "clue1": "I revolutionized transportation by designing luxury electric vehicles running advanced autonomous Autopilot software.",
+        "clue2": "I abandoned internal combustion gasoline engines in favor of high-capacity lithium battery packs and OTA updates.",
+        "clue3": "My signature vehicle models humorously spell out the word: S, 3, X, Y (SEXY).",
+        "ansText": "Tesla",
+        "expl": "Elon Musk steered Tesla to mainstream electric vehicle adoption and battery storage manufacturing."
+      },
+      {
+        "clue1": "I am a sandbox video game created by Markus 'Notch' Persson in Sweden where everything consists of pixelated blocks.",
+        "clue2": "Schools worldwide use my Education Edition to teach spatial math, algorithmic logic, and architecture.",
+        "clue3": "Microsoft acquired my franchise in 2014 for $2.5 billion, and I am the best-selling video game in history.",
+        "ansText": "Minecraft",
+        "expl": "Minecraft fosters digital creativity and emergent engineering principles for millions of players."
+      },
+      {
+        "clue1": "I am a global system of interconnected computer networks using the TCP/IP protocol suite to link billions of devices.",
+        "clue2": "I emerged from ARPANET research funded by the United States Department of Defense in the late 1960s.",
+        "clue3": "Without my underlying physical wires and routers, web pages, streaming, and mobile apps could not function.",
+        "ansText": "The Internet",
+        "expl": "Vint Cerf and Bob Kahn co-designed the networking architecture that connects all modern human knowledge."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Round 5: Future or Fired? (4-Team Debate)",
+    "type": "debate",
+    "description": "4-Team Battle • 60-Second Timed Speeches • Industry Reality Verdict",
+    "questions": [
+      {
+        "topic": "AI coding assistants (Claude, Copilot) will eliminate 70% of entry-level developer roles within 5 years.",
+        "reality": "FIRED ❌ (Evolution, Not Extinction)",
+        "expl": "AI automates boilerplate code, but complex system design, security, and domain problem-solving require human engineers."
+      },
+      {
+        "topic": "In the future, nobody will need to write code because No-Code drag-and-drop tools will build all enterprise apps.",
+        "reality": "FIRED ❌ (Partial Myth)",
+        "expl": "No-Code handles simple marketing websites; custom enterprise logic, scalability, and algorithmic security always demand code."
+      },
+      {
+        "topic": "With high-speed 5G and fiber cloud, local PC hard drives will disappear in favor of 100% Cloud PCs.",
+        "reality": "FUTURE ✅ (Accelerating Reality)",
+        "expl": "Services like Windows 365 and Shadow PC prove dumb terminals with cloud virtualization are cost-effective and secure."
+      },
+      {
+        "topic": "Browsing in 'Incognito / Private Mode' guarantees absolute anonymity from internet service providers and network monitors.",
+        "reality": "FIRED ❌ (Dangerous Myth)",
+        "expl": "Incognito only discards local device history; upstream ISPs, corporate routers, and government authorities still log traffic."
+      },
+      {
+        "topic": "Because of its beginner-friendly syntax, Python will completely replace languages like Java, C++, and JavaScript.",
+        "reality": "FIRED ❌ (Impossible)",
+        "expl": "Browsers strictly execute JavaScript; high-performance game engines require C++/Rust. Python's interpreted runtime is too slow."
+      },
+      {
+        "topic": "Within 10 years, traditional desktop towers and laptops will vanish, with smartphones docking directly as our sole computer.",
+        "reality": "FUTURE ✅ (Converging Fast)",
+        "expl": "Flagship mobile silicon already rivals desktop CPUs; docking systems like Samsung DeX showcase single-device computing."
+      },
+      {
+        "topic": "Since social media apps like Instagram and YouTube are free to use, they collect nothing of financial value from users.",
+        "reality": "FIRED ❌ (Absolute Lie)",
+        "expl": "'If you are not paying for the product, you are the product.' Personal telemetry data fuels multi-billion-dollar ad auctions."
+      },
+      {
+        "topic": "By 2035, physical government paper currencies will be abolished, replaced entirely by decentralized Bitcoin.",
+        "reality": "FIRED ❌ (Sovereign Myth)",
+        "expl": "Central banks are launching Central Bank Digital Currencies (CBDC e-Rupee) rather than yielding sovereign monetary control."
+      },
+      {
+        "topic": "Because ChatGPT can automatically generate data charts, the profession of Data Analyst is dead.",
+        "reality": "FIRED ❌ (Role Upgrade)",
+        "expl": "AI outputs numbers; human analysts connect data patterns to executive business strategy and identify hidden context."
+      },
+      {
+        "topic": "Future international conflicts will be determined not by artillery, but by cyber warfare crippling electricity and banking grids.",
+        "reality": "FUTURE ✅ (Demonstrated Fact)",
+        "expl": "Modern state-sponsored warfare consistently deploys cyber attacks targeting electrical grids and financial infrastructure first."
+      },
+      {
+        "topic": "When practical Quantum Computers arrive, all current RSA banking encryption will be cracked in seconds.",
+        "reality": "FUTURE ✅ (Imminent Threat)",
+        "expl": "Shor's algorithm will compromise current public-key crypto, which is why NIST is standardizing Post-Quantum Cryptography now."
+      },
+      {
+        "topic": "By 2030, all Indian roads will feature 100% driverless autonomous commercial vehicles.",
+        "reality": "FIRED ❌ (Impractical)",
+        "expl": "Unpredictable road conditions, stray animals, and density necessitate at least two more decades before full autonomous adoption."
+      },
+      {
+        "topic": "Physical corporate IT offices will disappear entirely, with 100% of technology employees working from home forever.",
+        "reality": "FIRED ❌ (Hybrid Balance)",
+        "expl": "Full remote isolation degrades mentorship and creative synergy; enterprise companies overwhelmingly adopt hybrid models."
+      },
+      {
+        "topic": "A university degree is no longer necessary to land top software engineering careers; GitHub portfolios and skill suffice.",
+        "reality": "FUTURE ✅ (Validated Trend)",
+        "expl": "Silicon Valley giants and startups have dropped strict degree mandates in favor of verified open-source and coding competence."
+      },
+      {
+        "topic": "Brain-computer interfaces like Neuralink will allow humans to type and interact with computers using thought alone.",
+        "reality": "FUTURE ✅ (Clinical Reality)",
+        "expl": "Paralyzed human trial participants have already successfully controlled computer cursors and played chess using neural implants."
+      },
+      {
+        "topic": "Generative AI art tools (Midjourney) will completely extinguish the careers of digital artists and UI/UX designers.",
+        "reality": "FIRED ❌ (Tool Synthesis)",
+        "expl": "AI produces raw imagery; human designers define user psychology, brand coherence, responsive ergonomics, and empathy."
+      },
+      {
+        "topic": "Traditional passwords will be entirely obsolete within 5 years, replaced by biometric Passkeys.",
+        "reality": "FUTURE ✅ (Standard Rollout)",
+        "expl": "The FIDO alliance (Google, Apple, Microsoft) is actively phasing out master passwords in favor of cryptographic device passkeys."
+      },
+      {
+        "topic": "Open-source AI models (Meta Llama, Mistral) will surpass and commoditize closed proprietary models like OpenAI.",
+        "reality": "FUTURE ✅ (Intense Competition)",
+        "expl": "Global open-source community fine-tuning runs circles around centralized proprietary models for specific edge use-cases."
+      },
+      {
+        "topic": "Augmented reality Smart Glasses will replace smartphones in our pockets within the next decade.",
+        "reality": "FUTURE ✅ (Gradual Transition)",
+        "expl": "Products like Meta Ray-Ban and Apple Vision demonstrate wearable spatial audio and heads-up computing are the next frontier."
+      },
+      {
+        "topic": "Electric cars are completely green, with zero total environmental impact throughout their manufacturing lifecycle.",
+        "reality": "FUTURE ⚠️ (Nuanced Reality)",
+        "expl": "Lithium/Cobalt mining and fossil-fueled grid charging generate carbon emissions; renewable energy transition is mandatory."
+      },
+      {
+        "topic": "Within 20 years, AI surgical robots will execute complex human operations with higher precision than human doctors.",
+        "reality": "FUTURE ✅ (Doctor-Assisted)",
+        "expl": "Computer vision already outperforms human radiologists in tumor detection, moving towards semi-autonomous microsurgery."
+      },
+      {
+        "topic": "Governments will legally ban smartphones and social media platforms for children under the age of 16.",
+        "reality": "FUTURE ✅ (Legislative Wave)",
+        "expl": "Countries like Australia have already drafted landmark legislation barring young adolescents from predatory social algorithms."
+      },
+      {
+        "topic": "People will stop clicking 10 blue search links on Google, turning exclusively to direct conversational AI answers.",
+        "reality": "FUTURE ✅ (Major Paradigm Shift)",
+        "expl": "Perplexity and ChatGPT Search showcase that users prefer concise verified synthesis over wading through ad-bloated links."
+      },
+      {
+        "topic": "Satellite internet like Starlink will render undersea subsea fiber optic cables obsolete.",
+        "reality": "FIRED ❌ (Physics Limit)",
+        "expl": "Satellites lack aggregate bandwidth; 99% of global internet traffic travels across ultra-high-capacity undersea fiber cables."
+      },
+      {
+        "topic": "Sending all raw sensor data to distant cloud centers is inefficient; AI chips must run locally on edge devices.",
+        "reality": "FUTURE ✅ (Edge AI Dominance)",
+        "expl": "Autonomous vehicles cannot afford network latency to apply emergency brakes; inference must execute locally on the edge."
+      },
+      {
+        "topic": "AI models will soon be trained predominantly on AI-generated Synthetic Data rather than scraped human text.",
+        "reality": "FUTURE ✅ (Data Scarcity Fix)",
+        "expl": "With high-quality human internet text exhausted, curated synthetic reasoning data is becoming essential for frontier model training."
+      },
+      {
+        "topic": "Microservices are over-engineered for 90% of startups; a well-built Monolithic server is cheaper and faster.",
+        "reality": "FUTURE ✅ (Architectural Truth)",
+        "expl": "Distributed systems introduce immense networking overhead and debugging complexity; modular monoliths offer superior early velocity."
+      },
+      {
+        "topic": "Individual engineers won't be able to innovate in AI; only 2-3 global mega-corporations will control artificial intelligence.",
+        "reality": "DEBATE ⚖️ (Open vs Closed)",
+        "expl": "While frontier cluster training requires billions of dollars, open-source model optimization keeps independent innovation alive."
+      },
+      {
+        "topic": "Cash will be totally eliminated in India by 2030, with Central Bank Digital Rupee handling 100% of transactions.",
+        "reality": "FIRED ❌ (Cash Resilience)",
+        "expl": "Despite stellar UPI adoption, informal rural economies and power failure contingencies ensure physical currency endures."
+      },
+      {
+        "topic": "AI software developers will soon produce 100% bug-free software that never crashes.",
+        "reality": "FIRED ❌ (Philosophical Myth)",
+        "expl": "Software requirements change constantly; edge cases, runtime anomalies, and shifting user expectations ensure bugs always exist."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Round 6: The Tech Millionaire",
+    "type": "millionaire",
+    "description": "KBC Style High-Stakes Questions • 4 Options • 50:50 Lifeline",
+    "questions": [
+      {
+        "q": "Why does Netflix stream ultra HD video in India instantly without buffering, even though master servers reside in the USA?",
+        "options": [
+          "Direct Satellite Broadcast",
+          "Content Delivery Network (CDN) edge caches installed inside local ISP networks",
+          "Wi-Fi Router Booster",
+          "Google Chrome optimization"
+        ],
+        "ans": 1,
+        "ansText": "Content Delivery Network (CDN) edge caches",
+        "expl": "Netflix pre-caches popular movie files onto Open Connect storage appliances directly inside local ISPs."
+      },
+      {
+        "q": "Why do mobile banking OTP security codes automatically expire after 5 or 10 minutes?",
+        "options": [
+          "SIM card powers off",
+          "Time-To-Live (TTL) to prevent Replay Attacks",
+          "SMS storage gets full",
+          "Reserve Bank regulation"
+        ],
+        "ans": 1,
+        "ansText": "Time-To-Live (TTL) to prevent Replay Attacks",
+        "expl": "Enforcing short TTL prevents malicious interceptors from reusing captured tokens later."
+      },
+      {
+        "q": "Which memory tier inside a computer operates with the fastest access latency?",
+        "options": [
+          "NVMe PCIe SSD",
+          "DDR5 RAM",
+          "CPU L1/L2 Cache",
+          "External Hard Drive"
+        ],
+        "ans": 2,
+        "ansText": "CPU L1/L2 Cache",
+        "expl": "CPU SRAM cache operates directly on the processor die with sub-nanosecond clock cycle latency."
+      },
+      {
+        "q": "In historical Titanic passenger data analysis, which demographic cohort showed the highest survival percentage?",
+        "options": [
+          "3rd Class Adult Males",
+          "1st Class Women & Children",
+          "Ship Crew Officers",
+          "Equal across all cohorts"
+        ],
+        "ans": 1,
+        "ansText": "1st Class Women & Children",
+        "expl": "Privileged top-deck cabin proximity and the maritime protocol of 'women and children first' maximized their survival rate."
+      },
+      {
+        "q": "How does Google search crawl billions of web documents and return relevant results in under 0.2 seconds?",
+        "options": [
+          "Single supercomputer brute force",
+          "Inverted Indexing & PageRank crawling",
+          "Automated neural guess",
+          "Satellite imagery"
+        ],
+        "ans": 1,
+        "ansText": "Inverted Indexing & PageRank crawling",
+        "expl": "Like an index at the back of a textbook, Google maps search keywords to pre-compiled document IDs in advance."
+      },
+      {
+        "q": "Why does a factory-sealed 1,000 GB external hard drive report only ~931 GB in Windows Explorer?",
+        "options": [
+          "Windows stole storage",
+          "Manufacturers count in Decimal (1000^3) while OS counts in Binary (1024^3)",
+          "Hardware sector defect",
+          "Tax partition deduction"
+        ],
+        "ans": 1,
+        "ansText": "Decimal (1000) vs Binary (1024) calculation difference",
+        "expl": "Manufacturers define 1 GB = 1,000,000,000 bytes; operating systems calculate 1 GiB = 1,073,741,824 bytes."
+      },
+      {
+        "q": "Why did Microsoft submerge a sealed data center container 117 feet deep onto the ocean floor in Scotland?",
+        "options": [
+          "To avoid tsunamis",
+          "Free natural seawater cooling & oxygen-free nitrogen environment avoiding corrosion",
+          "To provide Wi-Fi to fish",
+          "To bypass property taxes"
+        ],
+        "ans": 1,
+        "ansText": "Free natural seawater cooling & oxygen-free reliability (Project Natick)",
+        "expl": "Underwater data centers eliminate costly mechanical air conditioning and reduce server hardware failure rates."
+      },
+      {
+        "q": "What is the technical term when an AI chatbot invents non-existent historical facts with high confidence?",
+        "options": [
+          "Syntax Exception",
+          "AI Hallucination",
+          "System Kernel Panic",
+          "Super-intelligence"
+        ],
+        "ans": 1,
+        "ansText": "AI Hallucination",
+        "expl": "LLMs predict the next most statistically probable token without an inherent grounded factual truth database."
+      },
+      {
+        "q": "Why is 'correct horse battery staple' mathematically more secure against brute force than 'P@$$w0rd'?",
+        "options": [
+          "Hackers don't know English",
+          "Password Length (Entropy) scales combinatorics far higher than short symbol complexity",
+          "It reads like poetry",
+          "Requires less memory"
+        ],
+        "ans": 1,
+        "ansText": "Password Length (Entropy) scales combinatorics higher",
+        "expl": "An 8-character complex password takes minutes to crack; a 28-character passphrase takes millennia to brute force."
+      },
+      {
+        "q": "If you accidentally delete a critical tracked file in a Git repository, what command restores it from HEAD?",
+        "options": [
+          "git delete undo",
+          "git restore <filename>",
+          "git restart",
+          "Reboot operating system"
+        ],
+        "ans": 1,
+        "ansText": "git restore <filename>",
+        "expl": "git restore discards unstaged working tree changes and retrieves the clean copy from the repository index."
+      },
+      {
+        "q": "What international benchmark unit measures the operational computation speed of supercomputers?",
+        "options": [
+          "Gigahertz (GHz)",
+          "FLOPS (Floating-Point Operations Per Second)",
+          "Megabytes Per Second",
+          "RPM"
+        ],
+        "ans": 1,
+        "ansText": "FLOPS",
+        "expl": "Exascale supercomputers like Frontier are measured by how many quintillion floating-point calculations they solve per second."
+      },
+      {
+        "q": "On New Year's Eve when food orders spike 50x in one hour, what cloud architecture prevents server crash?",
+        "options": [
+          "Cloud Auto-scaling & Elastic Load Balancers",
+          "Higher local internet speed",
+          "Manual administrative overtime",
+          "Google Pay servers"
+        ],
+        "ans": 0,
+        "ansText": "Cloud Auto-scaling & Elastic Load Balancers",
+        "expl": "Auto-scaling dynamically provisions additional stateless virtual instances and routes incoming request spikes evenly."
+      },
+      {
+        "q": "What cyber attack floods a web server with coordinated traffic from thousands of infected zombie botnets?",
+        "options": [
+          "Phishing",
+          "DDoS (Distributed Denial of Service) Attack",
+          "Ransomware",
+          "Trojan"
+        ],
+        "ans": 1,
+        "ansText": "DDoS (Distributed Denial of Service) Attack",
+        "expl": "DDoS exhausts network bandwidth and server connection queues so legitimate users cannot access the service."
+      },
+      {
+        "q": "Why do shoes you viewed on an e-commerce site follow you as advertisements onto Instagram and news sites?",
+        "options": [
+          "Microphones are listening",
+          "Cross-site Tracking Cookies & Ad-Network Device Fingerprinting",
+          "Instagram owns all shops",
+          "Pure coincidence"
+        ],
+        "ans": 1,
+        "ansText": "Cross-site Tracking Cookies & Device Fingerprinting",
+        "expl": "Ad networks embed tracking pixels across publishers to build unified behavioral profiling IDs."
+      },
+      {
+        "q": "Where did the computer engineering term 'Bug' literally originate from in 1947?",
+        "options": [
+          "A programmer's family nickname",
+          "A real moth trapped inside a relay switch of the Harvard Mark II computer",
+          "A biological virus strain",
+          "A Latin root word"
+        ],
+        "ans": 1,
+        "ansText": "A real moth trapped in the Harvard Mark II computer",
+        "expl": "Computer pioneer Grace Hopper taped an actual moth into her logbook annotated: 'First actual case of bug being found.'"
+      },
+      {
+        "q": "What was the title of the very first video ever uploaded to YouTube in April 2005?",
+        "options": [
+          "Hello World",
+          "Me at the zoo",
+          "My First Video",
+          "Google Campus"
+        ],
+        "ans": 1,
+        "ansText": "Me at the zoo",
+        "expl": "Co-founder Jawed Karim uploaded an 19-second video standing in front of elephants at the San Diego Zoo."
+      },
+      {
+        "q": "How do commercial passenger airplanes at 35,000 feet altitude maintain high-speed internet connectivity?",
+        "options": [
+          "Extremely long tethered cables",
+          "Satellite Tracking Antennas & Ground-to-Orbit Microwave Beams",
+          "Pilot's mobile hotspot",
+          "Cloud friction"
+        ],
+        "ans": 1,
+        "ansText": "Satellite Tracking Antennas & Ground-to-Orbit Microwave Beams",
+        "expl": "Airplanes feature roof-mounted radome antennas dynamically tracking geostationary and LEO satellites."
+      },
+      {
+        "q": "What enabled computer scientist Katie Bouman and the EHT team to capture the first image of a Black Hole in 2019?",
+        "options": [
+          "iPhone camera zoom",
+          "5 Petabytes of radio telescope data stitched via specialized Python algorithms",
+          "Hubble optical lens alone",
+          "Space station radar"
+        ],
+        "ans": 1,
+        "ansText": "5 Petabytes of radio data stitched via Python algorithms",
+        "expl": "Algorithms synthesized synchronization data collected across 8 global radio observatories acting as one Earth-sized telescope."
+      },
+      {
+        "q": "Why were keyboard keys arranged in the scrambled 'QWERTY' layout rather than alphabetical order?",
+        "options": [
+          "To look modern",
+          "To intentionally slow down typists so mechanical typewriter metal arms wouldn't jam",
+          "Latin typing rules",
+          "Typographical error"
+        ],
+        "ans": 1,
+        "ansText": "To prevent mechanical typewriter key arms from jamming",
+        "expl": "Christopher Sholes separated frequently co-occurring English letters to prevent mechanical linkage collisions."
+      },
+      {
+        "q": "How does Google Maps calculate live street traffic delays and color road segments in red or green?",
+        "options": [
+          "Police drone surveillance",
+          "Crowdsourced GPS telemetry and speed velocity streaming from active Android phones",
+          "Traffic police radios",
+          "Satellite optics"
+        ],
+        "ans": 1,
+        "ansText": "Crowdsourced GPS telemetry streaming from active smartphones",
+        "expl": "When clusters of phones on a road segment slow down, algorithms detect congestion and flag the route in red."
+      },
+      {
+        "q": "What is the official expanded engineering acronym of 'Wi-Fi'?",
+        "options": [
+          "Wireless Fidelity",
+          "Wireless Fiber",
+          "Wi-Fi is NOT an acronym; it was a catchy branding rhyme",
+          "Wide Frequency"
+        ],
+        "ans": 2,
+        "ansText": "Wi-Fi is NOT an acronym; it was a catchy branding rhyme",
+        "expl": "The Wi-Fi Alliance hired a branding firm to coin a consumer-friendly name for the dry technical standard IEEE 802.11b."
+      },
+      {
+        "q": "Does enabling 'Dark Mode' on an OLED or AMOLED display genuinely reduce battery consumption?",
+        "options": [
+          "No, it is a myth",
+          "Yes, up to 30% battery savings because black OLED pixels physically turn completely off",
+          "Consumes more power",
+          "Increases brightness"
+        ],
+        "ans": 1,
+        "ansText": "Yes, black OLED pixels physically shut off completely",
+        "expl": "Unlike backlit LCDs, each individual OLED diode emits its own light; displaying true black draws zero current."
+      },
+      {
+        "q": "Which 10th-century monarch's initials form the two runic symbols inside the Bluetooth wireless logo?",
+        "options": [
+          "Alexander the Great",
+          "King Harald Bluetooth (Nordic Runes Hagall and Bjarkan)",
+          "Napoleon Bonaparte",
+          "Julius Caesar"
+        ],
+        "ans": 1,
+        "ansText": "King Harald Bluetooth (Nordic Runes Hagall and Bjarkan)",
+        "expl": "The Scandinavian telecom alliance honored King Harald who united Scandinavia just as Bluetooth unites gadgets."
+      },
+      {
+        "q": "Which female NASA computer scientist wrote the asynchronous priority software saving the Apollo 11 moon landing?",
+        "options": [
+          "Marie Curie",
+          "Margaret Hamilton",
+          "Kalpana Chawla",
+          "Ada Lovelace"
+        ],
+        "ans": 1,
+        "ansText": "Margaret Hamilton",
+        "expl": "Her priority scheduling architecture dropped non-critical radar radar tasks, allowing the lunar module computer to focus on descent thrusters."
+      },
+      {
+        "q": "What was the very first commercial '.com' domain name ever registered in internet history in 1985?",
+        "options": [
+          "google.com",
+          "Symbolics.com",
+          "apple.com",
+          "microsoft.com"
+        ],
+        "ans": 1,
+        "ansText": "Symbolics.com (March 15, 1985)",
+        "expl": "A Massachusetts computer manufacturer registered Symbolics.com, pioneering the commercial dot-com era."
+      },
+      {
+        "q": "What is the true secondary purpose behind Google asking users to click street signs and crosswalks in CAPTCHAs?",
+        "options": [
+          "Time killing",
+          "Human labeling and training datasets for Waymo autonomous self-driving AI models",
+          "Virus scans",
+          "Password encryption"
+        ],
+        "ans": 1,
+        "ansText": "Human labeling datasets to train autonomous vehicle vision AI",
+        "expl": "reCAPTCHA uses millions of human clicks daily to train computer vision models identifying road hazards."
+      },
+      {
+        "q": "What physical material was used to craft the world's very first computer mouse invented by Douglas Engelbart in 1964?",
+        "options": [
+          "Plastic",
+          "Carved Wood with two metal wheels",
+          "Sheet Aluminum",
+          "Tempered Glass"
+        ],
+        "ans": 1,
+        "ansText": "Carved Wood with two metal wheels",
+        "expl": "The prototype was carved out of a wooden block with two perpendicular wheels tracking horizontal and vertical coordinates."
+      },
+      {
+        "q": "Where on Earth are giant dessert statues of Android versions (KitKat, Oreo, Donut) permanently displayed?",
+        "options": [
+          "Times Square New York",
+          "Googleplex HQ Lawn in Mountain View, California",
+          "London Bridge",
+          "Tokyo"
+        ],
+        "ans": 1,
+        "ansText": "Googleplex HQ Lawn in Mountain View, California",
+        "expl": "Google's headquarters campus features a public garden of oversized statues celebrating every Android code name."
+      },
+      {
+        "q": "What fundamental engineering design flaw triggered global fears of the Y2K (Year 2000) computer millennium bug?",
+        "options": [
+          "Alien malware",
+          "Legacy software stored dates using only 2 digits ('99' becoming '00' interpreted as 1900)",
+          "Internet collapse",
+          "Battery explosions"
+        ],
+        "ans": 1,
+        "ansText": "Legacy software stored dates using only 2 digits ('99')",
+        "expl": "To conserve expensive memory in the 1970s, programmers stored years as two digits, causing calendar rollover glitches."
+      },
+      {
+        "q": "Who is universally celebrated in history as the world's very first computer programmer in 1843?",
+        "options": [
+          "Marie Curie",
+          "Ada Lovelace",
+          "Grace Hopper",
+          "Katherine Johnson"
+        ],
+        "ans": 1,
+        "ansText": "Ada Lovelace",
+        "expl": "Ada Lovelace wrote the first published algorithm intended to be executed by Charles Babbage's mechanical Analytical Engine."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Round 7: Rapid Fire Clash",
+    "type": "rapid",
+    "description": "Fast 30-Second Clock • Direct Options • Maximum Velocity Challenge",
+    "questions": [
+      {
+        "q": "What is universally recognized as the central 'Brain' of a computer system?",
+        "options": [
+          "RAM",
+          "Hard Drive",
+          "CPU (Central Processing Unit)",
+          "Monitor Display"
+        ],
+        "ans": 2,
+        "ansText": "CPU (Central Processing Unit)",
+        "expl": "The CPU fetches, decodes, and executes software instructions."
+      },
+      {
+        "q": "Which foundational language provides the semantic structural skeleton of all web pages?",
+        "options": [
+          "Python",
+          "HTML (HyperText Markup Language)",
+          "C++",
+          "SQL"
+        ],
+        "ans": 1,
+        "ansText": "HTML",
+        "expl": "HTML defines the elements, links, and content hierarchy of the web."
+      },
+      {
+        "q": "What is the smallest indivisible unit of digital data in computer science?",
+        "options": [
+          "Byte",
+          "Bit (Binary 0 or 1)",
+          "Kilobyte",
+          "Megabyte"
+        ],
+        "ans": 1,
+        "ansText": "Bit (Binary 0 or 1)",
+        "expl": "A bit represents a single binary state: voltage high (1) or voltage low (0)."
+      },
+      {
+        "q": "Which Git command saves current staged changes permanently to local repository history?",
+        "options": [
+          "git delete",
+          "git commit",
+          "git stop",
+          "git exit"
+        ],
+        "ans": 1,
+        "ansText": "git commit",
+        "expl": "git commit writes a permanent checkpoint snapshot with an explanatory message."
+      },
+      {
+        "q": "Which declarative language is the worldwide standard for querying relational database records?",
+        "options": [
+          "SQL",
+          "Java",
+          "CSS",
+          "HTML"
+        ],
+        "ans": 0,
+        "ansText": "SQL (Structured Query Language)",
+        "expl": "SQL allows developers to filter, join, and aggregate structured tables."
+      },
+      {
+        "q": "Which platform commands over 90% of global internet search engine market share?",
+        "options": [
+          "Yahoo",
+          "Bing",
+          "Google",
+          "DuckDuckGo"
+        ],
+        "ans": 2,
+        "ansText": "Google",
+        "expl": "Google handles over 8.5 billion search queries per day."
+      },
+      {
+        "q": "What is the standard universal keyboard shortcut to 'Copy' selected text on Windows?",
+        "options": [
+          "Ctrl + V",
+          "Ctrl + C",
+          "Ctrl + Z",
+          "Ctrl + X"
+        ],
+        "ans": 1,
+        "ansText": "Ctrl + C",
+        "expl": "Ctrl + C copies the active selection to system clipboard memory."
+      },
+      {
+        "q": "Which parent corporation engineers and maintains the open-source Android mobile operating system?",
+        "options": [
+          "Apple",
+          "Microsoft",
+          "Google (Alphabet)",
+          "Samsung"
+        ],
+        "ans": 2,
+        "ansText": "Google (Alphabet)",
+        "expl": "Google develops Android and licenses the Google Mobile Services suite."
+      },
+      {
+        "q": "What unique numerical label identifies every computer connected to the internet network?",
+        "options": [
+          "SIM Number",
+          "IP (Internet Protocol) Address",
+          "Postal PIN Code",
+          "Serial Number"
+        ],
+        "ans": 1,
+        "ansText": "IP (Internet Protocol) Address",
+        "expl": "IP addresses route packets across networks to their precise destination."
+      },
+      {
+        "q": "What software tunnel secures your personal internet traffic when connected to untrusted public Wi-Fi?",
+        "options": [
+          "VPN (Virtual Private Network)",
+          "Bluetooth",
+          "Torchlight",
+          "GPS"
+        ],
+        "ans": 0,
+        "ansText": "VPN (Virtual Private Network)",
+        "expl": "A VPN encrypts all data packets between your machine and the VPN exit server."
+      },
+      {
+        "q": "Which web technology defines presentation style, colors, fonts, and responsive layout of websites?",
+        "options": [
+          "HTML",
+          "CSS (Cascading Style Sheets)",
+          "Python",
+          "SQL"
+        ],
+        "ans": 1,
+        "ansText": "CSS (Cascading Style Sheets)",
+        "expl": "CSS styles raw HTML into visually stunning, responsive user interfaces."
+      },
+      {
+        "q": "What is the standard universal keyboard shortcut to 'Paste' clipboard data on Windows?",
+        "options": [
+          "Ctrl + C",
+          "Ctrl + V",
+          "Ctrl + P",
+          "Ctrl + S"
+        ],
+        "ans": 1,
+        "ansText": "Ctrl + V",
+        "expl": "Ctrl + V inserts the contents of the clipboard into the active document."
+      },
+      {
+        "q": "In binary computer computation, exactly how many Bytes make up 1 Kilobyte (KB)?",
+        "options": [
+          "100 Bytes",
+          "500 Bytes",
+          "1024 Bytes (2^10)",
+          "10,000 Bytes"
+        ],
+        "ans": 2,
+        "ansText": "1024 Bytes (2^10)",
+        "expl": "Binary systems scale by powers of 2; 2^10 equals 1024."
+      },
+      {
+        "q": "Who is universally recognized as one of the primary 'Fathers of the Internet' for designing TCP/IP?",
+        "options": [
+          "Steve Jobs",
+          "Vint Cerf",
+          "Bill Gates",
+          "Mark Zuckerberg"
+        ],
+        "ans": 1,
+        "ansText": "Vint Cerf",
+        "expl": "Vint Cerf and Bob Kahn designed the underlying TCP/IP protocol suite."
+      },
+      {
+        "q": "Which Git command uploads committed local repository changes to a remote server like GitHub?",
+        "options": [
+          "git push",
+          "git pull",
+          "git send",
+          "git upload"
+        ],
+        "ans": 0,
+        "ansText": "git push",
+        "expl": "git push transmits commits to the specified upstream remote branch."
+      },
+      {
+        "q": "In SQL databases, which command permanently erases an entire table along with its structural schema?",
+        "options": [
+          "REMOVE TABLE",
+          "DROP TABLE",
+          "DELETE ALL",
+          "KILL TABLE"
+        ],
+        "ans": 1,
+        "ansText": "DROP TABLE",
+        "expl": "DROP TABLE deletes both the schema definition and all row data permanently."
+      },
+      {
+        "q": "How many total addressable bits comprise a standard IPv4 internet address?",
+        "options": [
+          "16 Bits",
+          "32 Bits",
+          "64 Bits",
+          "128 Bits"
+        ],
+        "ans": 1,
+        "ansText": "32 Bits",
+        "expl": "IPv4 uses 32-bit addresses formatted as 4 dot-decimal octets (e.g. 192.168.1.1)."
+      },
+      {
+        "q": "In Python programming, is a standard List object Mutable (modifiable) or Immutable?",
+        "options": [
+          "Mutable (can be modified in-place)",
+          "Immutable (cannot be changed)",
+          "Always read-only",
+          "Static length only"
+        ],
+        "ans": 0,
+        "ansText": "Mutable (can be modified in-place)",
+        "expl": "Python lists can append, pop, and alter element values in-place without reallocation."
+      },
+      {
+        "q": "What is the official name of the open-source Linux kernel penguin mascot?",
+        "options": [
+          "Jerry",
+          "Tux",
+          "Alex",
+          "Simba"
+        ],
+        "ans": 1,
+        "ansText": "Tux",
+        "expl": "Tux stands for (T)orvalds (U)ni(X)."
+      },
+      {
+        "q": "What standard Windows keyboard shortcut reverses and cancels your most recent text edit action (Undo)?",
+        "options": [
+          "Ctrl + U",
+          "Ctrl + Z",
+          "Ctrl + Y",
+          "Ctrl + D"
+        ],
+        "ans": 1,
+        "ansText": "Ctrl + Z",
+        "expl": "Ctrl + Z pops the recent action off the software undo history stack."
+      }
+    ]
+  }
+]
