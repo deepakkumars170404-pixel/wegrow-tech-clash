@@ -341,128 +341,129 @@ rounds.append({
     "questions": r2_items
 })
 
-# ==================== ROUND 3: 20 SIMPLE ODD ONE OUT (THE IMPOSTER) ====================
-# Simple, relatable, crystal clear for college students! Balanced answers (5 of 0, 5 of 1, 5 of 2, 5 of 3).
+# ==================== ROUND 3: 20 BALANCED ODD ONE OUT (THE IMPOSTER) ====================
+# Perfect IT Foundation level: Neither too childish nor overly niche!
+# Balanced answers: exactly 5 A (0), 5 B (1), 5 C (2), 5 D (3).
 r3_items = [
     {
-        "items": ["Microsoft Excel", "Google Chrome", "Mozilla Firefox", "Microsoft Edge"],
+        "items": ["MongoDB", "MySQL", "PostgreSQL", "Oracle Database"],
         "ans": 0,
-        "ansText": "Microsoft Excel",
-        "expl": "Microsoft Excel is an office spreadsheet tool; the other three are web browsers."
+        "ansText": "MongoDB",
+        "expl": "MongoDB is a NoSQL document database; MySQL, PostgreSQL, and Oracle are Relational SQL databases."
     },
     {
-        "items": ["Python", "HTML", "Java", "C++"],
+        "items": ["React", "Django", "Vue.js", "Angular"],
         "ans": 1,
+        "ansText": "Django",
+        "expl": "Django is a Python backend server framework; React, Vue, and Angular are Frontend JavaScript UI frameworks."
+    },
+    {
+        "items": ["Stack", "Queue", "Binary Tree", "Linked List"],
+        "ans": 2,
+        "ansText": "Binary Tree",
+        "expl": "A Binary Tree is a non-linear hierarchical data structure; Stack, Queue, and Linked List are linear data structures."
+    },
+    {
+        "items": ["HTTP", "FTP", "SMTP", "TCP"],
+        "ans": 3,
+        "ansText": "TCP",
+        "expl": "TCP operates at Transport Layer 4; HTTP, FTP, and SMTP operate at Application Layer 7."
+    },
+    {
+        "items": ["Docker", "Git", "GitHub", "GitLab"],
+        "ans": 0,
+        "ansText": "Docker",
+        "expl": "Docker is an application containerization tool; Git, GitHub, and GitLab are source code version control tools."
+    },
+    {
+        "items": ["Java", "C Language", "C++", "Python"],
+        "ans": 1,
+        "ansText": "C Language",
+        "expl": "C is a procedural language without native Object-Oriented (OOP) classes; Java, C++, and Python are OOP languages."
+    },
+    {
+        "items": ["Google Chrome", "Mozilla Firefox", "Postman", "Apple Safari"],
+        "ans": 2,
+        "ansText": "Postman",
+        "expl": "Postman is an API testing and development tool; the other three are consumer Web Browsers."
+    },
+    {
+        "items": ["Linux", "Windows 11", "macOS", "BIOS / UEFI"],
+        "ans": 3,
+        "ansText": "BIOS / UEFI",
+        "expl": "BIOS/UEFI is motherboard hardware firmware; Linux, Windows, and macOS are full Operating Systems."
+    },
+    {
+        "items": ["HTML", "GET Request", "POST Request", "DELETE Request"],
+        "ans": 0,
         "ansText": "HTML",
-        "expl": "HTML is a document markup structure language; the other three are programming languages."
+        "expl": "HTML is a web page markup document language; GET, POST, and DELETE are HTTP communication methods."
     },
     {
-        "items": ["Keyboard", "Computer Mouse", "Computer Monitor", "Microphone"],
-        "ans": 2,
-        "ansText": "Computer Monitor",
-        "expl": "Computer Monitor is an output display screen; the other three are user input devices."
-    },
-    {
-        "items": ["Instagram", "WhatsApp", "Facebook", "Linux Operating System"],
-        "ans": 3,
-        "ansText": "Linux Operating System",
-        "expl": "Linux is a computer operating system; the other three are social media and messaging apps."
-    },
-    {
-        "items": ["RAM Memory", "SSD Drive", "Hard Disk Drive", "USB Pen Drive"],
-        "ans": 0,
-        "ansText": "RAM Memory",
-        "expl": "RAM is temporary volatile memory that erases on shutdown; the other three are permanent storage."
-    },
-    {
-        "items": ["Windows 11", "Adobe Photoshop", "Apple macOS", "Android OS"],
+        "items": ["AWS", "GitHub", "Microsoft Azure", "Google Cloud (GCP)"],
         "ans": 1,
-        "ansText": "Adobe Photoshop",
-        "expl": "Adobe Photoshop is a photo editing application; the other three are operating systems."
+        "ansText": "GitHub",
+        "expl": "GitHub is a source code repository platform; AWS, Azure, and Google Cloud are Cloud Infrastructure providers."
     },
     {
-        "items": ["CPU Processor", "Graphics Card", "Google Search", "Motherboard"],
+        "items": ["Bubble Sort", "Quick Sort", "Binary Search", "Merge Sort"],
         "ans": 2,
-        "ansText": "Google Search",
-        "expl": "Google Search is an online web service; the other three are physical computer hardware parts."
+        "ansText": "Binary Search",
+        "expl": "Binary Search is a searching algorithm; Bubble Sort, Quick Sort, and Merge Sort are sorting algorithms."
     },
     {
-        "items": ["YouTube", "Netflix", "Amazon Prime", "Calculator App"],
+        "items": ["LAN", "WAN", "MAN", "RAM"],
         "ans": 3,
-        "ansText": "Calculator App",
-        "expl": "Calculator App is a basic math utility; the other three are online video streaming platforms."
+        "ansText": "RAM",
+        "expl": "RAM is physical volatile computer memory; LAN, WAN, and MAN are computer network classifications."
     },
     {
-        "items": ["HDMI Cable", "Wi-Fi", "Bluetooth", "Mobile Hotspot"],
+        "items": ["CPU Hardware", "Compiler", "Interpreter", "Assembler"],
         "ans": 0,
-        "ansText": "HDMI Cable",
-        "expl": "HDMI Cable is physical wired display hardware; the other three are wireless networking signals."
+        "ansText": "CPU Hardware",
+        "expl": "CPU is physical processor hardware silicon; Compilers, Interpreters, and Assemblers are software translation programs."
     },
     {
-        "items": ["WhatsApp", "Microsoft Word", "Telegram", "Signal"],
+        "items": ["Phishing", "Two-Factor Auth (2FA)", "Ransomware", "Trojan Horse"],
         "ans": 1,
-        "ansText": "Microsoft Word",
-        "expl": "Microsoft Word is a document word processor; the other three are instant messaging apps."
+        "ansText": "Two-Factor Auth (2FA)",
+        "expl": "2FA is a security defense mechanism; Phishing, Ransomware, and Trojans are cyber attack threats."
     },
     {
-        "items": ["Google Pay", "PhonePe", "Spotify Music", "Paytm"],
+        "items": ["Node.js", "Express.js", "React.js", "FastAPI"],
         "ans": 2,
-        "ansText": "Spotify Music",
-        "expl": "Spotify is an audio music streaming app; the other three are UPI digital payment wallets."
+        "ansText": "React.js",
+        "expl": "React.js is a client-side frontend UI library; Node.js, Express, and FastAPI are backend server runtimes."
     },
     {
-        "items": ["ChatGPT", "Google Gemini", "Claude AI", "VLC Media Player"],
+        "items": ["Bluetooth", "Wi-Fi", "NFC", "Ethernet Cable"],
         "ans": 3,
-        "ansText": "VLC Media Player",
-        "expl": "VLC is a video and music player tool; the other three are conversational AI chatbots."
+        "ansText": "Ethernet Cable",
+        "expl": "Ethernet is physical wired copper networking; Bluetooth, Wi-Fi, and NFC are wireless radio protocols."
     },
     {
-        "items": ["Nike Shoes", "Apple Inc", "Samsung", "Xiaomi"],
+        "items": ["MP3 Audio", "JPEG Image", "PNG Image", "SVG Vector"],
         "ans": 0,
-        "ansText": "Nike Shoes",
-        "expl": "Nike is a sports apparel and footwear company; the other three are global smartphone tech makers."
+        "ansText": "MP3 Audio",
+        "expl": "MP3 is a sound audio file format; JPEG, PNG, and SVG are visual graphic image formats."
     },
     {
-        "items": ["Bit", "Kilogram", "Byte", "Gigabyte"],
+        "items": ["VS Code", "VLC Player", "IntelliJ IDEA", "PyCharm"],
         "ans": 1,
-        "ansText": "Kilogram",
-        "expl": "Kilogram is a physical weight metric; the other three are digital computer data storage units."
+        "ansText": "VLC Player",
+        "expl": "VLC is a multimedia video player; VS Code, IntelliJ, and PyCharm are integrated software development IDEs."
     },
     {
-        "items": ["Audio Speaker", "Headphones", "Webcam Camera", "Projector Screen"],
+        "items": ["Primary Key", "Foreign Key", "B-Tree Index", "Unique Key"],
         "ans": 2,
-        "ansText": "Webcam Camera",
-        "expl": "Webcam Camera is a video input device; the other three are audio/visual output devices."
+        "ansText": "B-Tree Index",
+        "expl": "B-Tree Index is a search performance data structure; the others are relational table key constraints."
     },
     {
-        "items": ["Git", "GitHub", "GitLab", "MS Paint"],
+        "items": ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Cloud Storage"],
         "ans": 3,
-        "ansText": "MS Paint",
-        "expl": "MS Paint is a simple drawing program; the other three are software source code version control tools."
-    },
-    {
-        "items": ["PDF Document", "MP3 Audio", "WAV Audio", "AAC Audio"],
-        "ans": 0,
-        "ansText": "PDF Document",
-        "expl": "PDF Document is a text and page reading format; the other three are audio sound file formats."
-    },
-    {
-        "items": ["Amazon", "Wikipedia", "Flipkart", "Myntra"],
-        "ans": 1,
-        "ansText": "Wikipedia",
-        "expl": "Wikipedia is a free online encyclopedia; the other three are e-commerce shopping stores."
-    },
-    {
-        "items": ["Swiggy", "Zomato", "Google Maps", "Uber Eats"],
-        "ans": 2,
-        "ansText": "Google Maps",
-        "expl": "Google Maps is a navigation GPS tool; the other three are food delivery apps."
-    },
-    {
-        "items": ["JPEG Image", "PNG Image", "GIF Image", "MP4 Video"],
-        "ans": 3,
-        "ansText": "MP4 Video",
-        "expl": "MP4 is a video recording format; the other three are static graphic image file formats."
+        "ansText": "Cloud Storage",
+        "expl": "Cloud Storage is data hosting infrastructure; the other three are the fundamental paradigms of Machine Learning."
     }
 ]
 
@@ -470,7 +471,7 @@ rounds.append({
     "id": 3,
     "name": "Round 3: Odd One Out (The Imposter)",
     "type": "imposter",
-    "description": "Fun & Fast • Spot the Imposter • 20 Questions",
+    "description": "Smart IT Foundations • Spot the Real Imposter • 20 Questions",
     "questions": r3_items
 })
 
