@@ -341,128 +341,128 @@ rounds.append({
     "questions": r2_items
 })
 
-# ==================== ROUND 3: 20 TOUGH ODD ONE OUT (THE IMPOSTER) ====================
-# Tough conceptual tech logic! Balanced answers (5 of 0, 5 of 1, 5 of 2, 5 of 3).
+# ==================== ROUND 3: 20 SIMPLE ODD ONE OUT (THE IMPOSTER) ====================
+# Simple, relatable, crystal clear for college students! Balanced answers (5 of 0, 5 of 1, 5 of 2, 5 of 3).
 r3_items = [
     {
-        "items": ["Kubernetes", "Docker", "Podman", "containerd"],
+        "items": ["Microsoft Excel", "Google Chrome", "Mozilla Firefox", "Microsoft Edge"],
         "ans": 0,
-        "ansText": "Kubernetes",
-        "expl": "Kubernetes is a container cluster orchestrator; Docker, Podman, and containerd are container runtime engines."
+        "ansText": "Microsoft Excel",
+        "expl": "Microsoft Excel is an office spreadsheet tool; the other three are web browsers."
     },
     {
-        "items": ["AES-256", "RSA-2048", "ECC (Elliptic Curve)", "Diffie-Hellman"],
-        "ans": 0,
-        "ansText": "AES-256",
-        "expl": "AES is a symmetric key block cipher; the other three are asymmetric public-key cryptography algorithms."
-    },
-    {
-        "items": ["Redis", "Memcached", "Varnish Cache", "Cassandra"],
-        "ans": 3,
-        "ansText": "Cassandra",
-        "expl": "Cassandra is a persistent distributed wide-column database; the other three are in-memory caching solutions."
-    },
-    {
-        "items": ["HTTP/1.1", "HTTP/2", "HTTP/3", "WebSocket"],
-        "ans": 2,
-        "ansText": "HTTP/3",
-        "expl": "HTTP/3 runs over UDP (QUIC protocol); HTTP/1.1, HTTP/2, and WebSockets all run over TCP."
-    },
-    {
-        "items": ["PostgreSQL", "SQLite", "Neo4j", "MariaDB"],
-        "ans": 2,
-        "ansText": "Neo4j",
-        "expl": "Neo4j is a NoSQL Graph database; PostgreSQL, SQLite, and MariaDB are Relational SQL engines."
-    },
-    {
-        "items": ["Kafka", "RabbitMQ", "Apache Pulsar", "Nginx"],
-        "ans": 3,
-        "ansText": "Nginx",
-        "expl": "Nginx is a web server and reverse proxy; the other three are distributed asynchronous message brokers."
-    },
-    {
-        "items": ["Bitbucket", "Git", "Subversion (SVN)", "Mercurial"],
-        "ans": 0,
-        "ansText": "Bitbucket",
-        "expl": "Bitbucket is a cloud repository hosting service; Git, SVN, and Mercurial are version control software."
-    },
-    {
-        "items": ["TCP", "UDP", "IP (Internet Protocol)", "SCTP"],
-        "ans": 2,
-        "ansText": "IP (Internet Protocol)",
-        "expl": "IP belongs to Network Layer 3; TCP, UDP, and SCTP belong to Transport Layer 4."
-    },
-    {
-        "items": ["JWT", "TLS / SSL", "OAuth 2.0", "SAML"],
+        "items": ["Python", "HTML", "Java", "C++"],
         "ans": 1,
-        "ansText": "TLS / SSL",
-        "expl": "TLS is transport communication encryption; JWT, OAuth, and SAML are user identity and authorization protocols."
+        "ansText": "HTML",
+        "expl": "HTML is a document markup structure language; the other three are programming languages."
     },
     {
-        "items": ["Python", "Ruby", "Go (Golang)", "PHP"],
+        "items": ["Keyboard", "Computer Mouse", "Computer Monitor", "Microphone"],
         "ans": 2,
-        "ansText": "Go (Golang)",
-        "expl": "Go compiles directly into native machine code binaries; Python, Ruby, and PHP are interpreted scripting runtimes."
+        "ansText": "Computer Monitor",
+        "expl": "Computer Monitor is an output display screen; the other three are user input devices."
     },
     {
-        "items": ["Mean", "Median", "Mode", "Standard Deviation"],
+        "items": ["Instagram", "WhatsApp", "Facebook", "Linux Operating System"],
         "ans": 3,
-        "ansText": "Standard Deviation",
-        "expl": "Standard deviation measures data spread/dispersion; Mean, Median, and Mode measure central tendency."
+        "ansText": "Linux Operating System",
+        "expl": "Linux is a computer operating system; the other three are social media and messaging apps."
     },
     {
-        "items": ["CPU L1 Cache", "CPU L2 Cache", "NVMe SSD", "DDR5 RAM"],
-        "ans": 2,
-        "ansText": "NVMe SSD",
-        "expl": "NVMe SSD is non-volatile persistent storage; CPU caches and RAM are volatile memory requiring power."
-    },
-    {
-        "items": ["CONNECT", "GET", "POST", "DELETE"],
+        "items": ["RAM Memory", "SSD Drive", "Hard Disk Drive", "USB Pen Drive"],
         "ans": 0,
-        "ansText": "CONNECT",
-        "expl": "CONNECT is a two-way TCP proxy tunneling method; GET, POST, and DELETE are standard REST CRUD methods."
+        "ansText": "RAM Memory",
+        "expl": "RAM is temporary volatile memory that erases on shutdown; the other three are permanent storage."
     },
     {
-        "items": ["React", "Vue.js", "Express.js", "Angular"],
-        "ans": 2,
-        "ansText": "Express.js",
-        "expl": "Express is a backend Node.js server framework; React, Vue, and Angular are client-side frontend UI frameworks."
-    },
-    {
-        "items": ["Pandas", "Flask", "NumPy", "Scikit-Learn"],
+        "items": ["Windows 11", "Adobe Photoshop", "Apple macOS", "Android OS"],
         "ans": 1,
-        "ansText": "Flask",
-        "expl": "Flask is a lightweight web server microframework; Pandas, NumPy, and Scikit-Learn are data science libraries."
+        "ansText": "Adobe Photoshop",
+        "expl": "Adobe Photoshop is a photo editing application; the other three are operating systems."
     },
     {
-        "items": ["SHA-256", "MD5", "Bcrypt", "AES"],
+        "items": ["CPU Processor", "Graphics Card", "Google Search", "Motherboard"],
+        "ans": 2,
+        "ansText": "Google Search",
+        "expl": "Google Search is an online web service; the other three are physical computer hardware parts."
+    },
+    {
+        "items": ["YouTube", "Netflix", "Amazon Prime", "Calculator App"],
         "ans": 3,
-        "ansText": "AES",
-        "expl": "AES is a two-way reversible encryption cipher; the other three are one-way irreversible cryptographic hash functions."
+        "ansText": "Calculator App",
+        "expl": "Calculator App is a basic math utility; the other three are online video streaming platforms."
     },
     {
-        "items": ["Linux", "Windows Server", "macOS", "FreeBSD"],
-        "ans": 1,
-        "ansText": "Windows Server",
-        "expl": "Windows Server uses the proprietary Microsoft NT kernel; Linux, macOS, and FreeBSD are Unix/Unix-like kernels."
-    },
-    {
-        "items": ["Wi-Fi", "Ethernet Cable", "Bluetooth", "Zigbee"],
-        "ans": 1,
-        "ansText": "Ethernet Cable",
-        "expl": "Ethernet is physical wired copper/fiber networking; the other three are wireless radio frequency standards."
-    },
-    {
-        "items": ["AWS S3", "AWS EC2", "Google Compute Engine", "Azure Virtual Machines"],
+        "items": ["HDMI Cable", "Wi-Fi", "Bluetooth", "Mobile Hotspot"],
         "ans": 0,
-        "ansText": "AWS S3",
-        "expl": "AWS S3 is an object storage service; EC2, GCE, and Azure VMs are virtual CPU compute servers."
+        "ansText": "HDMI Cable",
+        "expl": "HDMI Cable is physical wired display hardware; the other three are wireless networking signals."
     },
     {
-        "items": ["Primary Key", "Foreign Key", "B-Tree Index", "Unique Constraint"],
+        "items": ["WhatsApp", "Microsoft Word", "Telegram", "Signal"],
+        "ans": 1,
+        "ansText": "Microsoft Word",
+        "expl": "Microsoft Word is a document word processor; the other three are instant messaging apps."
+    },
+    {
+        "items": ["Google Pay", "PhonePe", "Spotify Music", "Paytm"],
         "ans": 2,
-        "ansText": "B-Tree Index",
-        "expl": "A B-Tree Index is an internal search performance data structure; the others are relational data integrity constraints."
+        "ansText": "Spotify Music",
+        "expl": "Spotify is an audio music streaming app; the other three are UPI digital payment wallets."
+    },
+    {
+        "items": ["ChatGPT", "Google Gemini", "Claude AI", "VLC Media Player"],
+        "ans": 3,
+        "ansText": "VLC Media Player",
+        "expl": "VLC is a video and music player tool; the other three are conversational AI chatbots."
+    },
+    {
+        "items": ["Nike Shoes", "Apple Inc", "Samsung", "Xiaomi"],
+        "ans": 0,
+        "ansText": "Nike Shoes",
+        "expl": "Nike is a sports apparel and footwear company; the other three are global smartphone tech makers."
+    },
+    {
+        "items": ["Bit", "Kilogram", "Byte", "Gigabyte"],
+        "ans": 1,
+        "ansText": "Kilogram",
+        "expl": "Kilogram is a physical weight metric; the other three are digital computer data storage units."
+    },
+    {
+        "items": ["Audio Speaker", "Headphones", "Webcam Camera", "Projector Screen"],
+        "ans": 2,
+        "ansText": "Webcam Camera",
+        "expl": "Webcam Camera is a video input device; the other three are audio/visual output devices."
+    },
+    {
+        "items": ["Git", "GitHub", "GitLab", "MS Paint"],
+        "ans": 3,
+        "ansText": "MS Paint",
+        "expl": "MS Paint is a simple drawing program; the other three are software source code version control tools."
+    },
+    {
+        "items": ["PDF Document", "MP3 Audio", "WAV Audio", "AAC Audio"],
+        "ans": 0,
+        "ansText": "PDF Document",
+        "expl": "PDF Document is a text and page reading format; the other three are audio sound file formats."
+    },
+    {
+        "items": ["Amazon", "Wikipedia", "Flipkart", "Myntra"],
+        "ans": 1,
+        "ansText": "Wikipedia",
+        "expl": "Wikipedia is a free online encyclopedia; the other three are e-commerce shopping stores."
+    },
+    {
+        "items": ["Swiggy", "Zomato", "Google Maps", "Uber Eats"],
+        "ans": 2,
+        "ansText": "Google Maps",
+        "expl": "Google Maps is a navigation GPS tool; the other three are food delivery apps."
+    },
+    {
+        "items": ["JPEG Image", "PNG Image", "GIF Image", "MP4 Video"],
+        "ans": 3,
+        "ansText": "MP4 Video",
+        "expl": "MP4 is a video recording format; the other three are static graphic image file formats."
     }
 ]
 
@@ -470,7 +470,7 @@ rounds.append({
     "id": 3,
     "name": "Round 3: Odd One Out (The Imposter)",
     "type": "imposter",
-    "description": "Tough Technical Conceptual Clashes • Spot the Real Imposter • 20 Questions",
+    "description": "Fun & Fast • Spot the Imposter • 20 Questions",
     "questions": r3_items
 })
 

@@ -178,30 +178,46 @@ function autoShuffleTeams() {
   const count = playerList.length;
   if (count === 0) return;
 
-  let numTeams = 4;
-  if (count <= 5) numTeams = 2;
-  else if (count <= 9) numTeams = 3;
-  else numTeams = 4;
-
+  const numTeams = 4;
   gameState.teams.forEach(t => t.members = []);
 
-  const devs = playerList.filter(p => p.role === 'dev');
-  const analysts = playerList.filter(p => p.role === 'analyst');
-  const scientists = playerList.filter(p => p.role === 'scientist');
-  const general = playerList.filter(p => !['dev', 'analyst', 'scientist'].includes(p.role));
+  // General random shuffle across all joined students (no role bias)
+  const shuffled = [...playerList].sort(() => Math.random() - 0.5);
 
-  const sortedPool = [...scientists, ...analysts, ...devs, ...general];
-
-  sortedPool.forEach((p, idx) => {
+  shuffled.forEach((p, idx) => {
     const teamIdx = idx % numTeams;
     const team = gameState.teams[teamIdx];
     p.teamId = team.id;
     p.teamName = team.name;
-    team.members.push({ id: p.id, name: p.name, role: p.role });
+    team.members.push({ id: p.id, name: p.name, role: p.role || 'player' });
   });
 
   updateLeaderboard();
-  console.log(`Auto-shuffled ${count} players into ${numTeams} teams.`);
+  console.log(`General random shuffle: distributed ${count} players across 4 teams.`);
+}
+
+function assignNewPlayerToTeam(player) {
+  // If in lobby phase, general shuffle keeps teams evenly balanced
+  if (gameState.currentView === 'lobby') {
+    autoShuffleTeams();
+    return;
+  }
+
+  // If game is already actively running: assign directly to the team with least players!
+  let targetTeam = gameState.teams[0];
+  let minMembers = gameState.teams[0].members.length;
+  gameState.teams.forEach(t => {
+    if (t.members.length < minMembers) {
+      minMembers = t.members.length;
+      targetTeam = t;
+    }
+  });
+
+  player.teamId = targetTeam.id;
+  player.teamName = targetTeam.name;
+  targetTeam.members.push({ id: player.id, name: player.name, role: player.role || 'player' });
+  updateLeaderboard();
+  console.log(`Mid-game joiner '${player.name}' automatically assigned to ${targetTeam.name}!`);
 }
 
 // Initial seed
@@ -336,17 +352,18 @@ wss.on('connection', (ws) => {
 
       switch (data.type) {
         case 'REGISTER_PLAYER': {
-          gameState.players[ws.playerId] = {
+          const newPlayer = {
             id: ws.playerId,
             name: data.name || 'Player',
-            role: data.role || 'dev',
+            role: data.role || 'player',
             teamId: null,
             teamName: null,
             score: 0,
             correctCount: 0,
             wrongCount: 0
           };
-          autoShuffleTeams();
+          gameState.players[ws.playerId] = newPlayer;
+          assignNewPlayerToTeam(newPlayer);
           broadcastState();
           break;
         }
@@ -355,17 +372,18 @@ wss.on('connection', (ws) => {
           const pid = data.playerId;
           ws.playerId = pid;
           if (!gameState.players[pid]) {
-            gameState.players[pid] = {
+            const reconnectedPlayer = {
               id: pid,
               name: data.name || 'Player',
-              role: data.role || 'dev',
+              role: data.role || 'player',
               teamId: null,
               teamName: null,
               score: 0,
               correctCount: 0,
               wrongCount: 0
             };
-            autoShuffleTeams();
+            gameState.players[pid] = reconnectedPlayer;
+            assignNewPlayerToTeam(reconnectedPlayer);
           } else {
             if (data.name) gameState.players[pid].name = data.name;
             if (data.role) gameState.players[pid].role = data.role;

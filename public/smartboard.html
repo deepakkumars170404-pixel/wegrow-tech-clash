@@ -816,7 +816,14 @@
 
   function renderQuestionUI(round, q, state) {
     document.getElementById('q-round-badge').textContent = `${round.name} • Question ${state.currentQuestionIdx + 1} of ${round.questions.length}`;
-    document.getElementById('q-title').textContent = q.q || q.topic || "Tech Detective / Challenge";
+
+    // Avoid duplicate title: in fact_fiction, statement is displayed inside the statement card
+    if (round.type === 'fact_fiction') {
+      document.getElementById('q-title').style.display = 'none';
+    } else {
+      document.getElementById('q-title').style.display = 'block';
+      document.getElementById('q-title').textContent = q.q || q.topic || "Tech Challenge";
+    }
 
     const contentBox = document.getElementById('q-content');
     contentBox.innerHTML = '';
