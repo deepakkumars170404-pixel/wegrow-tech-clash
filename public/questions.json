@@ -479,227 +479,227 @@
     "id": 3,
     "name": "Round 3: Odd One Out (The Imposter)",
     "type": "imposter",
-    "description": "Smart IT Foundations • Spot the Real Imposter • 20 Questions",
+    "description": "Deep Architecture & Logic • Spot the Subtle Imposter • 20 Tough Questions",
     "questions": [
       {
         "items": [
-          "MongoDB",
-          "MySQL",
           "PostgreSQL",
-          "Oracle Database"
+          "MongoDB",
+          "Cassandra",
+          "Neo4j"
         ],
         "ans": 0,
-        "ansText": "MongoDB",
-        "expl": "MongoDB is a NoSQL document database; MySQL, PostgreSQL, and Oracle are Relational SQL databases."
+        "ansText": "PostgreSQL",
+        "expl": "PostgreSQL is an ACID-compliant Relational SQL database; MongoDB, Cassandra, and Neo4j are all NoSQL databases (Document, Columnar, Graph)."
       },
       {
         "items": [
-          "React",
-          "Django",
-          "Vue.js",
-          "Angular"
-        ],
-        "ans": 1,
-        "ansText": "Django",
-        "expl": "Django is a Python backend server framework; React, Vue, and Angular are Frontend JavaScript UI frameworks."
-      },
-      {
-        "items": [
-          "Stack",
-          "Queue",
-          "Binary Tree",
-          "Linked List"
-        ],
-        "ans": 2,
-        "ansText": "Binary Tree",
-        "expl": "A Binary Tree is a non-linear hierarchical data structure; Stack, Queue, and Linked List are linear data structures."
-      },
-      {
-        "items": [
-          "HTTP",
-          "FTP",
-          "SMTP",
-          "TCP"
-        ],
-        "ans": 3,
-        "ansText": "TCP",
-        "expl": "TCP operates at Transport Layer 4; HTTP, FTP, and SMTP operate at Application Layer 7."
-      },
-      {
-        "items": [
-          "Docker",
-          "Git",
-          "GitHub",
-          "GitLab"
+          "UDP Protocol",
+          "TCP Protocol",
+          "SCTP Protocol",
+          "DCCP Protocol"
         ],
         "ans": 0,
-        "ansText": "Docker",
-        "expl": "Docker is an application containerization tool; Git, GitHub, and GitLab are source code version control tools."
+        "ansText": "UDP Protocol",
+        "expl": "UDP is connectionless and unreliable (no handshakes or ACKs); TCP, SCTP, and DCCP are connection-oriented protocols with delivery guarantees."
       },
       {
         "items": [
-          "Java",
-          "C Language",
-          "C++",
-          "Python"
-        ],
-        "ans": 1,
-        "ansText": "C Language",
-        "expl": "C is a procedural language without native Object-Oriented (OOP) classes; Java, C++, and Python are OOP languages."
-      },
-      {
-        "items": [
-          "Google Chrome",
-          "Mozilla Firefox",
-          "Postman",
-          "Apple Safari"
-        ],
-        "ans": 2,
-        "ansText": "Postman",
-        "expl": "Postman is an API testing and development tool; the other three are consumer Web Browsers."
-      },
-      {
-        "items": [
-          "Linux",
-          "Windows 11",
-          "macOS",
-          "BIOS / UEFI"
-        ],
-        "ans": 3,
-        "ansText": "BIOS / UEFI",
-        "expl": "BIOS/UEFI is motherboard hardware firmware; Linux, Windows, and macOS are full Operating Systems."
-      },
-      {
-        "items": [
-          "HTML",
-          "GET Request",
-          "POST Request",
-          "DELETE Request"
+          "Go (Golang)",
+          "Python",
+          "Ruby",
+          "JavaScript"
         ],
         "ans": 0,
-        "ansText": "HTML",
-        "expl": "HTML is a web page markup document language; GET, POST, and DELETE are HTTP communication methods."
+        "ansText": "Go (Golang)",
+        "expl": "Go compiles directly ahead-of-time (AOT) into standalone native machine binary code; Python, Ruby, and JavaScript are interpreted/JIT scripting runtimes."
       },
       {
         "items": [
-          "AWS",
-          "GitHub",
-          "Microsoft Azure",
-          "Google Cloud (GCP)"
-        ],
-        "ans": 1,
-        "ansText": "GitHub",
-        "expl": "GitHub is a source code repository platform; AWS, Azure, and Google Cloud are Cloud Infrastructure providers."
-      },
-      {
-        "items": [
-          "Bubble Sort",
+          "Merge Sort",
           "Quick Sort",
+          "Heap Sort",
+          "Selection Sort"
+        ],
+        "ans": 0,
+        "ansText": "Merge Sort",
+        "expl": "Merge Sort requires O(N) auxiliary extra memory space to merge subarrays; Quick Sort, Heap Sort, and Selection Sort are in-place sorting algorithms."
+      },
+      {
+        "items": [
+          "TLS / SSL",
+          "JWT (JSON Web Token)",
+          "OAuth 2.0",
+          "SAML"
+        ],
+        "ans": 0,
+        "ansText": "TLS / SSL",
+        "expl": "TLS is a Transport Layer encryption protocol securing network connections; JWT, OAuth 2.0, and SAML are Application Layer identity and authorization protocols."
+      },
+      {
+        "items": [
+          "SHA-256",
+          "AES-256",
+          "MD5",
+          "Bcrypt"
+        ],
+        "ans": 1,
+        "ansText": "AES-256",
+        "expl": "AES-256 is a two-way reversible encryption cipher (data can be decrypted); SHA-256, MD5, and Bcrypt are one-way irreversible cryptographic hash functions."
+      },
+      {
+        "items": [
           "Binary Search",
-          "Merge Sort"
-        ],
-        "ans": 2,
-        "ansText": "Binary Search",
-        "expl": "Binary Search is a searching algorithm; Bubble Sort, Quick Sort, and Merge Sort are sorting algorithms."
-      },
-      {
-        "items": [
-          "LAN",
-          "WAN",
-          "MAN",
-          "RAM"
-        ],
-        "ans": 3,
-        "ansText": "RAM",
-        "expl": "RAM is physical volatile computer memory; LAN, WAN, and MAN are computer network classifications."
-      },
-      {
-        "items": [
-          "CPU Hardware",
-          "Compiler",
-          "Interpreter",
-          "Assembler"
-        ],
-        "ans": 0,
-        "ansText": "CPU Hardware",
-        "expl": "CPU is physical processor hardware silicon; Compilers, Interpreters, and Assemblers are software translation programs."
-      },
-      {
-        "items": [
-          "Phishing",
-          "Two-Factor Auth (2FA)",
-          "Ransomware",
-          "Trojan Horse"
+          "Linear Search",
+          "Exponential Search",
+          "Interpolation Search"
         ],
         "ans": 1,
-        "ansText": "Two-Factor Auth (2FA)",
-        "expl": "2FA is a security defense mechanism; Phishing, Ransomware, and Trojans are cyber attack threats."
+        "ansText": "Linear Search",
+        "expl": "Linear Search operates on unsorted arrays; Binary, Exponential, and Interpolation Search strictly require a pre-sorted array to function."
       },
       {
         "items": [
-          "Node.js",
+          "Docker Engine",
+          "VirtualBox",
+          "Podman",
+          "containerd"
+        ],
+        "ans": 1,
+        "ansText": "VirtualBox",
+        "expl": "VirtualBox is a Type-2 Hypervisor running full guest OS kernels; Docker, Podman, and containerd are container engines sharing the host OS kernel."
+      },
+      {
+        "items": [
+          "FastAPI",
+          "Next.js",
           "Express.js",
-          "React.js",
-          "FastAPI"
-        ],
-        "ans": 2,
-        "ansText": "React.js",
-        "expl": "React.js is a client-side frontend UI library; Node.js, Express, and FastAPI are backend server runtimes."
-      },
-      {
-        "items": [
-          "Bluetooth",
-          "Wi-Fi",
-          "NFC",
-          "Ethernet Cable"
-        ],
-        "ans": 3,
-        "ansText": "Ethernet Cable",
-        "expl": "Ethernet is physical wired copper networking; Bluetooth, Wi-Fi, and NFC are wireless radio protocols."
-      },
-      {
-        "items": [
-          "MP3 Audio",
-          "JPEG Image",
-          "PNG Image",
-          "SVG Vector"
-        ],
-        "ans": 0,
-        "ansText": "MP3 Audio",
-        "expl": "MP3 is a sound audio file format; JPEG, PNG, and SVG are visual graphic image formats."
-      },
-      {
-        "items": [
-          "VS Code",
-          "VLC Player",
-          "IntelliJ IDEA",
-          "PyCharm"
+          "Flask"
         ],
         "ans": 1,
-        "ansText": "VLC Player",
-        "expl": "VLC is a multimedia video player; VS Code, IntelliJ, and PyCharm are integrated software development IDEs."
+        "ansText": "Next.js",
+        "expl": "Next.js is a full-stack React framework rendering UI components; FastAPI, Express, and Flask are headless backend REST API server microframeworks."
+      },
+      {
+        "items": [
+          "GET Method",
+          "POST Method",
+          "HEAD Method",
+          "PUT Method"
+        ],
+        "ans": 1,
+        "ansText": "POST Method",
+        "expl": "POST is non-idempotent (submitting twice creates duplicate resources); GET, HEAD, and PUT are idempotent HTTP methods defined by RFC standards."
+      },
+      {
+        "items": [
+          "Redis Cache",
+          "Memcached",
+          "Cassandra",
+          "Aerospike"
+        ],
+        "ans": 2,
+        "ansText": "Cassandra",
+        "expl": "Cassandra is a persistent wide-column store using disk SSTables; Redis, Memcached, and Aerospike are primarily in-memory RAM datastores."
+      },
+      {
+        "items": [
+          "TCP",
+          "SCTP",
+          "IP (Internet Protocol)",
+          "UDP"
+        ],
+        "ans": 2,
+        "ansText": "IP (Internet Protocol)",
+        "expl": "IP operates at Network Layer 3; TCP, SCTP, and UDP operate at Transport Layer 4."
+      },
+      {
+        "items": [
+          "Kafka",
+          "AWS Kinesis",
+          "RabbitMQ",
+          "Apache Pulsar"
+        ],
+        "ans": 2,
+        "ansText": "RabbitMQ",
+        "expl": "RabbitMQ is a traditional message broker (messages are deleted upon acknowledgment); Kafka, Kinesis, and Pulsar are distributed append-only log streams."
       },
       {
         "items": [
           "Primary Key",
           "Foreign Key",
           "B-Tree Index",
-          "Unique Key"
+          "Unique Constraint"
         ],
         "ans": 2,
         "ansText": "B-Tree Index",
-        "expl": "B-Tree Index is a search performance data structure; the others are relational table key constraints."
+        "expl": "A B-Tree Index is an internal physical query performance data structure; Primary Key, Foreign Key, and Unique Constraints are logical integrity rules."
+      },
+      {
+        "items": [
+          "HTTP/1.1",
+          "HTTP/2",
+          "HTTP/3",
+          "WebSocket"
+        ],
+        "ans": 2,
+        "ansText": "HTTP/3",
+        "expl": "HTTP/3 runs over UDP using the QUIC transport protocol; HTTP/1.1, HTTP/2, and WebSocket all run over TCP."
+      },
+      {
+        "items": [
+          "Array Structure",
+          "Singly Linked List",
+          "Doubly Linked List",
+          "Hash Map"
+        ],
+        "ans": 3,
+        "ansText": "Hash Map",
+        "expl": "Arrays and Linked Lists are ordered sequential data structures; standard Hash Maps are unordered associative key-value bucket structures."
+      },
+      {
+        "items": [
+          "C++ Language",
+          "Java",
+          "C# Language",
+          "C Language"
+        ],
+        "ans": 3,
+        "ansText": "C Language",
+        "expl": "C is a procedural language without native object-oriented classes or encapsulation; C++, Java, and C# are Object-Oriented (OOP) languages."
+      },
+      {
+        "items": [
+          "Linux Kernel",
+          "FreeBSD",
+          "macOS Darwin",
+          "Windows Server"
+        ],
+        "ans": 3,
+        "ansText": "Windows Server",
+        "expl": "Windows Server runs on the proprietary Microsoft NT kernel; Linux, FreeBSD, and macOS Darwin are Unix / Unix-like POSIX-compliant kernels."
+      },
+      {
+        "items": [
+          "Bubble Sort",
+          "Insertion Sort",
+          "Merge Sort",
+          "Quick Sort"
+        ],
+        "ans": 3,
+        "ansText": "Quick Sort",
+        "expl": "Quick Sort is an unstable sorting algorithm (relative order of duplicate keys can change); Bubble Sort, Insertion Sort, and Merge Sort are stable."
       },
       {
         "items": [
           "Supervised Learning",
           "Unsupervised Learning",
           "Reinforcement Learning",
-          "Cloud Storage"
+          "Deep Learning"
         ],
         "ans": 3,
-        "ansText": "Cloud Storage",
-        "expl": "Cloud Storage is data hosting infrastructure; the other three are the fundamental paradigms of Machine Learning."
+        "ansText": "Deep Learning",
+        "expl": "Deep Learning is a neural network architectural subfield; Supervised, Unsupervised, and Reinforcement Learning are the three core machine learning paradigms."
       }
     ]
   },
