@@ -556,6 +556,12 @@
       pill.textContent = 'TEAM LOCKED ❌';
       btn.className = 'giant-buzzer disabled';
       queueInfo.textContent = 'Wrong answer - Your team is locked for this question!';
+    } else if (state.buzzerState === 'buzzing' && !isMyTeamAnswering) {
+      pill.className = 'status-pill locked';
+      pill.textContent = 'BUZZER LOCKED 🔒';
+      btn.className = 'giant-buzzer disabled';
+      const answeringTeam = state.teams.find(t => t.id === state.activeAnsweringTeamId);
+      queueInfo.textContent = `⚡ ${answeringTeam ? answeringTeam.name : 'Another team'} buzzed first and is answering now!`;
     } else if (myTeamBuzzed) {
       pill.className = 'status-pill buzzed';
       pill.textContent = 'BUZZED! 🔔';
@@ -583,51 +589,44 @@
     const curQ = curRound ? curRound.questions[state.currentQuestionIdx] : null;
     if (!curQ) return;
 
-    // If Round 2 (Connections): render visual cards on phone!
-    if (curRound.type === 'connections' && curQ.cards) {
-      const cardsRow = document.createElement('div');
-      cardsRow.className = 'phone-cards-row';
-      curQ.cards.forEach((c, i) => {
-        const cBox = document.createElement('div');
-        cBox.className = 'phone-card-box';
-        cBox.innerHTML = `<div class="card-emoji">${c.icon}</div><div class="card-label">${c.label}</div>`;
-        cardsRow.appendChild(cBox);
-        if (i < curQ.cards.length - 1) {
-          const plus = document.createElement('div');
-          plus.className = 'phone-card-plus';
-          plus.textContent = '+';
-          cardsRow.appendChild(plus);
-        }
-      });
-      container.appendChild(cardsRow);
-    }
+    if (curRound.type === 'fact_fiction') {
+      const statementBox = document.createElement('div');
+      statementBox.style.background = '#1e293b';
+      statementBox.style.border = '2px solid var(--accent)';
+      statementBox.style.borderRadius = '12px';
+      statementBox.style.padding = '14px';
+      statementBox.style.fontSize = '16px';
+      statementBox.style.fontWeight = '800';
+      statementBox.style.color = '#fff';
+      statementBox.style.marginBottom = '14px';
+      statementBox.style.lineHeight = '1.35';
+      statementBox.textContent = `"${curQ.statement || curQ.q}"`;
+      container.appendChild(statementBox);
 
-    if (curRound.type === 'connections') {
-      // Round 2 Tech Connections: Visual Cards only, no MCQ options! Students speak verbally to judge.
-      const speakBox = document.createElement('div');
-      speakBox.style.background = 'rgba(0, 242, 254, 0.12)';
-      speakBox.style.border = '2px dashed var(--accent)';
-      speakBox.style.borderRadius = '12px';
-      speakBox.style.padding = '14px';
-      speakBox.style.textAlign = 'center';
-      speakBox.style.margin = '10px 0';
-      speakBox.innerHTML = `
-        <div style="font-size: 26px; margin-bottom: 6px;">🎙️ 🗣️</div>
-        <div style="font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 4px;">YOUR TEAM HAS THE FLOOR!</div>
-        <div style="font-size: 13px; color: var(--accent); font-weight: 700;">Speak your answer aloud to the Judge / Host!</div>
-      `;
-      container.appendChild(speakBox);
+      const factBtn = document.createElement('button');
+      factBtn.className = 'phone-opt-btn';
+      factBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      factBtn.style.border = 'none';
+      factBtn.style.fontSize = '20px';
+      factBtn.style.fontWeight = '900';
+      factBtn.style.textAlign = 'center';
+      factBtn.style.padding = '16px';
+      factBtn.innerHTML = '🟢 FACT';
+      factBtn.onclick = () => submitAnswer(0);
+      container.appendChild(factBtn);
 
-      const b = document.createElement('button');
-      b.className = 'phone-opt-btn';
-      b.style.textAlign = 'center';
-      b.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-      b.style.border = 'none';
-      b.style.fontSize = '16px';
-      b.style.fontWeight = '900';
-      b.textContent = '✅ Answer Spoken to Judge';
-      b.onclick = () => submitAnswer(-1, 'Answer Spoken to Judge');
-      container.appendChild(b);
+      const fictBtn = document.createElement('button');
+      fictBtn.className = 'phone-opt-btn';
+      fictBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+      fictBtn.style.border = 'none';
+      fictBtn.style.fontSize = '20px';
+      fictBtn.style.fontWeight = '900';
+      fictBtn.style.textAlign = 'center';
+      fictBtn.style.padding = '16px';
+      fictBtn.style.marginTop = '10px';
+      fictBtn.innerHTML = '🔴 FICTION / MYTH';
+      fictBtn.onclick = () => submitAnswer(1);
+      container.appendChild(fictBtn);
     } else if (curRound.type === 'mcq' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
       (curQ.options || []).forEach((opt, idx) => {
         const b = document.createElement('button');
@@ -645,12 +644,12 @@
         container.appendChild(b);
       });
     } else {
-      // Free text / verbal confirm
+      // Free text / verbal confirm for detective/debate
       const b = document.createElement('button');
       b.className = 'phone-opt-btn';
       b.style.textAlign = 'center';
       b.style.background = '#059669';
-      b.textContent = 'Answer Explained to Judge ✅';
+      b.textContent = 'Answer Spoken to Judge ✅';
       b.onclick = () => submitAnswer(-1, 'done');
       container.appendChild(b);
     }
@@ -665,6 +664,19 @@
   }
 
   function triggerResultFlash(res) {
+    // ONLY show full-screen flash to the team that submitted the answer!
+    if (res.teamId !== myTeamId) {
+      const queueInfo = document.getElementById('buzzer-queue-info');
+      if (queueInfo) {
+        if (res.status === 'correct') {
+          queueInfo.textContent = `✅ ${res.teamName || 'Team'} answered correctly (+100 PTS)!`;
+        } else {
+          queueInfo.textContent = `❌ ${res.teamName || 'Team'} answered wrong (-20 PTS)! Turn passing...`;
+        }
+      }
+      return;
+    }
+
     const overlay = document.getElementById('flash-overlay');
     const title = document.getElementById('flash-title');
     const sub = document.getElementById('flash-sub');
@@ -672,20 +684,20 @@
     if (res.status === 'correct') {
       overlay.className = 'flash-overlay correct';
       title.textContent = 'CORRECT! 🎉';
-      sub.textContent = `${res.teamName || 'Team'} +100 POINTS`;
+      sub.textContent = 'YOUR TEAM +100 POINTS';
       if (window.soundFX) window.soundFX.playCorrect();
       if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
     } else {
       overlay.className = 'flash-overlay wrong';
       title.textContent = 'WRONG! ❌';
-      sub.textContent = `${res.teamName || 'Team'} -20 PTS • PASSING!`;
+      sub.textContent = 'YOUR TEAM -20 PTS • LOCKED!';
       if (window.soundFX) window.soundFX.playWrong();
       if (navigator.vibrate) navigator.vibrate(400);
     }
 
     setTimeout(() => {
       overlay.className = 'flash-overlay';
-    }, 1500);
+    }, 1800);
   }
 
   function pressBuzzer() {

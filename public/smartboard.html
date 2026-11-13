@@ -179,26 +179,54 @@
   .mcq-opt.correct { border-color: var(--green); background: rgba(16, 185, 129, 0.25); color: #6ee7b7; transform: scale(1.02); }
   .mcq-opt.wrong { border-color: var(--red); background: rgba(244, 63, 94, 0.2); opacity: 0.55; }
 
-  /* Visual Connections (Vijay TV Style) */
-  .conn-container { display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; }
-  .conn-cards-row { display: flex; justify-content: center; align-items: center; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
-  .conn-card {
+  /* Round 2: Fact or Fiction Styles */
+  .fact-fiction-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 880px; }
+  .ff-statement-card {
     background: #0f172a;
     border: 3px solid var(--accent);
     border-radius: 16px;
-    padding: 20px 26px;
+    padding: 24px 30px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
+  }
+  .ff-badge { font-size: 13px; font-weight: 900; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 12px; }
+  .ff-statement-text { font-size: 26px; font-weight: 800; line-height: 1.4; color: #f8fafc; }
+  .ff-buttons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; margin-top: 6px; }
+  .ff-choice-card {
+    background: var(--card);
+    border: 3px solid #1e293b;
+    border-radius: 16px;
+    padding: 24px 20px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 150px;
-    box-shadow: 0 10px 25px rgba(0, 242, 254, 0.2);
-    animation: fadeIn 0.4s ease;
+    gap: 14px;
+    font-size: 26px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.2s;
   }
-  .conn-card.mystery { border-color: var(--yellow); box-shadow: 0 10px 25px rgba(251, 191, 36, 0.2); }
-  .conn-card-icon { font-size: 52px; margin-bottom: 6px; }
-  .conn-card-label { font-size: 14px; font-weight: 900; color: #f8fafc; letter-spacing: 1px; text-transform: uppercase; }
-  .conn-symbol { font-size: 32px; font-weight: 900; color: var(--yellow); text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); }
+  .ff-choice-card.fact:hover { border-color: var(--green); background: rgba(16, 185, 129, 0.15); transform: translateY(-3px); }
+  .ff-choice-card.fiction:hover { border-color: var(--red); background: rgba(244, 63, 94, 0.15); transform: translateY(-3px); }
+  .ff-choice-card.correct { border-color: var(--green) !important; background: rgba(16, 185, 129, 0.3) !important; color: #6ee7b7; box-shadow: 0 0 25px #10b981; }
+  .ff-choice-card.wrong { border-color: var(--red) !important; background: rgba(244, 63, 94, 0.25) !important; opacity: 0.6; }
+  .ff-icon { font-size: 34px; }
+
+  /* Small Clue Button for Round 4 Detective */
+  .small-clue-btn {
+    background: linear-gradient(135deg, #0284c7, #4f46e5);
+    color: white;
+    border: 2px solid var(--accent);
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+    transition: all 0.2s;
+  }
+  .small-clue-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5); }
 
   .detective-box { display: flex; flex-direction: column; gap: 12px; width: 100%; text-align: left; }
   .clue-step {
@@ -424,10 +452,6 @@
   <div class="team-scores" id="team-scores-bar">
     <!-- Populated by JS -->
   </div>
-
-  <div style="display:flex; align-items:center; gap:10px;">
-    <button class="header-btn" onclick="toggleLeaderboardModal()">🏆 LEADERBOARD</button>
-  </div>
 </header>
 
 <main>
@@ -444,7 +468,6 @@
     </div>
 
     <div class="lobby-action-bar">
-      <button class="action-btn" onclick="shuffleTeams()">🔀 Smart Auto-Balance Teams</button>
       <button class="action-btn primary" onclick="startGame()">START TOURNAMENT ▶</button>
     </div>
   </div>
@@ -497,7 +520,10 @@
     <p style="font-size: 20px; color: var(--muted); max-width: 700px; margin-bottom: 30px;">
       Supreme victory after 3 hours of intense multi-domain technology clashes!
     </p>
-    <button class="action-btn primary" onclick="resetTournament()">Play Again 🔄</button>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <button class="action-btn primary" onclick="toggleLeaderboardModal()" style="font-size:20px; padding:16px 32px; background:linear-gradient(135deg, #f59e0b, #d97706); color:#090d16; font-weight:900;">🏆 VIEW FINAL LEADERBOARD & MVPs</button>
+      <button class="action-btn" onclick="resetTournament()" style="font-size:18px; padding:16px 28px;">Play Again 🔄</button>
+    </div>
   </div>
 </main>
 
@@ -543,17 +569,11 @@
 </div>
 
 <footer>
-  <div style="font-size: 15px; color: var(--muted); font-weight: 700;" id="footer-status">
-    Smartboard Touch Ready 🟢
-  </div>
-
-  <div class="touch-controls">
+  <div class="touch-controls" style="width:100%; justify-content:center; gap:14px;">
     <button class="touch-btn btn-test" onclick="simulateAutoPlay()" title="Auto-test bot buzz and answer">🤖 AUTO-TEST (BUZZ & ANSWER)</button>
-    <button class="touch-btn btn-wrong" onclick="hostMarkWrong()" title="Mark wrong (-20 pts) & pass to next team">❌ WRONG / PASS</button>
     <button class="touch-btn btn-skip" onclick="skipCurrentTurn()" title="Pass turn to next team in queue">⏭️ PASS TO NEXT TEAM</button>
     <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER</button>
     <button class="touch-btn btn-correct" onclick="hostMarkCorrect()" title="Award +100 to answering team">✅ CORRECT (+100)</button>
-    <button class="touch-btn btn-lead" onclick="toggleLeaderboardModal()" title="View Leaderboard & Top MVPs">🏆 LEADERBOARD</button>
     <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
   </div>
 </footer>
@@ -719,9 +739,11 @@
     });
   }
 
+  let autoAdvanceTimer = null;
+
   function showSmartboardFlash(res) {
     const banner = document.getElementById('smart-flash-banner');
-    const opts = document.querySelectorAll('.mcq-opt');
+    const opts = document.querySelectorAll('.mcq-opt, .ff-choice-card');
 
     if (res.status === 'correct') {
       banner.className = 'smart-flash correct';
@@ -737,18 +759,26 @@
       if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
         opts[currentQ.ans].classList.add('correct');
       }
-      // If connections: reveal mystery box with green celebration
-      const mysteryIcon = document.getElementById('conn-mystery-icon');
-      const mysteryLabel = document.getElementById('conn-mystery-label');
-      const mysteryCard = document.getElementById('conn-mystery-card');
-      if (mysteryIcon && currentQ) {
-        mysteryIcon.textContent = '✅';
-        mysteryLabel.textContent = currentQ.ansText || 'CORRECT';
-        if (mysteryCard) {
-          mysteryCard.style.borderColor = '#10b981';
-          mysteryCard.style.boxShadow = '0 0 30px #10b981';
-        }
+
+      // Automatically advance to next question after 3.5 seconds!
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      const ansBanner = document.getElementById('q-answer-banner');
+      let autoTimerDiv = document.getElementById('auto-advance-msg');
+      if (!autoTimerDiv) {
+        autoTimerDiv = document.createElement('div');
+        autoTimerDiv.id = 'auto-advance-msg';
+        autoTimerDiv.style.marginTop = '12px';
+        autoTimerDiv.style.fontSize = '15px';
+        autoTimerDiv.style.color = '#34d399';
+        autoTimerDiv.style.fontWeight = '900';
+        ansBanner.appendChild(autoTimerDiv);
       }
+      autoTimerDiv.textContent = '⚡ Moving to next question automatically in 3 seconds...';
+
+      autoAdvanceTimer = setTimeout(() => {
+        nextQuestion();
+      }, 3500);
+
     } else {
       banner.className = 'smart-flash wrong';
       banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING...`;
@@ -786,12 +816,32 @@
 
   function renderQuestionUI(round, q, state) {
     document.getElementById('q-round-badge').textContent = `${round.name} • Question ${state.currentQuestionIdx + 1} of ${round.questions.length}`;
-    document.getElementById('q-title').textContent = q.q || q.topic || "Tech Connections / Detective Challenge";
+    document.getElementById('q-title').textContent = q.q || q.topic || "Tech Detective / Challenge";
 
     const contentBox = document.getElementById('q-content');
     contentBox.innerHTML = '';
 
-    if (round.type === 'mcq' || round.type === 'millionaire' || round.type === 'rapid') {
+    if (round.type === 'fact_fiction') {
+      const ffBox = document.createElement('div');
+      ffBox.className = 'fact-fiction-container';
+      ffBox.innerHTML = `
+        <div class="ff-statement-card">
+          <div class="ff-badge">💡 TECH STATEMENT / COMMON BELIEF</div>
+          <div class="ff-statement-text">"${q.statement || q.q}"</div>
+        </div>
+        <div class="ff-buttons-grid">
+          <div class="ff-choice-card fact" id="mcq-opt-0" onclick="onSmartboardOptionClick(0)">
+            <span class="ff-icon">🟢</span>
+            <span class="ff-label">FACT</span>
+          </div>
+          <div class="ff-choice-card fiction" id="mcq-opt-1" onclick="onSmartboardOptionClick(1)">
+            <span class="ff-icon">🔴</span>
+            <span class="ff-label">FICTION / MYTH</span>
+          </div>
+        </div>
+      `;
+      contentBox.appendChild(ffBox);
+    } else if (round.type === 'mcq' || round.type === 'millionaire' || round.type === 'rapid') {
       const grid = document.createElement('div');
       grid.className = 'mcq-grid';
       q.options.forEach((opt, idx) => {
@@ -803,56 +853,6 @@
         grid.appendChild(div);
       });
       contentBox.appendChild(grid);
-    } else if (round.type === 'connections') {
-      // Visual Connexions Cards (Vijay TV Style) - NO OPTIONS AT ALL
-      const connContainer = document.createElement('div');
-      connContainer.className = 'conn-container';
-
-      const cardsRow = document.createElement('div');
-      cardsRow.className = 'conn-cards-row';
-      const cardsList = q.cards || (q.clues ? q.clues.map(c => ({ icon: c.split(' ')[0], label: c.split(' ').slice(1).join(' ') })) : []);
-
-      cardsList.forEach((c, idx) => {
-        const card = document.createElement('div');
-        card.className = 'conn-card';
-        card.innerHTML = `
-          <div class="conn-card-icon">${c.icon}</div>
-          <div class="conn-card-label">${c.label}</div>
-        `;
-        cardsRow.appendChild(card);
-
-        if (idx < cardsList.length - 1) {
-          const plus = document.createElement('div');
-          plus.className = 'conn-symbol';
-          plus.textContent = '+';
-          cardsRow.appendChild(plus);
-        } else {
-          const equals = document.createElement('div');
-          equals.className = 'conn-symbol';
-          equals.textContent = '=';
-          cardsRow.appendChild(equals);
-
-          const mystery = document.createElement('div');
-          mystery.className = 'conn-card mystery';
-          mystery.id = 'conn-mystery-card';
-          mystery.innerHTML = `
-            <div class="conn-card-icon" id="conn-mystery-icon">❓</div>
-            <div class="conn-card-label" id="conn-mystery-label">TECH CONCEPT</div>
-          `;
-          cardsRow.appendChild(mystery);
-        }
-      });
-      connContainer.appendChild(cardsRow);
-
-      const clueHint = document.createElement('div');
-      clueHint.style.color = '#94a3b8';
-      clueHint.style.fontSize = '16px';
-      clueHint.style.fontWeight = '700';
-      clueHint.style.marginTop = '12px';
-      clueHint.innerHTML = '⚡ Connect the visual clues above & buzz in on your phone! Speak your answer to the judge!';
-      connContainer.appendChild(clueHint);
-
-      contentBox.appendChild(connContainer);
     } else if (round.type === 'imposter') {
       const grid = document.createElement('div');
       grid.className = 'mcq-grid';
@@ -868,12 +868,16 @@
       });
       contentBox.appendChild(grid);
     } else if (round.type === 'detective') {
+      window.currentDetectiveClue = 1;
       const div = document.createElement('div');
       div.className = 'detective-box';
       div.innerHTML = `
         <div class="clue-step revealed" id="clue-1"><b>Clue 1 (300 Pts):</b> ${q.clue1}</div>
         <div class="clue-step" id="clue-2"><b>Clue 2 (200 Pts):</b> ${q.clue2}</div>
         <div class="clue-step" id="clue-3"><b>Clue 3 (100 Pts):</b> ${q.clue3}</div>
+        <div style="text-align: center; margin-top: 14px;">
+          <button class="small-clue-btn" id="btn-next-clue" onclick="revealNextClue()">🔍 REVEAL NEXT CLUE (+200 / +100 Pts)</button>
+        </div>
       `;
       contentBox.appendChild(div);
     } else if (round.type === 'debate') {
@@ -977,15 +981,32 @@
     banner.classList.toggle('show');
 
     if (currentQ && currentQ.ans !== undefined) {
-      const opts = document.querySelectorAll('.mcq-opt');
+      const opts = document.querySelectorAll('.mcq-opt, .ff-choice-card');
       if (opts[currentQ.ans]) opts[currentQ.ans].classList.add('correct');
     }
 
-    const mysteryIcon = document.getElementById('conn-mystery-icon');
-    const mysteryLabel = document.getElementById('conn-mystery-label');
-    if (mysteryIcon && currentQ) {
-      mysteryIcon.textContent = '💡';
-      mysteryLabel.textContent = currentQ.ansText;
+    const c2 = document.getElementById('clue-2');
+    const c3 = document.getElementById('clue-3');
+    if (c2) c2.classList.add('revealed');
+    if (c3) c3.classList.add('revealed');
+  }
+
+  function revealNextClue() {
+    if (window.soundFX) window.soundFX.playTick();
+    if (!window.currentDetectiveClue) window.currentDetectiveClue = 1;
+    window.currentDetectiveClue++;
+    if (window.currentDetectiveClue === 2) {
+      const c2 = document.getElementById('clue-2');
+      if (c2) c2.classList.add('revealed');
+    } else if (window.currentDetectiveClue >= 3) {
+      const c3 = document.getElementById('clue-3');
+      if (c3) c3.classList.add('revealed');
+      const btn = document.getElementById('btn-next-clue');
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.textContent = 'ALL 3 CLUES REVEALED';
+      }
     }
   }
 
@@ -1003,6 +1024,7 @@
   }
 
   function skipCurrentTurn() {
+    if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
     if (window.soundFX) window.soundFX.playTick();
     ws.send(JSON.stringify({ type: 'SKIP_CURRENT_TURN' }));
   }
@@ -1018,6 +1040,7 @@
   }
 
   function nextQuestion() {
+    if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
     if (window.soundFX) window.soundFX.playTick();
     let nextQ = (window.currentQIdx || 0) + 1;
     let nextR = window.currentRIdx || 0;
@@ -1044,6 +1067,7 @@
   }
 
   function resetTournament() {
+    if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
     window.currentRIdx = 0;
     window.currentQIdx = 0;
     ws.send(JSON.stringify({ type: 'RESET_ALL' }));

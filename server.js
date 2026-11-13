@@ -233,7 +233,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
     } else if (userText && correctText && (correctText.includes(userText) || userText.includes(correctText.split(' ')[0]))) {
       isCorrect = true;
     }
-  } else if (currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
+  } else if (currentRound.type === 'fact_fiction' || currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
     isCorrect = (selectedOptionIndex === currentQ.ans);
   } else {
     const userText = (textAnswer || '').trim().toLowerCase();
