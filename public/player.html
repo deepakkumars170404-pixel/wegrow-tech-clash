@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -21,16 +21,43 @@
 
   header {
     background: #0f172a;
-    padding: 12px 18px;
+    padding: 10px 14px;
     border-bottom: 2px solid #1e293b;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+    z-index: 10;
   }
-  .app-title { font-weight: 900; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .team-tag { background: #1e293b; border: 1px solid #334155; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: bold; }
+  .app-title { font-weight: 900; font-size: 16px; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .team-tag { background: #1e293b; border: 1px solid #334155; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; white-space: nowrap; }
 
-  .screen { flex: 1; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; }
+  .header-right { display: flex; align-items: center; gap: 6px; }
+  .header-pill {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    border: 1px solid #334155;
+    background: #1e293b;
+    transition: transform 0.2s;
+  }
+  .header-pill.team { color: var(--accent); border-color: rgba(0, 242, 254, 0.4); }
+  .header-pill.personal { color: var(--yellow); border-color: rgba(251, 191, 36, 0.4); }
+  .header-pill.score-up { animation: scorePulse 0.4s ease; }
+  .btn-rank {
+    background: #334155;
+    border: 1px solid #475569;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .screen { flex: 1; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 18px; text-align: center; }
   .screen.active { display: flex; }
 
   /* Login */
@@ -152,26 +179,47 @@
     background: var(--card);
     border: 2px solid var(--accent);
     border-radius: 16px;
-    padding: 20px;
+    padding: 18px;
     display: none;
     flex-direction: column;
     gap: 12px;
     animation: fadeIn 0.3s ease;
   }
   .answer-panel.show { display: flex; }
+
+  /* Connections cards row on phone */
+  .phone-cards-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .phone-card-box {
+    background: #1e293b;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  .phone-card-box .card-emoji { font-size: 26px; }
+  .phone-card-box .card-label { font-size: 11px; font-weight: 900; color: var(--accent); margin-top: 4px; }
+  .phone-card-plus { font-size: 20px; font-weight: 900; color: var(--yellow); }
+
   .options-btn-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
   .phone-opt-btn {
     background: #1e293b;
     border: 2px solid #334155;
     color: white;
-    padding: 14px;
+    padding: 13px 14px;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     text-align: left;
     cursor: pointer;
+    transition: all 0.15s;
   }
-  .phone-opt-btn:active { background: var(--accent); color: #090d16; }
+  .phone-opt-btn:active { background: var(--accent); color: #090d16; transform: scale(0.98); }
 
   /* Full Screen Flash Overlays */
   .flash-overlay {
@@ -186,6 +234,33 @@
   .flash-title { font-size: 42px; font-weight: 900; color: white; margin-bottom: 8px; }
   .flash-sub { font-size: 20px; color: white; font-weight: 700; }
 
+  /* Mobile Leaderboard Modal */
+  .mobile-modal-overlay {
+    position: fixed; inset: 0; background: rgba(9, 13, 22, 0.85); backdrop-filter: blur(8px);
+    display: none; justify-content: center; align-items: center; z-index: 999; padding: 20px;
+  }
+  .mobile-modal-overlay.show { display: flex; }
+  .mobile-modal {
+    background: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+    max-width: 360px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .modal-tab-bar { display: flex; gap: 8px; margin-bottom: 14px; }
+  .modal-tab-btn {
+    flex: 1; padding: 8px; font-size: 13px; font-weight: 800; border-radius: 8px; background: #1e293b; color: var(--muted); border: 1px solid #334155; cursor: pointer;
+  }
+  .modal-tab-btn.active { background: var(--accent); color: #090d16; border-color: var(--accent); }
+  .lead-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #1e293b; border-radius: 8px; margin-bottom: 8px; font-size: 13px;
+  }
+  .lead-rank { font-weight: 900; width: 24px; }
+
+  @keyframes scorePulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
   @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); } }
   @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -201,8 +276,15 @@
 <body onclick="if(window.soundFX) window.soundFX.ensureContext();">
 
 <header>
-  <div class="app-title">⚡ TECH CLASH</div>
-  <div class="team-tag" id="header-team">Connecting...</div>
+  <div style="display:flex; align-items:center; gap:8px;">
+    <div class="app-title">⚡ TECH CLASH</div>
+    <div class="team-tag" id="header-team">Connecting...</div>
+  </div>
+  <div class="header-right">
+    <div class="header-pill team" id="header-team-score" title="Team Points">🏆 0 pts</div>
+    <div class="header-pill personal" id="header-my-score" title="Your Individual Points">⭐ 0 pts</div>
+    <button class="btn-rank" onclick="toggleMobileModal()">📊 Rank</button>
+  </div>
 </header>
 
 <!-- SCREEN 1: LOGIN -->
@@ -248,15 +330,33 @@
       BUZZ!
     </div>
 
-    <div class="queue-info" id="buzzer-queue-info">Waiting for question...</div>
+    <div class="queue-info" id="buzzer-queue-info" style="font-size:14px; color:var(--muted); font-weight:600;">Waiting for question...</div>
   </div>
 
   <!-- Real-time Mobile Answer Panel for Buzzed Team -->
   <div class="answer-panel" id="mobile-answer-panel">
-    <div style="color: var(--yellow); font-size: 20px; font-weight: 900;">🎯 YOUR TURN! Select Your Answer</div>
+    <div style="color: var(--yellow); font-size: 18px; font-weight: 900; text-align:center;">🎯 YOUR TURN! Select Your Answer</div>
     <div class="options-btn-grid" id="mobile-options-container">
-      <!-- Options injected by JS -->
+      <!-- Options or Clue Cards injected by JS -->
     </div>
+  </div>
+</div>
+
+<!-- Mobile Leaderboard Modal -->
+<div class="mobile-modal-overlay" id="mobile-leaderboard-modal" onclick="if(event.target === this) toggleMobileModal();">
+  <div class="mobile-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h3 style="color:var(--accent); font-weight:900;">🏆 Live Standings</h3>
+      <button onclick="toggleMobileModal()" style="background:none; border:none; color:var(--muted); font-size:20px; cursor:pointer;">✕</button>
+    </div>
+
+    <div class="modal-tab-bar">
+      <button class="modal-tab-btn active" id="tab-teams-btn" onclick="switchModalTab('teams')">👥 Teams</button>
+      <button class="modal-tab-btn" id="tab-mvp-btn" onclick="switchModalTab('mvp')">🌟 Top MVPs</button>
+    </div>
+
+    <div id="modal-teams-content"></div>
+    <div id="modal-mvp-content" style="display:none;"></div>
   </div>
 </div>
 
@@ -269,13 +369,14 @@
 <script>
   let ws = null;
   let allRounds = [];
-  let myPlayerId = null;
-  let myName = '';
-  let myRole = 'dev';
+  let myPlayerId = localStorage.getItem('tc_player_id') || null;
+  let myName = localStorage.getItem('tc_player_name') || '';
+  let myRole = localStorage.getItem('tc_player_role') || 'dev';
   let myTeamId = null;
   let myTeamName = null;
   let myTeamColor = '#38bdf8';
   let lastResultHandledTime = 0;
+  let currentGameState = null;
 
   async function loadData() {
     try {
@@ -291,12 +392,23 @@
 
     ws.onopen = () => {
       document.getElementById('header-team').textContent = 'Online 🟢';
+      // Auto-reconnect if already logged in!
+      if (myPlayerId && myName) {
+        ws.send(JSON.stringify({
+          type: 'RECONNECT_PLAYER',
+          playerId: myPlayerId,
+          name: myName,
+          role: myRole
+        }));
+      }
     };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === 'INIT') {
-        myPlayerId = data.playerId;
+        if (!myPlayerId) {
+          myPlayerId = data.playerId;
+        }
         handleStateUpdate(data.state);
       } else if (data.type === 'STATE_UPDATE') {
         handleStateUpdate(data.state);
@@ -311,6 +423,23 @@
 
   loadData().then(connectWs);
 
+  // Background tab & Call Protection: auto-resume WebSocket when returning!
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        connectWs();
+      }
+    }
+  });
+
+  // Warn before accidental refresh
+  window.addEventListener('beforeunload', (e) => {
+    if (myName) {
+      e.preventDefault();
+      e.returnValue = 'Tournament is active. Continue session?';
+    }
+  });
+
   function selectRole(role, btn) {
     myRole = role;
     document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('selected'));
@@ -324,6 +453,11 @@
       return;
     }
     myName = nameInput;
+
+    // Save in localStorage for persistent session
+    localStorage.setItem('tc_player_id', myPlayerId);
+    localStorage.setItem('tc_player_name', myName);
+    localStorage.setItem('tc_player_role', myRole);
 
     ws.send(JSON.stringify({
       type: 'REGISTER_PLAYER',
@@ -341,6 +475,9 @@
   }
 
   function handleStateUpdate(state) {
+    currentGameState = state;
+
+    // Look for my team assignment
     let foundTeam = null;
     state.teams.forEach(t => {
       if (t.members.some(m => m.id === myPlayerId)) {
@@ -359,8 +496,21 @@
 
       document.getElementById('assigned-team-info').textContent = `You are in ${myTeamName}!`;
       document.getElementById('assigned-team-info').style.color = myTeamColor;
+
+      // Update team points
+      const teamScorePill = document.getElementById('header-team-score');
+      teamScorePill.textContent = `🏆 ${foundTeam.score || 0} pts`;
+      teamScorePill.style.borderColor = myTeamColor;
     }
 
+    // Update personal score
+    if (state.players && state.players[myPlayerId]) {
+      const myP = state.players[myPlayerId];
+      const myScorePill = document.getElementById('header-my-score');
+      myScorePill.textContent = `⭐ ${myP.score || 0} pts`;
+    }
+
+    // Switch screens based on game phase
     if (state.currentView === 'game') {
       showScreen('screen-buzzer');
       updateGameUI(state);
@@ -368,6 +518,9 @@
       if (myName) showScreen('screen-lobby');
       else showScreen('screen-login');
     }
+
+    // Render leaderboard modal content
+    renderMobileLeaderboard(state);
 
     // Flash Animation Trigger if new result arrived
     if (state.lastAnswerResult && state.lastAnswerResult.time > lastResultHandledTime) {
@@ -430,7 +583,26 @@
     const curQ = curRound ? curRound.questions[state.currentQuestionIdx] : null;
     if (!curQ) return;
 
-    if (curRound.type === 'mcq' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
+    // If Round 2 (Connections): render visual cards on phone!
+    if (curRound.type === 'connections' && curQ.cards) {
+      const cardsRow = document.createElement('div');
+      cardsRow.className = 'phone-cards-row';
+      curQ.cards.forEach((c, i) => {
+        const cBox = document.createElement('div');
+        cBox.className = 'phone-card-box';
+        cBox.innerHTML = `<div class="card-emoji">${c.icon}</div><div class="card-label">${c.label}</div>`;
+        cardsRow.appendChild(cBox);
+        if (i < curQ.cards.length - 1) {
+          const plus = document.createElement('div');
+          plus.className = 'phone-card-plus';
+          plus.textContent = '+';
+          cardsRow.appendChild(plus);
+        }
+      });
+      container.appendChild(cardsRow);
+    }
+
+    if (curRound.type === 'mcq' || curRound.type === 'connections' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
       curQ.options.forEach((opt, idx) => {
         const b = document.createElement('button');
         b.className = 'phone-opt-btn';
@@ -447,7 +619,7 @@
         container.appendChild(b);
       });
     } else {
-      // Free text / single confirm
+      // Free text / verbal confirm
       const b = document.createElement('button');
       b.className = 'phone-opt-btn';
       b.style.textAlign = 'center';
@@ -499,6 +671,60 @@
     ws.send(JSON.stringify({
       type: 'PLAYER_BUZZ'
     }));
+  }
+
+  // Mobile Leaderboard Modal Helpers
+  function toggleMobileModal() {
+    const modal = document.getElementById('mobile-leaderboard-modal');
+    modal.classList.toggle('show');
+  }
+
+  function switchModalTab(tab) {
+    document.getElementById('tab-teams-btn').classList.toggle('active', tab === 'teams');
+    document.getElementById('tab-mvp-btn').classList.toggle('active', tab === 'mvp');
+    document.getElementById('modal-teams-content').style.display = (tab === 'teams' ? 'block' : 'none');
+    document.getElementById('modal-mvp-content').style.display = (tab === 'mvp' ? 'block' : 'none');
+  }
+
+  function renderMobileLeaderboard(state) {
+    if (!state.leaderboard) return;
+
+    // Render Teams
+    const teamsContainer = document.getElementById('modal-teams-content');
+    teamsContainer.innerHTML = '';
+    (state.leaderboard.teams || []).forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'lead-row';
+      row.style.borderLeft = `4px solid ${t.color}`;
+      row.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="lead-rank">${t.rank === 1 ? '🥇' : t.rank === 2 ? '🥈' : t.rank === 3 ? '🥉' : `#${t.rank}`}</span>
+          <b style="color:${t.color};">${t.name}</b>
+        </div>
+        <div style="font-weight:900; color:white;">${t.score} pts <small style="color:var(--muted); font-size:11px;">(${t.correctCount || 0}✓)</small></div>
+      `;
+      teamsContainer.appendChild(row);
+    });
+
+    // Render Top MVPs
+    const mvpContainer = document.getElementById('modal-mvp-content');
+    mvpContainer.innerHTML = '';
+    const topPlayers = (state.leaderboard.players || []).slice(0, 10);
+    topPlayers.forEach(p => {
+      const row = document.createElement('div');
+      row.className = 'lead-row';
+      row.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="lead-rank">${p.rank === 1 ? '👑' : p.rank === 2 ? '🥈' : p.rank === 3 ? '🥉' : `#${p.rank}`}</span>
+          <div>
+            <b>${p.name}</b>
+            <div style="font-size:11px; color:var(--muted);">${p.teamName} • ${p.role.toUpperCase()}</div>
+          </div>
+        </div>
+        <div style="font-weight:900; color:var(--yellow);">${p.score} pts <small style="color:var(--muted); font-size:11px;">(${p.correctCount || 0}✓)</small></div>
+      `;
+      mvpContainer.appendChild(row);
+    });
   }
 </script>
 

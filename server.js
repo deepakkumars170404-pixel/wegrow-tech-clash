@@ -19,12 +19,16 @@ const gameState = {
   activeAnsweringPlayerId: null, // the player who buzzed first
   lastAnswerResult: null, // { status: 'correct'|'wrong', teamId, teamName, time }
   teams: [
-    { id: 1, name: 'Team Alpha', color: '#38bdf8', score: 0, members: [] },
-    { id: 2, name: 'Team Beta', color: '#a855f7', score: 0, members: [] },
-    { id: 3, name: 'Team Gamma', color: '#34d399', score: 0, members: [] },
-    { id: 4, name: 'Team Delta', color: '#f59e0b', score: 0, members: [] }
+    { id: 1, name: 'Team Alpha', color: '#38bdf8', score: 0, correctCount: 0, wrongCount: 0, members: [] },
+    { id: 2, name: 'Team Beta', color: '#a855f7', score: 0, correctCount: 0, wrongCount: 0, members: [] },
+    { id: 3, name: 'Team Gamma', color: '#34d399', score: 0, correctCount: 0, wrongCount: 0, members: [] },
+    { id: 4, name: 'Team Delta', color: '#f59e0b', score: 0, correctCount: 0, wrongCount: 0, members: [] }
   ],
-  players: {}, // socketId -> { id, name, role, teamId }
+  players: {}, // playerId -> { id, name, role, teamId, teamName, score, correctCount, wrongCount }
+  leaderboard: {
+    teams: [],
+    players: []
+  },
   debateState: {
     activeTeamIdx: 0,
     secondsLeft: 60,
@@ -48,6 +52,40 @@ const DUMMY_PLAYERS = [
   { id: 'dummy_12', name: 'Divya Nair', role: 'analyst' }
 ];
 
+function updateLeaderboard() {
+  const sortedTeams = [...gameState.teams].sort((a, b) => b.score - a.score).map((t, idx) => ({
+    rank: idx + 1,
+    id: t.id,
+    name: t.name,
+    color: t.color,
+    score: t.score,
+    correctCount: t.correctCount || 0,
+    wrongCount: t.wrongCount || 0,
+    members: t.members
+  }));
+
+  const playerList = Object.values(gameState.players);
+  const sortedPlayers = playerList
+    .filter(p => p.name)
+    .sort((a, b) => (b.score || 0) - (a.score || 0) || (b.correctCount || 0) - (a.correctCount || 0))
+    .map((p, idx) => ({
+      rank: idx + 1,
+      id: p.id,
+      name: p.name,
+      role: p.role || 'dev',
+      teamId: p.teamId,
+      teamName: p.teamName || 'Team',
+      score: p.score || 0,
+      correctCount: p.correctCount || 0,
+      wrongCount: p.wrongCount || 0
+    }));
+
+  gameState.leaderboard = {
+    teams: sortedTeams,
+    players: sortedPlayers
+  };
+}
+
 function seedDummyPlayers() {
   DUMMY_PLAYERS.forEach(d => {
     gameState.players[d.id] = {
@@ -55,10 +93,14 @@ function seedDummyPlayers() {
       name: d.name,
       role: d.role,
       teamId: null,
-      teamName: null
+      teamName: null,
+      score: 0,
+      correctCount: 0,
+      wrongCount: 0
     };
   });
   autoShuffleTeams();
+  updateLeaderboard();
 }
 
 // MIME types
@@ -108,6 +150,7 @@ function broadcast(msgObj) {
 }
 
 function broadcastState() {
+  updateLeaderboard();
   broadcast({
     type: 'STATE_UPDATE',
     state: {
@@ -121,6 +164,8 @@ function broadcastState() {
       activeAnsweringPlayerId: gameState.activeAnsweringPlayerId,
       lastAnswerResult: gameState.lastAnswerResult,
       teams: gameState.teams,
+      players: gameState.players,
+      leaderboard: gameState.leaderboard,
       playerCount: Object.keys(gameState.players).length,
       debateState: gameState.debateState,
       networkIp: getLocalIp()
@@ -155,6 +200,7 @@ function autoShuffleTeams() {
     team.members.push({ id: p.id, name: p.name, role: p.role });
   });
 
+  updateLeaderboard();
   console.log(`Auto-shuffled ${count} players into ${numTeams} teams.`);
 }
 
@@ -177,7 +223,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
   const player = playerId ? gameState.players[playerId] : null;
 
   let isCorrect = false;
-  if (currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
+  if (currentRound.type === 'mcq' || currentRound.type === 'connections' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
     isCorrect = (selectedOptionIndex === currentQ.ans);
   } else {
     const userText = (textAnswer || '').trim().toLowerCase();
@@ -186,7 +232,14 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
   }
 
   if (isCorrect) {
-    if (team) team.score += 100;
+    if (team) {
+      team.score += 100;
+      team.correctCount = (team.correctCount || 0) + 1;
+    }
+    if (player) {
+      player.score = (player.score || 0) + 100;
+      player.correctCount = (player.correctCount || 0) + 1;
+    }
 
     gameState.lastAnswerResult = {
       status: 'correct',
@@ -202,7 +255,11 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
   } else {
     if (team) {
       team.score = Math.max(0, team.score - 20);
+      team.wrongCount = (team.wrongCount || 0) + 1;
       gameState.lockedTeamsForQuestion.push(team.id);
+    }
+    if (player) {
+      player.wrongCount = (player.wrongCount || 0) + 1;
     }
 
     gameState.lastAnswerResult = {
@@ -232,6 +289,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
     }
   }
 
+  updateLeaderboard();
   broadcastState();
 }
 
@@ -239,6 +297,7 @@ wss.on('connection', (ws) => {
   const playerId = 'p_' + Math.random().toString(36).substr(2, 9);
   ws.playerId = playerId;
 
+  updateLeaderboard();
   ws.send(JSON.stringify({
     type: 'INIT',
     playerId: playerId,
@@ -253,6 +312,8 @@ wss.on('connection', (ws) => {
       activeAnsweringPlayerId: gameState.activeAnsweringPlayerId,
       lastAnswerResult: gameState.lastAnswerResult,
       teams: gameState.teams,
+      players: gameState.players,
+      leaderboard: gameState.leaderboard,
       playerCount: Object.keys(gameState.players).length,
       debateState: gameState.debateState,
       networkIp: getLocalIp()
@@ -270,9 +331,36 @@ wss.on('connection', (ws) => {
             name: data.name || 'Player',
             role: data.role || 'dev',
             teamId: null,
-            teamName: null
+            teamName: null,
+            score: 0,
+            correctCount: 0,
+            wrongCount: 0
           };
           autoShuffleTeams();
+          broadcastState();
+          break;
+        }
+
+        case 'RECONNECT_PLAYER': {
+          const pid = data.playerId;
+          ws.playerId = pid;
+          if (!gameState.players[pid]) {
+            gameState.players[pid] = {
+              id: pid,
+              name: data.name || 'Player',
+              role: data.role || 'dev',
+              teamId: null,
+              teamName: null,
+              score: 0,
+              correctCount: 0,
+              wrongCount: 0
+            };
+            autoShuffleTeams();
+          } else {
+            if (data.name) gameState.players[pid].name = data.name;
+            if (data.role) gameState.players[pid].role = data.role;
+          }
+          updateLeaderboard();
           broadcastState();
           break;
         }
@@ -502,9 +590,10 @@ wss.on('connection', (ws) => {
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
           gameState.lastAnswerResult = null;
-          gameState.teams.forEach(t => { t.score = 0; t.members = []; });
+          gameState.teams.forEach(t => { t.score = 0; t.correctCount = 0; t.wrongCount = 0; t.members = []; });
           gameState.players = {};
           seedDummyPlayers();
+          updateLeaderboard();
           broadcastState();
           break;
         }
@@ -515,14 +604,7 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    // Only remove dynamic player if not dummy
-    if (!ws.playerId.startsWith('dummy_')) {
-      delete gameState.players[ws.playerId];
-      gameState.teams.forEach(t => {
-        t.members = t.members.filter(m => m.id !== ws.playerId);
-      });
-      broadcastState();
-    }
+    // Keep player profile in memory so student can reconnect seamlessly after phone calls or tab switch!
   });
 });
 
