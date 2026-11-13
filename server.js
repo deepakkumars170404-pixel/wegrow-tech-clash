@@ -4,6 +4,14 @@ const path = require('path');
 const os = require('os');
 const { WebSocketServer } = require('ws');
 
+// Top-level crash guards to ensure 100% server uptime even under unexpected errors
+process.on('uncaughtException', (err) => {
+  console.error('[CRASH GUARD] Caught uncaughtException:', err.message);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[CRASH GUARD] Caught unhandledRejection:', reason);
+});
+
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
@@ -145,11 +153,36 @@ const server = http.createServer((req, res) => {
 
 const wss = new WebSocketServer({ server });
 
+// Keepalive Ping/Pong Heartbeat to keep 50+ mobile 4G/5G connections active without drops
+const pingInterval = setInterval(() => {
+  wss.clients.forEach(client => {
+    if (client.isAlive === false) {
+      return client.terminate();
+    }
+    client.isAlive = false;
+    try {
+      client.ping();
+    } catch (e) {}
+  });
+}, 25000);
+
+wss.on('close', () => {
+  clearInterval(pingInterval);
+});
+
 function broadcast(msgObj) {
   const json = JSON.stringify(msgObj);
   wss.clients.forEach(client => {
-    if (client.readyState === 1) {
-      client.send(json);
+    if (client.readyState === 1) { // 1 = OPEN
+      try {
+        client.send(json, (err) => {
+          if (err) {
+            // Ignore dropped socket error cleanly
+          }
+        });
+      } catch (err) {
+        // Safe catch: one disconnected phone will never crash the server
+      }
     }
   });
 }
@@ -325,6 +358,12 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
 }
 
 wss.on('connection', (ws) => {
+  ws.isAlive = true;
+  ws.on('pong', () => { ws.isAlive = true; });
+  ws.on('error', (err) => {
+    // Graceful error handling for mobile drops
+  });
+
   const playerId = 'p_' + Math.random().toString(36).substr(2, 9);
   ws.playerId = playerId;
 
