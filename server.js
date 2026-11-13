@@ -223,7 +223,17 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
   const player = playerId ? gameState.players[playerId] : null;
 
   let isCorrect = false;
-  if (currentRound.type === 'mcq' || currentRound.type === 'connections' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
+  if (currentRound.type === 'connections') {
+    const userText = (textAnswer || '').trim().toLowerCase();
+    const correctText = (currentQ.ansText || '').trim().toLowerCase();
+    if (selectedOptionIndex === 'AUTO_CORRECT' || textAnswer === 'AUTO_CORRECT' || (currentQ.ansText && textAnswer === currentQ.ansText)) {
+      isCorrect = true;
+    } else if (currentQ.ans !== undefined && selectedOptionIndex !== undefined && selectedOptionIndex === currentQ.ans) {
+      isCorrect = true;
+    } else if (userText && correctText && (correctText.includes(userText) || userText.includes(correctText.split(' ')[0]))) {
+      isCorrect = true;
+    }
+  } else if (currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
     isCorrect = (selectedOptionIndex === currentQ.ans);
   } else {
     const userText = (textAnswer || '').trim().toLowerCase();
@@ -493,7 +503,8 @@ wss.on('connection', (ws) => {
               const curR = allRounds[gameState.currentRoundIdx];
               const curQ = curR ? curR.questions[gameState.currentQuestionIdx] : null;
               if (curQ && gameState.activeAnsweringTeamId === bot.teamId) {
-                processAnswerSubmission(bot.teamId, bot.id, curQ.ans, curQ.ansText);
+                const optAns = curQ.ans !== undefined ? curQ.ans : 'AUTO_CORRECT';
+                processAnswerSubmission(bot.teamId, bot.id, optAns, curQ.ansText);
               }
             }, 1200);
           }
@@ -524,16 +535,43 @@ wss.on('connection', (ws) => {
         }
 
         case 'HOST_MARK_CORRECT': {
+          let awardedTeam = null;
+          let awardedPlayer = null;
+
           if (gameState.activeAnsweringTeamId) {
-            const team = gameState.teams.find(t => t.id === gameState.activeAnsweringTeamId);
-            if (team) team.score += 100;
+            awardedTeam = gameState.teams.find(t => t.id === gameState.activeAnsweringTeamId);
+            if (gameState.activeAnsweringPlayerId) {
+              awardedPlayer = gameState.players[gameState.activeAnsweringPlayerId];
+            }
+          } else if (gameState.buzzerQueue.length > 0) {
+            const first = gameState.buzzerQueue[0];
+            awardedTeam = gameState.teams.find(t => t.id === first.teamId);
+            awardedPlayer = gameState.players[first.playerId];
           }
+
+          if (awardedTeam) {
+            awardedTeam.score += 100;
+            awardedTeam.correctCount = (awardedTeam.correctCount || 0) + 1;
+          }
+          if (awardedPlayer) {
+            awardedPlayer.score = (awardedPlayer.score || 0) + 100;
+            awardedPlayer.correctCount = (awardedPlayer.correctCount || 0) + 1;
+          }
+
+          const curR = allRounds[gameState.currentRoundIdx];
+          const curQ = curR ? curR.questions[gameState.currentQuestionIdx] : null;
+
           gameState.lastAnswerResult = {
             status: 'correct',
-            teamId: gameState.activeAnsweringTeamId,
+            teamId: awardedTeam ? awardedTeam.id : null,
+            teamName: awardedTeam ? awardedTeam.name : 'Team',
+            playerName: awardedPlayer ? awardedPlayer.name : '',
+            message: `${awardedTeam ? awardedTeam.name : 'Team'} answered CORRECTLY! (+100 PTS)`,
+            ansText: curQ ? curQ.ansText : '',
             time: Date.now()
           };
           gameState.buzzerState = 'locked';
+          updateLeaderboard();
           broadcastState();
           break;
         }

@@ -602,8 +602,34 @@
       container.appendChild(cardsRow);
     }
 
-    if (curRound.type === 'mcq' || curRound.type === 'connections' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
-      curQ.options.forEach((opt, idx) => {
+    if (curRound.type === 'connections') {
+      // Round 2 Tech Connections: Visual Cards only, no MCQ options! Students speak verbally to judge.
+      const speakBox = document.createElement('div');
+      speakBox.style.background = 'rgba(0, 242, 254, 0.12)';
+      speakBox.style.border = '2px dashed var(--accent)';
+      speakBox.style.borderRadius = '12px';
+      speakBox.style.padding = '14px';
+      speakBox.style.textAlign = 'center';
+      speakBox.style.margin = '10px 0';
+      speakBox.innerHTML = `
+        <div style="font-size: 26px; margin-bottom: 6px;">🎙️ 🗣️</div>
+        <div style="font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 4px;">YOUR TEAM HAS THE FLOOR!</div>
+        <div style="font-size: 13px; color: var(--accent); font-weight: 700;">Speak your answer aloud to the Judge / Host!</div>
+      `;
+      container.appendChild(speakBox);
+
+      const b = document.createElement('button');
+      b.className = 'phone-opt-btn';
+      b.style.textAlign = 'center';
+      b.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      b.style.border = 'none';
+      b.style.fontSize = '16px';
+      b.style.fontWeight = '900';
+      b.textContent = '✅ Answer Spoken to Judge';
+      b.onclick = () => submitAnswer(-1, 'Answer Spoken to Judge');
+      container.appendChild(b);
+    } else if (curRound.type === 'mcq' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
+      (curQ.options || []).forEach((opt, idx) => {
         const b = document.createElement('button');
         b.className = 'phone-opt-btn';
         b.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;

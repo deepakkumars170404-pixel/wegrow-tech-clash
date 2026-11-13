@@ -374,7 +374,7 @@
     "description": "Connect 2 Clues/Images • Identify the Tech Tool or Concept",
     "questions": [
       {
-        "q": "Connect the Visual Clues to Find the Tech Security Barrier:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🔥",
@@ -385,40 +385,11 @@
             "label": "WALL"
           }
         ],
-        "options": [
-          "Proxy Gateway",
-          "Firewall",
-          "Antivirus Shield",
-          "Network Switch"
-        ],
-        "ans": 1,
         "ansText": "Firewall",
-        "expl": "FIRE + WALL = Firewall! A network security barrier monitoring and filtering traffic."
+        "expl": "FIRE + WALL = Firewall! The foundational security gate monitoring & filtering inbound/outbound packets."
       },
       {
-        "q": "Connect the Visual Clues to Find the Portable Storage Device:",
-        "cards": [
-          {
-            "icon": "🖊️",
-            "label": "PEN"
-          },
-          {
-            "icon": "🚗",
-            "label": "DRIVE"
-          }
-        ],
-        "options": [
-          "Hard Disk Drive",
-          "Pendrive (USB Drive)",
-          "RAM Memory Stick",
-          "MicroSD Card"
-        ],
-        "ans": 1,
-        "ansText": "Pendrive",
-        "expl": "PEN + DRIVE = Pendrive! Portable solid-state USB flash storage."
-      },
-      {
-        "q": "Connect the Visual Clues to Find the Cyber Social Engineering Attack:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🐱",
@@ -429,18 +400,26 @@
             "label": "FISHING"
           }
         ],
-        "options": [
-          "Ransomware Attack",
-          "Phishing Attack",
-          "Trojan Horse",
-          "Spyware Bot"
-        ],
-        "ans": 1,
         "ansText": "Phishing",
-        "expl": "CAT (Catfish) + FISHING = Phishing! Deceptive attack tricking users into revealing credentials."
+        "expl": "CAT (Catfish) + FISHING = Phishing! Social engineering attack deceptive fraudulent trap."
       },
       {
-        "q": "Connect the Visual Clues to Find the Web Session Tracker:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
+        "cards": [
+          {
+            "icon": "🖊️",
+            "label": "PEN"
+          },
+          {
+            "icon": "🚗",
+            "label": "DRIVE"
+          }
+        ],
+        "ansText": "Pendrive",
+        "expl": "PEN + DRIVE = Pendrive! Portable solid-state USB flash storage."
+      },
+      {
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🍪",
@@ -451,18 +430,11 @@
             "label": "WEB"
           }
         ],
-        "options": [
-          "Browser Cache",
-          "Browser Cookie",
-          "Session Token",
-          "Local Storage"
-        ],
-        "ans": 1,
         "ansText": "Browser Cookie",
-        "expl": "COOKIE + WEB = Browser Cookie! Small text files stored by browsers to remember sessions."
+        "expl": "COOKIE + WEB = Browser Cookie! Client-side state tokens tracking authenticated sessions."
       },
       {
-        "q": "Connect the Visual Clues to Find the Short-Range Wireless Protocol:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🟦",
@@ -473,18 +445,11 @@
             "label": "TOOTH"
           }
         ],
-        "options": [
-          "Wi-Fi Direct",
-          "Bluetooth",
-          "NFC Tag",
-          "Infrared Beam"
-        ],
-        "ans": 1,
         "ansText": "Bluetooth",
-        "expl": "BLUE + TOOTH = Bluetooth! Named after 10th-century Danish King Harald Bluetooth."
+        "expl": "BLUE + TOOTH = Bluetooth! Short-range wireless standard named after Danish King Harald Bluetooth."
       },
       {
-        "q": "Connect the Visual Clues to Find the #1 Web Scripting Language:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "☕",
@@ -495,18 +460,11 @@
             "label": "SCRIPT"
           }
         ],
-        "options": [
-          "TypeScript",
-          "JavaScript",
-          "CoffeeScript",
-          "Python"
-        ],
-        "ans": 1,
         "ansText": "JavaScript",
-        "expl": "JAVA + SCRIPT = JavaScript! The universal language powering web interactivity."
+        "expl": "JAVA + SCRIPT = JavaScript! The universal multi-paradigm runtime powering modern web engines."
       },
       {
-        "q": "Connect the Visual Clues to Find the Code Defect Repair Process:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🪲",
@@ -514,21 +472,14 @@
           },
           {
             "icon": "🔨",
-            "label": "FIX / HAMMER"
+            "label": "HAMMER / FIX"
           }
         ],
-        "options": [
-          "Code Compiling",
-          "Debugging",
-          "Refactoring",
-          "Unit Testing"
-        ],
-        "ans": 1,
         "ansText": "Debugging",
-        "expl": "BUG + FIX = Debugging! Finding and resolving defects in computer program code."
+        "expl": "BUG + HAMMER/FIX = Debugging! Tracing execution stacks to eliminate flaws in source code."
       },
       {
-        "q": "Connect the Visual Clues to Find the World Leading Code Repository Platform:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🐙",
@@ -539,18 +490,11 @@
             "label": "CAT"
           }
         ],
-        "options": [
-          "GitLab",
-          "Bitbucket",
-          "GitHub (Octocat)",
-          "SourceForge"
-        ],
-        "ans": 2,
         "ansText": "GitHub (Octocat)",
-        "expl": "OCTOPUS + CAT = Octocat, the famous official mascot of GitHub!"
+        "expl": "OCTOPUS + CAT = Octocat! Official mascot representing Git version control repository host GitHub."
       },
       {
-        "q": "Connect the Visual Clues to Find the On-Demand Hyperscale Infrastructure:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "☁️",
@@ -561,40 +505,11 @@
             "label": "COMPUTING"
           }
         ],
-        "options": [
-          "Cloud Computing",
-          "Web Hosting",
-          "Mainframe Server",
-          "Edge Gateway"
-        ],
-        "ans": 0,
         "ansText": "Cloud Computing",
-        "expl": "CLOUD + COMPUTING = Cloud Computing! On-demand delivery of servers, databases, and storage."
+        "expl": "CLOUD + COMPUTING = Cloud Computing! Elastic compute, virtual machines, and managed storage."
       },
       {
-        "q": "Connect the Visual Clues to Find the Modern PC Operating System:",
-        "cards": [
-          {
-            "icon": "🪟",
-            "label": "WINDOW"
-          },
-          {
-            "icon": "1️⃣1️⃣",
-            "label": "ELEVEN"
-          }
-        ],
-        "options": [
-          "Windows 10",
-          "Windows 11",
-          "macOS Sonoma",
-          "Ubuntu Linux"
-        ],
-        "ans": 1,
-        "ansText": "Windows 11",
-        "expl": "WINDOW + 11 = Windows 11! Microsoft's flagship desktop operating system."
-      },
-      {
-        "q": "Connect the Visual Clues to Find the Top Python Data Science Library:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🐍",
@@ -605,40 +520,11 @@
             "label": "PANDAS"
           }
         ],
-        "options": [
-          "NumPy",
-          "Pandas",
-          "Matplotlib",
-          "Scikit-Learn"
-        ],
-        "ans": 1,
-        "ansText": "Pandas",
-        "expl": "PYTHON + PANDAS = Pandas! The foundational Python library for data manipulation and analysis."
+        "ansText": "Pandas Dataframe",
+        "expl": "PYTHON + PANDAS = Pandas! High-performance Python data structures and analytics toolkit."
       },
       {
-        "q": "Connect the Visual Clues to Find the Leading Biometric Wearable:",
-        "cards": [
-          {
-            "icon": "🍎",
-            "label": "APPLE"
-          },
-          {
-            "icon": "⌚",
-            "label": "WATCH"
-          }
-        ],
-        "options": [
-          "Galaxy Watch",
-          "Apple Watch",
-          "Fitbit Charge",
-          "Garmin Forerunner"
-        ],
-        "ans": 1,
-        "ansText": "Apple Watch",
-        "expl": "APPLE + WATCH = Apple Watch! Running watchOS with heart-rate and health tracking."
-      },
-      {
-        "q": "Connect the Visual Clues to Find the Decentralized Ledger Technology:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🧱",
@@ -649,40 +535,26 @@
             "label": "CHAIN"
           }
         ],
-        "options": [
-          "Smart Contract",
-          "Blockchain",
-          "Crypto Wallet",
-          "Distributed Hash"
-        ],
-        "ans": 1,
         "ansText": "Blockchain",
-        "expl": "BLOCK + CHAIN = Blockchain! Cryptographically linked chain of immutable blocks."
+        "expl": "BLOCK + CHAIN = Blockchain! Cryptographically linked distributed ledger providing Byzantine fault tolerance."
       },
       {
-        "q": "Connect the Visual Clues to Find the Conversational AI Assistant:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🤖",
-            "label": "ROBOT"
+            "label": "ROBOT / BOT"
           },
           {
             "icon": "💬",
             "label": "CHAT"
           }
         ],
-        "options": [
-          "Web Scraper",
-          "Chatbot / ChatGPT",
-          "Search Bot",
-          "Voice Modulator"
-        ],
-        "ans": 1,
         "ansText": "Chatbot / ChatGPT",
-        "expl": "CHAT + BOT = Chatbot! Conversational AI interface such as OpenAI's ChatGPT."
+        "expl": "CHAT + BOT = Chatbot! Large Language Models and natural language conversational agents."
       },
       {
-        "q": "Connect the Visual Clues to Find the Structured Electronic Data Store:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🗄️",
@@ -693,18 +565,11 @@
             "label": "BASE"
           }
         ],
-        "options": [
-          "File Folder",
-          "Database",
-          "Spreadsheet",
-          "Data Lakehouse"
-        ],
-        "ans": 1,
         "ansText": "Database",
-        "expl": "DATA + BASE = Database! Organized repository for structured retrieval and storage."
+        "expl": "DATA + BASE = Database! Organized persistence store ensuring ACID compliance and query planning."
       },
       {
-        "q": "Connect the Visual Clues to Find the Open-Source Kernel Represented by Tux:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🐧",
@@ -715,18 +580,11 @@
             "label": "TERMINAL"
           }
         ],
-        "options": [
-          "FreeBSD",
-          "Linux OS (Tux)",
-          "Unix System V",
-          "Solaris"
-        ],
-        "ans": 1,
         "ansText": "Linux OS (Tux)",
-        "expl": "PENGUIN + TERMINAL = Linux! Tux the penguin is the official mascot created by Linus Torvalds."
+        "expl": "PENGUIN + TERMINAL = Linux! Unix-like monolithic kernel symbolized by Tux the penguin."
       },
       {
-        "q": "Connect the Visual Clues to Find the Core Architecture of Deep Learning:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🧠",
@@ -737,18 +595,11 @@
             "label": "NETWORK"
           }
         ],
-        "options": [
-          "Decision Tree",
-          "Neural Network",
-          "Support Vector Machine",
-          "Random Forest"
-        ],
-        "ans": 1,
         "ansText": "Neural Network",
-        "expl": "NEURAL + NETWORK = Artificial Neural Network! Modeling brain synaptic connections for AI."
+        "expl": "NEURAL + NETWORK = Artificial Neural Network! Weighted layers of perceptrons driving Deep Learning."
       },
       {
-        "q": "Connect the Visual Clues to Find the Essential Alphanumeric Input Hardware:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🔑",
@@ -759,18 +610,11 @@
             "label": "BOARD"
           }
         ],
-        "options": [
-          "Motherboard",
-          "Keyboard",
-          "Circuit Breadboard",
-          "Touchpad"
-        ],
-        "ans": 1,
         "ansText": "Keyboard",
-        "expl": "KEY + BOARD = Keyboard! Hardware device transmitting alphanumeric keystroke codes."
+        "expl": "KEY + BOARD = Keyboard! Mechanical and matrix hardware sending scan codes via USB/HID."
       },
       {
-        "q": "Connect the Visual Clues to Find the Circular Statistical Chart:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🥧",
@@ -781,18 +625,11 @@
             "label": "CHART"
           }
         ],
-        "options": [
-          "Bar Graph",
-          "Pie Chart",
-          "Scatter Plot",
-          "Histogram"
-        ],
-        "ans": 1,
         "ansText": "Pie Chart",
-        "expl": "PIE + CHART = Pie Chart! Circular statistical graphic divided into proportional slices."
+        "expl": "PIE + CHART = Pie Chart! Circular polar projection showing category proportions of 360 degrees."
       },
       {
-        "q": "Connect the Visual Clues to Find the Enterprise Visual Analytics Platform:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🪟",
@@ -803,18 +640,11 @@
             "label": "AU (Gold)"
           }
         ],
-        "options": [
-          "Power BI",
-          "Tableau",
-          "Looker Studio",
-          "Qlik Sense"
-        ],
-        "ans": 1,
         "ansText": "Tableau",
-        "expl": "TABLE + AU = Tableau! World famous data visualization and dashboarding software."
+        "expl": "TABLE + AU = Tableau! Visual business intelligence and drag-and-drop data dashboarding tool."
       },
       {
-        "q": "Connect the Visual Clues to Find the Pioneer Cloud File Sync Service:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "💧",
@@ -825,18 +655,11 @@
             "label": "BOX"
           }
         ],
-        "options": [
-          "Google Drive",
-          "OneDrive",
-          "Dropbox",
-          "Mega Cloud"
-        ],
-        "ans": 2,
         "ansText": "Dropbox",
-        "expl": "DROP + BOX = Dropbox! Cloud storage service founded by Drew Houston and Arash Ferdowsi."
+        "expl": "DROP + BOX = Dropbox! Cloud sync pioneer leveraging delta sync block compression algorithms."
       },
       {
-        "q": "Connect the Visual Clues to Find the System That Indexes World Information:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🔍",
@@ -847,18 +670,11 @@
             "label": "ENGINE"
           }
         ],
-        "options": [
-          "Web Browser",
-          "Search Engine (Google)",
-          "Web Server",
-          "Domain Registry"
-        ],
-        "ans": 1,
-        "ansText": "Search Engine (Google)",
-        "expl": "SEARCH + ENGINE = Search Engine! Crawling and indexing billions of web pages."
+        "ansText": "Search Engine",
+        "expl": "SEARCH + ENGINE = Search Engine! Spiders crawling, tokenizing inverted indexes, and ranking results."
       },
       {
-        "q": "Connect the Visual Clues to Find the Big Data Framework Symbolized by a Yellow Elephant:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🐘",
@@ -869,18 +685,11 @@
             "label": "BIG DATA"
           }
         ],
-        "options": [
-          "Apache Spark",
-          "Apache Hadoop",
-          "Apache Kafka",
-          "Elasticsearch"
-        ],
-        "ans": 1,
         "ansText": "Apache Hadoop",
-        "expl": "ELEPHANT + BIG DATA = Apache Hadoop! Doug Cutting named it after his son's toy yellow elephant."
+        "expl": "ELEPHANT + BIG DATA = Apache Hadoop! Distributed MapReduce computation and HDFS cluster storage."
       },
       {
-        "q": "Connect the Visual Clues to Find the Encrypted Identity Tunnel:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🎭",
@@ -891,18 +700,11 @@
             "label": "NETWORK"
           }
         ],
-        "options": [
-          "Firewall Shield",
-          "VPN (Virtual Private Network)",
-          "Proxy Server",
-          "Tor Relay"
-        ],
-        "ans": 1,
         "ansText": "VPN",
-        "expl": "PRIVATE + NETWORK = VPN! Encrypts traffic and hides your IP address on public Wi-Fi."
+        "expl": "PRIVATE + NETWORK = VPN! Virtual Private Network encapsulating encrypted packet payloads."
       },
       {
-        "q": "Connect the Visual Clues to Find the Traffic Distribution System:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🚦",
@@ -913,18 +715,11 @@
             "label": "BALANCER"
           }
         ],
-        "options": [
-          "Reverse Proxy",
-          "Load Balancer",
-          "API Gateway",
-          "Firewall Router"
-        ],
-        "ans": 1,
         "ansText": "Load Balancer",
-        "expl": "LOAD + BALANCER = Load Balancer! Distributes network traffic across healthy server clusters."
+        "expl": "LOAD + BALANCER = Load Balancer! Layer 4/Layer 7 reverse proxy distributing incoming connections."
       },
       {
-        "q": "Connect the Visual Clues to Find Automatic Memory Reclaim in Java/Python:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🗑️",
@@ -935,18 +730,11 @@
             "label": "COLLECTION"
           }
         ],
-        "options": [
-          "Memory Leak",
-          "Garbage Collection",
-          "Buffer Overflow",
-          "Stack Tracing"
-        ],
-        "ans": 1,
         "ansText": "Garbage Collection",
-        "expl": "GARBAGE + COLLECTION = Garbage Collection (GC)! Automatic memory management freeing dead RAM objects."
+        "expl": "GARBAGE + COLLECTION = Garbage Collection (GC)! Mark-and-sweep automatic heap memory management."
       },
       {
-        "q": "Connect the Visual Clues to Find the World Container Platform (Blue Whale):",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🐳",
@@ -957,40 +745,26 @@
             "label": "CONTAINER"
           }
         ],
-        "options": [
-          "Kubernetes",
-          "Docker",
-          "Podman",
-          "Vagrant"
-        ],
-        "ans": 1,
         "ansText": "Docker",
-        "expl": "WHALE + CONTAINER = Docker! Standard packaging for applications and dependencies."
+        "expl": "WHALE + CONTAINER = Docker! OS-level virtualization packaging apps inside cgroups & namespaces."
       },
       {
-        "q": "Connect the Visual Clues to Find the Git Feature to Work on Parallel Features:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🌳",
-            "label": "GIT TREE"
+            "label": "TREE (Git)"
           },
           {
             "icon": "🌿",
             "label": "BRANCH"
           }
         ],
-        "options": [
-          "Git Commit",
-          "Git Branch",
-          "Git Merge",
-          "Git Stash"
-        ],
-        "ans": 1,
         "ansText": "Git Branch",
-        "expl": "GIT TREE + BRANCH = Git Branch! Allows teams to develop isolated features without touching main."
+        "expl": "TREE + BRANCH = Git Branch! Lightweight movable pointer to independent commit DAG histories."
       },
       {
-        "q": "Connect the Visual Clues to Find Parallel Execution Inside a Single Process:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🕸️",
@@ -1001,18 +775,11 @@
             "label": "THREAD"
           }
         ],
-        "options": [
-          "Multi-Processing",
-          "Multi-Threading",
-          "Asynchronous Loop",
-          "Task Scheduling"
-        ],
-        "ans": 1,
         "ansText": "Multi-Threading",
-        "expl": "MULTI + THREAD = Multi-Threading! Concurrent execution threads sharing memory within a process."
+        "expl": "MULTI + THREAD = Multi-Threading! Concurrency paradigm where threads share parent address space."
       },
       {
-        "q": "Connect the Visual Clues to Find the Secure Web Protocol with Green Padlock:",
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
         "cards": [
           {
             "icon": "🔒",
@@ -1023,15 +790,38 @@
             "label": "WEB (HTTP)"
           }
         ],
-        "options": [
-          "HTTP Protocol",
-          "HTTPS / SSL",
-          "FTP Protocol",
-          "SSH Gateway"
-        ],
-        "ans": 1,
         "ansText": "HTTPS / SSL",
-        "expl": "LOCK + WEB = HTTPS! HyperText Transfer Protocol Secure encrypted via SSL/TLS certificates."
+        "expl": "LOCK + WEB = HTTPS! Symmetric session encryption negotiated via asymmetric TLS handshakes."
+      },
+      {
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
+        "cards": [
+          {
+            "icon": "🌊",
+            "label": "SEA (C)"
+          },
+          {
+            "icon": "➕➕",
+            "label": "PLUS PLUS"
+          }
+        ],
+        "ansText": "C++",
+        "expl": "SEA (C) + PLUS PLUS = C++! High-performance compiled systems language created by Bjarne Stroustrup."
+      },
+      {
+        "q": "Identify the Core Technology by Connecting the Visual Clues:",
+        "cards": [
+          {
+            "icon": "🍃",
+            "label": "LEAF"
+          },
+          {
+            "icon": "🗄️",
+            "label": "DATABASE"
+          }
+        ],
+        "ansText": "MongoDB",
+        "expl": "LEAF + DATABASE = MongoDB! Document-oriented NoSQL database represented by a green leaf logo."
       }
     ]
   },

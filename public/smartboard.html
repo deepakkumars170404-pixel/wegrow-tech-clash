@@ -303,6 +303,53 @@
   .btn-skip { background: #475569; }
   .btn-lead { background: linear-gradient(135deg, #f59e0b, #d97706); color: #090d16; }
   .btn-test { background: #1e293b; border: 1px dashed var(--accent); color: var(--accent); }
+  .btn-correct { background: #10b981; }
+  .btn-wrong { background: #ef4444; }
+
+  /* Top Active Team Answering Banner */
+  .top-active-banner {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 16px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    animation: bannerGlow 1.2s infinite alternate;
+  }
+  .active-pulse-dot {
+    font-size: 24px;
+    color: var(--accent);
+    animation: dotPulse 0.7s infinite alternate;
+  }
+  @keyframes bannerGlow {
+    from { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+    to { box-shadow: 0 0 35px rgba(0, 242, 254, 0.7); }
+  }
+  @keyframes dotPulse {
+    from { opacity: 0.3; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.3); }
+  }
+
+  .score-chip.winner-celebrate {
+    border-color: #10b981 !important;
+    background: rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 0 30px #10b981 !important;
+    transform: scale(1.15) !important;
+    animation: winnerBounce 0.6s ease infinite alternate;
+  }
+  @keyframes winnerBounce {
+    from { transform: scale(1.12); }
+    to { transform: scale(1.22); }
+  }
 
   .smart-flash {
     position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
@@ -405,6 +452,12 @@
   <!-- 2. GAME VIEW -->
   <div id="view-game">
     <div class="game-left">
+      <!-- TOP ACTIVE TEAM BANNER -->
+      <div class="top-active-banner" id="top-active-banner">
+        <span class="active-pulse-dot">●</span>
+        <span id="top-active-banner-text">TEAM BETA IS ANSWERING NOW</span>
+      </div>
+
       <div class="question-badge" id="q-round-badge">Round 1 • Question 1 of 30</div>
       <div class="question-title" id="q-title">Loading Question...</div>
 
@@ -496,9 +549,11 @@
 
   <div class="touch-controls">
     <button class="touch-btn btn-test" onclick="simulateAutoPlay()" title="Auto-test bot buzz and answer">🤖 AUTO-TEST (BUZZ & ANSWER)</button>
-    <button class="touch-btn btn-lead" onclick="toggleLeaderboardModal()" title="View Leaderboard & Top MVPs">🏆 LEADERBOARD</button>
+    <button class="touch-btn btn-wrong" onclick="hostMarkWrong()" title="Mark wrong (-20 pts) & pass to next team">❌ WRONG / PASS</button>
     <button class="touch-btn btn-skip" onclick="skipCurrentTurn()" title="Pass turn to next team in queue">⏭️ PASS TO NEXT TEAM</button>
-    <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER & EXPLANATION</button>
+    <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER</button>
+    <button class="touch-btn btn-correct" onclick="hostMarkCorrect()" title="Award +100 to answering team">✅ CORRECT (+100)</button>
+    <button class="touch-btn btn-lead" onclick="toggleLeaderboardModal()" title="View Leaderboard & Top MVPs">🏆 LEADERBOARD</button>
     <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
   </div>
 </footer>
@@ -580,6 +635,7 @@
     state.teams.forEach(t => {
       const chip = document.createElement('div');
       chip.className = 'score-chip' + (state.activeAnsweringTeamId === t.id ? ' active' : '');
+      chip.setAttribute('data-team-id', t.id);
       chip.style.borderColor = t.color;
       chip.innerHTML = `
         <span style="color:${t.color}; font-weight:900;">${t.name}:</span>
@@ -592,6 +648,9 @@
       };
       scoreBar.appendChild(chip);
     });
+
+    // Render prominent top active answering team banner
+    renderTopActiveBanner(state);
 
     document.getElementById('view-lobby').classList.toggle('active', state.currentView === 'lobby');
     document.getElementById('view-game').classList.toggle('active', state.currentView === 'game');
@@ -624,6 +683,42 @@
     }
   }
 
+  function renderTopActiveBanner(state) {
+    const banner = document.getElementById('top-active-banner');
+    const text = document.getElementById('top-active-banner-text');
+    if (!banner || !text) return;
+
+    if (state.buzzerState === 'buzzing' && state.activeAnsweringTeamId) {
+      const answeringTeam = state.teams.find(t => t.id === state.activeAnsweringTeamId);
+      const teamName = answeringTeam ? answeringTeam.name : 'TEAM';
+      const teamColor = answeringTeam ? answeringTeam.color : 'var(--accent)';
+      const playerObj = state.activeAnsweringPlayerId && state.players ? state.players[state.activeAnsweringPlayerId] : null;
+      const playerName = playerObj ? ` (Student: ${playerObj.name})` : '';
+
+      banner.style.display = 'flex';
+      banner.style.borderColor = teamColor;
+      banner.style.boxShadow = `0 0 35px ${teamColor}88`;
+      text.innerHTML = `⚡ <span style="color:${teamColor}; font-size:24px;">${teamName.toUpperCase()}${playerName}</span> IS ANSWERING NOW! 🎙️`;
+    } else if (state.buzzerState === 'open') {
+      banner.style.display = 'flex';
+      banner.style.borderColor = '#10b981';
+      banner.style.boxShadow = '0 0 25px rgba(16, 185, 129, 0.4)';
+      text.innerHTML = `🚨 <span style="color:#10b981;">BUZZER IS OPEN!</span> TAP BUZZER ON PHONE TO ANSWER!`;
+    } else {
+      banner.style.display = 'none';
+    }
+  }
+
+  function highlightWinningTeamChip(winningTeamId) {
+    const chips = document.querySelectorAll('.score-chip');
+    chips.forEach(chip => {
+      if (chip.getAttribute('data-team-id') === winningTeamId) {
+        chip.classList.add('winner-celebrate');
+        setTimeout(() => chip.classList.remove('winner-celebrate'), 4000);
+      }
+    });
+  }
+
   function showSmartboardFlash(res) {
     const banner = document.getElementById('smart-flash-banner');
     const opts = document.querySelectorAll('.mcq-opt');
@@ -635,16 +730,24 @@
       if (window.launchConfetti) window.launchConfetti();
       document.getElementById('q-answer-banner').classList.add('show');
 
+      // Highlight winning team chip with glowing green celebration
+      highlightWinningTeamChip(res.teamId);
+
       // Highlight correct option in glowing emerald green
       if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
         opts[currentQ.ans].classList.add('correct');
       }
-      // If connections: reveal mystery box
+      // If connections: reveal mystery box with green celebration
       const mysteryIcon = document.getElementById('conn-mystery-icon');
       const mysteryLabel = document.getElementById('conn-mystery-label');
+      const mysteryCard = document.getElementById('conn-mystery-card');
       if (mysteryIcon && currentQ) {
         mysteryIcon.textContent = '✅';
-        mysteryLabel.textContent = currentQ.ansText;
+        mysteryLabel.textContent = currentQ.ansText || 'CORRECT';
+        if (mysteryCard) {
+          mysteryCard.style.borderColor = '#10b981';
+          mysteryCard.style.boxShadow = '0 0 30px #10b981';
+        }
       }
     } else {
       banner.className = 'smart-flash wrong';
@@ -659,7 +762,7 @@
 
     setTimeout(() => {
       banner.className = 'smart-flash';
-    }, 2200);
+    }, 2800);
   }
 
   function renderLobbyRosters(teams) {
@@ -701,7 +804,7 @@
       });
       contentBox.appendChild(grid);
     } else if (round.type === 'connections') {
-      // Visual Connexions Cards (Vijay TV Style)
+      // Visual Connexions Cards (Vijay TV Style) - NO OPTIONS AT ALL
       const connContainer = document.createElement('div');
       connContainer.className = 'conn-container';
 
@@ -731,6 +834,7 @@
 
           const mystery = document.createElement('div');
           mystery.className = 'conn-card mystery';
+          mystery.id = 'conn-mystery-card';
           mystery.innerHTML = `
             <div class="conn-card-icon" id="conn-mystery-icon">❓</div>
             <div class="conn-card-label" id="conn-mystery-label">TECH CONCEPT</div>
@@ -740,19 +844,14 @@
       });
       connContainer.appendChild(cardsRow);
 
-      if (q.options) {
-        const grid = document.createElement('div');
-        grid.className = 'mcq-grid';
-        q.options.forEach((opt, idx) => {
-          const div = document.createElement('div');
-          div.className = 'mcq-opt';
-          div.id = `mcq-opt-${idx}`;
-          div.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
-          div.onclick = () => onSmartboardOptionClick(idx);
-          grid.appendChild(div);
-        });
-        connContainer.appendChild(grid);
-      }
+      const clueHint = document.createElement('div');
+      clueHint.style.color = '#94a3b8';
+      clueHint.style.fontSize = '16px';
+      clueHint.style.fontWeight = '700';
+      clueHint.style.marginTop = '12px';
+      clueHint.innerHTML = '⚡ Connect the visual clues above & buzz in on your phone! Speak your answer to the judge!';
+      connContainer.appendChild(clueHint);
+
       contentBox.appendChild(connContainer);
     } else if (round.type === 'imposter') {
       const grid = document.createElement('div');
@@ -906,6 +1005,16 @@
   function skipCurrentTurn() {
     if (window.soundFX) window.soundFX.playTick();
     ws.send(JSON.stringify({ type: 'SKIP_CURRENT_TURN' }));
+  }
+
+  function hostMarkCorrect() {
+    if (window.soundFX) window.soundFX.playCorrect();
+    ws.send(JSON.stringify({ type: 'HOST_MARK_CORRECT' }));
+  }
+
+  function hostMarkWrong() {
+    if (window.soundFX) window.soundFX.playWrong();
+    ws.send(JSON.stringify({ type: 'HOST_MARK_WRONG' }));
   }
 
   function nextQuestion() {
