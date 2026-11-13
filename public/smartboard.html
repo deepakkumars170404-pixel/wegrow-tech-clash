@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Tech Clash — Smartboard Arena Pro</title>
 <style>
   :root {
@@ -569,9 +572,7 @@
 </div>
 
 <footer>
-  <div class="touch-controls" style="width:100%; justify-content:center; gap:14px;">
-    <button class="touch-btn btn-test" onclick="simulateAutoPlay()" title="Auto-test bot buzz and answer">🤖 AUTO-TEST (BUZZ & ANSWER)</button>
-    <button class="touch-btn btn-skip" onclick="skipCurrentTurn()" title="Pass turn to next team in queue">⏭️ PASS TO NEXT TEAM</button>
+  <div class="touch-controls" style="width:100%; justify-content:center; gap:16px;">
     <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER</button>
     <button class="touch-btn btn-correct" onclick="hostMarkCorrect()" title="Award +100 to answering team">✅ CORRECT (+100)</button>
     <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
@@ -818,11 +819,13 @@
     document.getElementById('q-round-badge').textContent = `${round.name} • Question ${state.currentQuestionIdx + 1} of ${round.questions.length}`;
 
     // Avoid duplicate title: in fact_fiction, statement is displayed inside the statement card
+    const qTitleEl = document.getElementById('q-title');
     if (round.type === 'fact_fiction') {
-      document.getElementById('q-title').style.display = 'none';
+      qTitleEl.style.display = 'none';
+      qTitleEl.textContent = '';
     } else {
-      document.getElementById('q-title').style.display = 'block';
-      document.getElementById('q-title').textContent = q.q || q.topic || "Tech Challenge";
+      qTitleEl.style.display = 'block';
+      qTitleEl.textContent = q.q || q.topic || "Tech Challenge";
     }
 
     const contentBox = document.getElementById('q-content');

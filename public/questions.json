@@ -483,116 +483,6 @@
     "questions": [
       {
         "items": [
-          "PostgreSQL",
-          "MongoDB",
-          "Cassandra",
-          "Neo4j"
-        ],
-        "ans": 0,
-        "ansText": "PostgreSQL",
-        "expl": "PostgreSQL is an ACID-compliant Relational SQL database; MongoDB, Cassandra, and Neo4j are all NoSQL databases (Document, Columnar, Graph)."
-      },
-      {
-        "items": [
-          "UDP Protocol",
-          "TCP Protocol",
-          "SCTP Protocol",
-          "DCCP Protocol"
-        ],
-        "ans": 0,
-        "ansText": "UDP Protocol",
-        "expl": "UDP is connectionless and unreliable (no handshakes or ACKs); TCP, SCTP, and DCCP are connection-oriented protocols with delivery guarantees."
-      },
-      {
-        "items": [
-          "Go (Golang)",
-          "Python",
-          "Ruby",
-          "JavaScript"
-        ],
-        "ans": 0,
-        "ansText": "Go (Golang)",
-        "expl": "Go compiles directly ahead-of-time (AOT) into standalone native machine binary code; Python, Ruby, and JavaScript are interpreted/JIT scripting runtimes."
-      },
-      {
-        "items": [
-          "Merge Sort",
-          "Quick Sort",
-          "Heap Sort",
-          "Selection Sort"
-        ],
-        "ans": 0,
-        "ansText": "Merge Sort",
-        "expl": "Merge Sort requires O(N) auxiliary extra memory space to merge subarrays; Quick Sort, Heap Sort, and Selection Sort are in-place sorting algorithms."
-      },
-      {
-        "items": [
-          "TLS / SSL",
-          "JWT (JSON Web Token)",
-          "OAuth 2.0",
-          "SAML"
-        ],
-        "ans": 0,
-        "ansText": "TLS / SSL",
-        "expl": "TLS is a Transport Layer encryption protocol securing network connections; JWT, OAuth 2.0, and SAML are Application Layer identity and authorization protocols."
-      },
-      {
-        "items": [
-          "SHA-256",
-          "AES-256",
-          "MD5",
-          "Bcrypt"
-        ],
-        "ans": 1,
-        "ansText": "AES-256",
-        "expl": "AES-256 is a two-way reversible encryption cipher (data can be decrypted); SHA-256, MD5, and Bcrypt are one-way irreversible cryptographic hash functions."
-      },
-      {
-        "items": [
-          "Binary Search",
-          "Linear Search",
-          "Exponential Search",
-          "Interpolation Search"
-        ],
-        "ans": 1,
-        "ansText": "Linear Search",
-        "expl": "Linear Search operates on unsorted arrays; Binary, Exponential, and Interpolation Search strictly require a pre-sorted array to function."
-      },
-      {
-        "items": [
-          "Docker Engine",
-          "VirtualBox",
-          "Podman",
-          "containerd"
-        ],
-        "ans": 1,
-        "ansText": "VirtualBox",
-        "expl": "VirtualBox is a Type-2 Hypervisor running full guest OS kernels; Docker, Podman, and containerd are container engines sharing the host OS kernel."
-      },
-      {
-        "items": [
-          "FastAPI",
-          "Next.js",
-          "Express.js",
-          "Flask"
-        ],
-        "ans": 1,
-        "ansText": "Next.js",
-        "expl": "Next.js is a full-stack React framework rendering UI components; FastAPI, Express, and Flask are headless backend REST API server microframeworks."
-      },
-      {
-        "items": [
-          "GET Method",
-          "POST Method",
-          "HEAD Method",
-          "PUT Method"
-        ],
-        "ans": 1,
-        "ansText": "POST Method",
-        "expl": "POST is non-idempotent (submitting twice creates duplicate resources); GET, HEAD, and PUT are idempotent HTTP methods defined by RFC standards."
-      },
-      {
-        "items": [
           "Redis Cache",
           "Memcached",
           "Cassandra",
@@ -604,47 +494,14 @@
       },
       {
         "items": [
-          "TCP",
-          "SCTP",
-          "IP (Internet Protocol)",
-          "UDP"
+          "PostgreSQL",
+          "MongoDB",
+          "Cassandra",
+          "Neo4j"
         ],
-        "ans": 2,
-        "ansText": "IP (Internet Protocol)",
-        "expl": "IP operates at Network Layer 3; TCP, SCTP, and UDP operate at Transport Layer 4."
-      },
-      {
-        "items": [
-          "Kafka",
-          "AWS Kinesis",
-          "RabbitMQ",
-          "Apache Pulsar"
-        ],
-        "ans": 2,
-        "ansText": "RabbitMQ",
-        "expl": "RabbitMQ is a traditional message broker (messages are deleted upon acknowledgment); Kafka, Kinesis, and Pulsar are distributed append-only log streams."
-      },
-      {
-        "items": [
-          "Primary Key",
-          "Foreign Key",
-          "B-Tree Index",
-          "Unique Constraint"
-        ],
-        "ans": 2,
-        "ansText": "B-Tree Index",
-        "expl": "A B-Tree Index is an internal physical query performance data structure; Primary Key, Foreign Key, and Unique Constraints are logical integrity rules."
-      },
-      {
-        "items": [
-          "HTTP/1.1",
-          "HTTP/2",
-          "HTTP/3",
-          "WebSocket"
-        ],
-        "ans": 2,
-        "ansText": "HTTP/3",
-        "expl": "HTTP/3 runs over UDP using the QUIC transport protocol; HTTP/1.1, HTTP/2, and WebSocket all run over TCP."
+        "ans": 0,
+        "ansText": "PostgreSQL",
+        "expl": "PostgreSQL is an ACID-compliant Relational SQL database; MongoDB, Cassandra, and Neo4j are all NoSQL databases (Document, Columnar, Graph)."
       },
       {
         "items": [
@@ -659,6 +516,50 @@
       },
       {
         "items": [
+          "SHA-256",
+          "AES-256",
+          "MD5",
+          "Bcrypt"
+        ],
+        "ans": 1,
+        "ansText": "AES-256",
+        "expl": "AES-256 is a two-way reversible encryption cipher (data can be decrypted); SHA-256, MD5, and Bcrypt are one-way irreversible cryptographic hash functions."
+      },
+      {
+        "items": [
+          "UDP Protocol",
+          "TCP Protocol",
+          "SCTP Protocol",
+          "DCCP Protocol"
+        ],
+        "ans": 0,
+        "ansText": "UDP Protocol",
+        "expl": "UDP is connectionless and unreliable (no handshakes or ACKs); TCP, SCTP, and DCCP are connection-oriented protocols with delivery guarantees."
+      },
+      {
+        "items": [
+          "TCP",
+          "SCTP",
+          "IP (Internet Protocol)",
+          "UDP"
+        ],
+        "ans": 2,
+        "ansText": "IP (Internet Protocol)",
+        "expl": "IP operates at Network Layer 3; TCP, SCTP, and UDP operate at Transport Layer 4."
+      },
+      {
+        "items": [
+          "Binary Search",
+          "Linear Search",
+          "Exponential Search",
+          "Interpolation Search"
+        ],
+        "ans": 1,
+        "ansText": "Linear Search",
+        "expl": "Linear Search operates on unsorted arrays; Binary, Exponential, and Interpolation Search strictly require a pre-sorted array to function."
+      },
+      {
+        "items": [
           "C++ Language",
           "Java",
           "C# Language",
@@ -667,6 +568,17 @@
         "ans": 3,
         "ansText": "C Language",
         "expl": "C is a procedural language without native object-oriented classes or encapsulation; C++, Java, and C# are Object-Oriented (OOP) languages."
+      },
+      {
+        "items": [
+          "Go (Golang)",
+          "Python",
+          "Ruby",
+          "JavaScript"
+        ],
+        "ans": 0,
+        "ansText": "Go (Golang)",
+        "expl": "Go compiles directly ahead-of-time (AOT) into standalone native machine binary code; Python, Ruby, and JavaScript are interpreted/JIT scripting runtimes."
       },
       {
         "items": [
@@ -681,6 +593,28 @@
       },
       {
         "items": [
+          "Docker Engine",
+          "VirtualBox",
+          "Podman",
+          "containerd"
+        ],
+        "ans": 1,
+        "ansText": "VirtualBox",
+        "expl": "VirtualBox is a Type-2 Hypervisor running full guest OS kernels; Docker, Podman, and containerd are container engines sharing the host OS kernel."
+      },
+      {
+        "items": [
+          "Kafka",
+          "AWS Kinesis",
+          "RabbitMQ",
+          "Apache Pulsar"
+        ],
+        "ans": 2,
+        "ansText": "RabbitMQ",
+        "expl": "RabbitMQ is a traditional message broker (messages are deleted upon acknowledgment); Kafka, Kinesis, and Pulsar are distributed append-only log streams."
+      },
+      {
+        "items": [
           "Bubble Sort",
           "Insertion Sort",
           "Merge Sort",
@@ -692,6 +626,61 @@
       },
       {
         "items": [
+          "Merge Sort",
+          "Quick Sort",
+          "Heap Sort",
+          "Selection Sort"
+        ],
+        "ans": 0,
+        "ansText": "Merge Sort",
+        "expl": "Merge Sort requires O(N) auxiliary extra memory space to merge subarrays; Quick Sort, Heap Sort, and Selection Sort are in-place sorting algorithms."
+      },
+      {
+        "items": [
+          "Primary Key",
+          "Foreign Key",
+          "B-Tree Index",
+          "Unique Constraint"
+        ],
+        "ans": 2,
+        "ansText": "B-Tree Index",
+        "expl": "A B-Tree Index is an internal physical query performance data structure; Primary Key, Foreign Key, and Unique Constraints are logical integrity rules."
+      },
+      {
+        "items": [
+          "FastAPI",
+          "Next.js",
+          "Express.js",
+          "Flask"
+        ],
+        "ans": 1,
+        "ansText": "Next.js",
+        "expl": "Next.js is a full-stack React framework rendering UI components; FastAPI, Express, and Flask are headless backend REST API server microframeworks."
+      },
+      {
+        "items": [
+          "TLS / SSL",
+          "JWT (JSON Web Token)",
+          "OAuth 2.0",
+          "SAML"
+        ],
+        "ans": 0,
+        "ansText": "TLS / SSL",
+        "expl": "TLS is a Transport Layer encryption protocol securing network connections; JWT, OAuth 2.0, and SAML are Application Layer identity and authorization protocols."
+      },
+      {
+        "items": [
+          "HTTP/1.1",
+          "HTTP/2",
+          "HTTP/3",
+          "WebSocket"
+        ],
+        "ans": 2,
+        "ansText": "HTTP/3",
+        "expl": "HTTP/3 runs over UDP using the QUIC transport protocol; HTTP/1.1, HTTP/2, and WebSocket all run over TCP."
+      },
+      {
+        "items": [
           "Supervised Learning",
           "Unsupervised Learning",
           "Reinforcement Learning",
@@ -700,6 +689,17 @@
         "ans": 3,
         "ansText": "Deep Learning",
         "expl": "Deep Learning is a neural network architectural subfield; Supervised, Unsupervised, and Reinforcement Learning are the three core machine learning paradigms."
+      },
+      {
+        "items": [
+          "GET Method",
+          "POST Method",
+          "HEAD Method",
+          "PUT Method"
+        ],
+        "ans": 1,
+        "ansText": "POST Method",
+        "expl": "POST is non-idempotent (submitting twice creates duplicate resources); GET, HEAD, and PUT are idempotent HTTP methods defined by RFC standards."
       }
     ]
   },
@@ -916,18 +916,6 @@
     "description": "High Stakes • Balanced A/B/C/D • No Length Clues • 20 Questions",
     "questions": [
       {
-        "q": "Why does Netflix stream HD video smoothly in India without lag, even though original servers are in the USA?",
-        "options": [
-          "Direct satellite dishes",
-          "CDN edge server caches",
-          "Chrome web accelerator",
-          "Wi-Fi router boosters"
-        ],
-        "ans": 1,
-        "ansText": "CDN edge server caches",
-        "expl": "Netflix pre-caches video streams onto local ISP network appliances closer to viewers."
-      },
-      {
         "q": "Which memory level inside a computer delivers the absolute lowest access latency?",
         "options": [
           "CPU L1 hardware cache",
@@ -938,42 +926,6 @@
         "ans": 0,
         "ansText": "CPU L1 hardware cache",
         "expl": "CPU SRAM cache sits directly on the processor die with sub-nanosecond clock cycle latency."
-      },
-      {
-        "q": "Why do mobile banking OTP verification codes automatically expire after 5 or 10 minutes?",
-        "options": [
-          "SIM card powers down",
-          "SMS storage gets full",
-          "Time-To-Live replay fix",
-          "Telecom regulation rule"
-        ],
-        "ans": 2,
-        "ansText": "Time-To-Live replay fix",
-        "expl": "Strict expiration windows prevent attackers from intercepting and re-using captured tokens."
-      },
-      {
-        "q": "What is the technical term when an AI chatbot invents fake historical facts with high confidence?",
-        "options": [
-          "Runtime segmentation fault",
-          "Operating system kernel panic",
-          "Browser script memory leak",
-          "Artificial intelligence hallucination"
-        ],
-        "ans": 3,
-        "ansText": "Artificial intelligence hallucination",
-        "expl": "LLMs predict the most statistically probable token without an inherent grounded factual truth database."
-      },
-      {
-        "q": "Why does a brand new 1,000 GB external drive show only ~931 GB in Windows Explorer?",
-        "options": [
-          "Decimal vs Binary units",
-          "Operating system file tax",
-          "Defective factory sectors",
-          "Hidden backup partition"
-        ],
-        "ans": 0,
-        "ansText": "Decimal vs Binary units",
-        "expl": "Hardware makers define 1 GB = 1000^3 bytes, while Windows counts in binary 1024^3 bytes."
       },
       {
         "q": "What benchmark unit measures the operational computation speed of global supercomputers?",
@@ -988,16 +940,28 @@
         "expl": "Supercomputers are measured by how many quintillion floating-point calculations they solve per second."
       },
       {
-        "q": "When millions order food at midnight on New Year's Eve, what cloud architecture prevents server crash?",
+        "q": "Why does Netflix stream HD video smoothly in India without lag, even though original servers are in the USA?",
         "options": [
-          "Higher internet bandwidth",
-          "Manual developer overtime",
-          "Auto-scaling load balancer",
-          "Local database backup copies"
+          "Direct satellite dishes",
+          "CDN edge server caches",
+          "Chrome web accelerator",
+          "Wi-Fi router boosters"
+        ],
+        "ans": 1,
+        "ansText": "CDN edge server caches",
+        "expl": "Netflix pre-caches video streams onto local ISP network appliances closer to viewers."
+      },
+      {
+        "q": "Why do mobile banking OTP verification codes automatically expire after 5 or 10 minutes?",
+        "options": [
+          "SIM card powers down",
+          "SMS storage gets full",
+          "Time-To-Live replay fix",
+          "Telecom regulation rule"
         ],
         "ans": 2,
-        "ansText": "Auto-scaling load balancer",
-        "expl": "Auto-scaling automatically adds server instances dynamically as incoming traffic surges."
+        "ansText": "Time-To-Live replay fix",
+        "expl": "Strict expiration windows prevent attackers from intercepting and re-using captured tokens."
       },
       {
         "q": "What cyber attack floods a server with coordinated traffic from thousands of infected botnet devices?",
@@ -1012,6 +976,18 @@
         "expl": "DDoS attacks exhaust network bandwidth and connection queues, blocking legitimate users."
       },
       {
+        "q": "What is the technical term when an AI chatbot invents fake historical facts with high confidence?",
+        "options": [
+          "Runtime segmentation fault",
+          "Operating system kernel panic",
+          "Browser script memory leak",
+          "Artificial intelligence hallucination"
+        ],
+        "ans": 3,
+        "ansText": "Artificial intelligence hallucination",
+        "expl": "LLMs predict the most statistically probable token without an inherent grounded factual truth database."
+      },
+      {
         "q": "If you delete a critical tracked file in a Git project, what command restores it from HEAD?",
         "options": [
           "git restore <filename>",
@@ -1022,18 +998,6 @@
         "ans": 0,
         "ansText": "git restore <filename>",
         "expl": "'git restore' discards local working directory modifications and recovers the clean file from index."
-      },
-      {
-        "q": "Why were keyboard keys arranged in the scrambled 'QWERTY' layout instead of ABCDEF order?",
-        "options": [
-          "Military cryptographic code",
-          "Preventing mechanical key jams",
-          "Latin language typing rules",
-          "Accidental manufacturing typo"
-        ],
-        "ans": 1,
-        "ansText": "Preventing mechanical key jams",
-        "expl": "Christopher Sholes separated frequently co-occurring letters so mechanical typewriter arms wouldn't jam."
       },
       {
         "q": "How does Google Maps determine live traffic congestion and color road segments red or green?",
@@ -1048,6 +1012,42 @@
         "expl": "Active smartphones send anonymous velocity updates; when phones slow down, routes turn red."
       },
       {
+        "q": "Why does a brand new 1,000 GB external drive show only ~931 GB in Windows Explorer?",
+        "options": [
+          "Decimal vs Binary units",
+          "Operating system file tax",
+          "Defective factory sectors",
+          "Hidden backup partition"
+        ],
+        "ans": 0,
+        "ansText": "Decimal vs Binary units",
+        "expl": "Hardware makers define 1 GB = 1000^3 bytes, while Windows counts in binary 1024^3 bytes."
+      },
+      {
+        "q": "Why were keyboard keys arranged in the scrambled 'QWERTY' layout instead of ABCDEF order?",
+        "options": [
+          "Military cryptographic code",
+          "Preventing mechanical key jams",
+          "Latin language typing rules",
+          "Accidental manufacturing typo"
+        ],
+        "ans": 1,
+        "ansText": "Preventing mechanical key jams",
+        "expl": "Christopher Sholes separated frequently co-occurring letters so mechanical typewriter arms wouldn't jam."
+      },
+      {
+        "q": "When millions order food at midnight on New Year's Eve, what cloud architecture prevents server crash?",
+        "options": [
+          "Higher internet bandwidth",
+          "Manual developer overtime",
+          "Auto-scaling load balancer",
+          "Local database backup copies"
+        ],
+        "ans": 2,
+        "ansText": "Auto-scaling load balancer",
+        "expl": "Auto-scaling automatically adds server instances dynamically as incoming traffic surges."
+      },
+      {
         "q": "What is the official expanded technical acronym of the word 'Wi-Fi'?",
         "options": [
           "Wireless Fiber Link",
@@ -1058,30 +1058,6 @@
         "ans": 3,
         "ansText": "Catchy rhyme (Not an acronym)",
         "expl": "The Wi-Fi Alliance hired a marketing agency to coin a consumer name for IEEE 802.11b."
-      },
-      {
-        "q": "Why did Microsoft submerge an entire data center capsule onto the ocean floor in Scotland?",
-        "options": [
-          "Seawater cooling efficiency",
-          "Hiding from government taxes",
-          "Providing Wi-Fi to submarines",
-          "Avoiding earthquakes on land"
-        ],
-        "ans": 0,
-        "ansText": "Seawater cooling efficiency",
-        "expl": "Project Natick proved underwater servers benefit from natural free chilling and low failure rates."
-      },
-      {
-        "q": "Which NASA computer scientist wrote the asynchronous software that saved Apollo 11's moon landing?",
-        "options": [
-          "Marie Curie Physicist",
-          "Margaret Hamilton Engineer",
-          "Ada Lovelace Mathematician",
-          "Katherine Johnson Pioneer"
-        ],
-        "ans": 1,
-        "ansText": "Margaret Hamilton Engineer",
-        "expl": "Her priority scheduling dropped radar overload tasks, allowing the computer to focus on descent engines."
       },
       {
         "q": "What was the very first commercial '.com' domain name registered in internet history in 1985?",
@@ -1096,28 +1072,16 @@
         "expl": "Symbolics.com was registered on March 15, 1985, by a computer manufacturer in Massachusetts."
       },
       {
-        "q": "What was the title of the very first video ever uploaded to YouTube in April 2005?",
+        "q": "Why did Microsoft submerge an entire data center capsule onto the ocean floor in Scotland?",
         "options": [
-          "Hello World Coding",
-          "My First Video Post",
-          "Google Campus Tour",
-          "Me at the zoo video"
-        ],
-        "ans": 3,
-        "ansText": "Me at the zoo video",
-        "expl": "Co-founder Jawed Karim uploaded an 19-second video standing in front of elephants at the zoo."
-      },
-      {
-        "q": "What does a 'Reverse Proxy' like Nginx do in front of an enterprise web application?",
-        "options": [
-          "Protects and balances backend",
-          "Generates user passwords",
-          "Formats hard drive partitions",
-          "Increases monitor refresh rate"
+          "Seawater cooling efficiency",
+          "Hiding from government taxes",
+          "Providing Wi-Fi to submarines",
+          "Avoiding earthquakes on land"
         ],
         "ans": 0,
-        "ansText": "Protects and balances backend",
-        "expl": "Reverse proxies handle SSL termination, caching, and distribute incoming traffic to backend nodes."
+        "ansText": "Seawater cooling efficiency",
+        "expl": "Project Natick proved underwater servers benefit from natural free chilling and low failure rates."
       },
       {
         "q": "Why do products you view on Amazon follow you as advertisements on Instagram and news sites?",
@@ -1132,6 +1096,30 @@
         "expl": "Ad networks use third-party tracking cookies and device fingerprinting to target cross-site ads."
       },
       {
+        "q": "Which NASA computer scientist wrote the asynchronous software that saved Apollo 11's moon landing?",
+        "options": [
+          "Marie Curie Physicist",
+          "Margaret Hamilton Engineer",
+          "Ada Lovelace Mathematician",
+          "Katherine Johnson Pioneer"
+        ],
+        "ans": 1,
+        "ansText": "Margaret Hamilton Engineer",
+        "expl": "Her priority scheduling dropped radar overload tasks, allowing the computer to focus on descent engines."
+      },
+      {
+        "q": "What does a 'Reverse Proxy' like Nginx do in front of an enterprise web application?",
+        "options": [
+          "Protects and balances backend",
+          "Generates user passwords",
+          "Formats hard drive partitions",
+          "Increases monitor refresh rate"
+        ],
+        "ans": 0,
+        "ansText": "Protects and balances backend",
+        "expl": "Reverse proxies handle SSL termination, caching, and distribute incoming traffic to backend nodes."
+      },
+      {
         "q": "Which data structure provides constant O(1) average lookup time for key-value pairs?",
         "options": [
           "Singly Linked List",
@@ -1142,6 +1130,18 @@
         "ans": 2,
         "ansText": "Hash Table Key Map",
         "expl": "Hash tables compute a bucket index directly from the key hash, giving instantaneous O(1) lookup."
+      },
+      {
+        "q": "What was the title of the very first video ever uploaded to YouTube in April 2005?",
+        "options": [
+          "Hello World Coding",
+          "My First Video Post",
+          "Google Campus Tour",
+          "Me at the zoo video"
+        ],
+        "ans": 3,
+        "ansText": "Me at the zoo video",
+        "expl": "Co-founder Jawed Karim uploaded an 19-second video standing in front of elephants at the zoo."
       },
       {
         "q": "In machine learning, what happens when a model performs 100% on training data but fails on real users?",
@@ -1164,18 +1164,6 @@
     "description": "5-Second Buzzes • Fast Elimination • High-Speed Clashes • 20 Questions",
     "questions": [
       {
-        "q": "What does the 'C' stand for in the popular CPU acronym?",
-        "options": [
-          "Central",
-          "Circuit",
-          "Control",
-          "Compute"
-        ],
-        "ans": 0,
-        "ansText": "Central",
-        "expl": "CPU stands for Central Processing Unit."
-      },
-      {
         "q": "Which standard internet port does unencrypted HTTP use by default?",
         "options": [
           "Port 443",
@@ -1186,18 +1174,6 @@
         "ans": 1,
         "ansText": "Port 80",
         "expl": "HTTP runs on port 80; HTTPS runs on port 443."
-      },
-      {
-        "q": "Which company originally created the Android mobile operating system before Google acquired it?",
-        "options": [
-          "Apple Inc",
-          "Microsoft",
-          "Android Inc",
-          "Samsung Co"
-        ],
-        "ans": 2,
-        "ansText": "Android Inc",
-        "expl": "Andy Rubin founded Android Inc in 2003, acquired by Google in 2005."
       },
       {
         "q": "What is the standard networking loopback IP address representing 'localhost'?",
@@ -1212,16 +1188,28 @@
         "expl": "127.0.0.1 is the standard loopback IP address assigned to localhost."
       },
       {
-        "q": "Which binary logic gate outputs True (1) only when BOTH inputs are True (1)?",
+        "q": "What does the 'C' stand for in the popular CPU acronym?",
         "options": [
-          "AND Gate",
-          "OR Gate",
-          "XOR Gate",
-          "NOT Gate"
+          "Central",
+          "Circuit",
+          "Control",
+          "Compute"
         ],
         "ans": 0,
-        "ansText": "AND Gate",
-        "expl": "AND logic requires all inputs to be high (1) to produce a high output."
+        "ansText": "Central",
+        "expl": "CPU stands for Central Processing Unit."
+      },
+      {
+        "q": "Which company originally created the Android mobile operating system before Google acquired it?",
+        "options": [
+          "Apple Inc",
+          "Microsoft",
+          "Android Inc",
+          "Samsung Co"
+        ],
+        "ans": 2,
+        "ansText": "Android Inc",
+        "expl": "Andy Rubin founded Android Inc in 2003, acquired by Google in 2005."
       },
       {
         "q": "What does the 'S' stand for in the secure protocol HTTPS?",
@@ -1236,16 +1224,28 @@
         "expl": "HTTPS stands for HyperText Transfer Protocol Secure."
       },
       {
-        "q": "Which programming language was created by Sun Microsystems under the motto 'Write Once, Run Anywhere'?",
+        "q": "What is the smallest unit of digital data in computer science, representing a 0 or 1?",
         "options": [
-          "Python",
-          "C++",
-          "Java",
-          "Ruby"
+          "Bit",
+          "Byte",
+          "Nibble",
+          "Pixel"
         ],
-        "ans": 2,
-        "ansText": "Java",
-        "expl": "Java compiles to bytecode running on any Java Virtual Machine (JVM)."
+        "ans": 0,
+        "ansText": "Bit",
+        "expl": "A bit (binary digit) is the fundamental atomic unit of digital computation."
+      },
+      {
+        "q": "Which binary logic gate outputs True (1) only when BOTH inputs are True (1)?",
+        "options": [
+          "AND Gate",
+          "OR Gate",
+          "XOR Gate",
+          "NOT Gate"
+        ],
+        "ans": 0,
+        "ansText": "AND Gate",
+        "expl": "AND logic requires all inputs to be high (1) to produce a high output."
       },
       {
         "q": "What is the primary volatile memory storage used by the CPU to store running process data?",
@@ -1260,16 +1260,28 @@
         "expl": "RAM (Random Access Memory) provides high-speed volatile workspace for active programs."
       },
       {
-        "q": "What is the smallest unit of digital data in computer science, representing a 0 or 1?",
+        "q": "What software layer serves as the intermediary between hardware silicon and user application software?",
         "options": [
-          "Bit",
-          "Byte",
-          "Nibble",
-          "Pixel"
+          "Web Browser",
+          "Text Editor",
+          "Operating System",
+          "Antivirus Tool"
         ],
-        "ans": 0,
-        "ansText": "Bit",
-        "expl": "A bit (binary digit) is the fundamental atomic unit of digital computation."
+        "ans": 2,
+        "ansText": "Operating System",
+        "expl": "The OS manages hardware abstraction, CPU scheduling, memory, and file systems."
+      },
+      {
+        "q": "Which programming language was created by Sun Microsystems under the motto 'Write Once, Run Anywhere'?",
+        "options": [
+          "Python",
+          "C++",
+          "Java",
+          "Ruby"
+        ],
+        "ans": 2,
+        "ansText": "Java",
+        "expl": "Java compiles to bytecode running on any Java Virtual Machine (JVM)."
       },
       {
         "q": "Which open-source relational database management system features a dolphin named Sakila in its logo?",
@@ -1284,18 +1296,6 @@
         "expl": "MySQL is the widely used open-source relational database represented by a dolphin mascot."
       },
       {
-        "q": "What software layer serves as the intermediary between hardware silicon and user application software?",
-        "options": [
-          "Web Browser",
-          "Text Editor",
-          "Operating System",
-          "Antivirus Tool"
-        ],
-        "ans": 2,
-        "ansText": "Operating System",
-        "expl": "The OS manages hardware abstraction, CPU scheduling, memory, and file systems."
-      },
-      {
         "q": "In Git version control, which command creates and switches to a brand new isolated branch in one step?",
         "options": [
           "git branch new",
@@ -1306,18 +1306,6 @@
         "ans": 3,
         "ansText": "git checkout -b",
         "expl": "'git checkout -b <name>' or 'git switch -c <name>' creates and checks out the branch."
-      },
-      {
-        "q": "Which standard format is universally used for styling and designing visual presentation on web pages?",
-        "options": [
-          "CSS Stylesheet",
-          "JSON Payload",
-          "SQL Query",
-          "C++ Binary"
-        ],
-        "ans": 0,
-        "ansText": "CSS Stylesheet",
-        "expl": "Cascading Style Sheets (CSS) controls typography, layouts, colors, and responsive design."
       },
       {
         "q": "What hardware device routes data packets between different computer networks and connects to the internet?",
@@ -1332,16 +1320,28 @@
         "expl": "Routers forward data packets across network boundaries using IP routing tables."
       },
       {
-        "q": "What does the popular web programming acronym 'DOM' stand for?",
+        "q": "What is the common term for malicious software designed to disrupt, damage, or gain unauthorized access?",
         "options": [
-          "Data Online Model",
-          "Direct Object Mode",
-          "Document Object Model",
-          "Disk Operating Module"
+          "Malware",
+          "Firmware",
+          "Shareware",
+          "Middleware"
         ],
-        "ans": 2,
-        "ansText": "Document Object Model",
-        "expl": "The DOM is the programming API representation of HTML document trees in browsers."
+        "ans": 0,
+        "ansText": "Malware",
+        "expl": "Malware (malicious software) encompasses viruses, ransomware, trojans, and worms."
+      },
+      {
+        "q": "Which standard format is universally used for styling and designing visual presentation on web pages?",
+        "options": [
+          "CSS Stylesheet",
+          "JSON Payload",
+          "SQL Query",
+          "C++ Binary"
+        ],
+        "ans": 0,
+        "ansText": "CSS Stylesheet",
+        "expl": "Cascading Style Sheets (CSS) controls typography, layouts, colors, and responsive design."
       },
       {
         "q": "Which non-volatile solid-state storage technology replaced spinning mechanical magnetic hard disk drives?",
@@ -1356,16 +1356,28 @@
         "expl": "SSDs use flash memory with zero moving parts, providing vastly superior I/O speeds."
       },
       {
-        "q": "What is the common term for malicious software designed to disrupt, damage, or gain unauthorized access?",
+        "q": "In Python, which built-in data type is immutable and defined using round parentheses ()?",
         "options": [
-          "Malware",
-          "Firmware",
-          "Shareware",
-          "Middleware"
+          "List array",
+          "Dictionary map",
+          "Tuple sequence",
+          "Set collection"
         ],
-        "ans": 0,
-        "ansText": "Malware",
-        "expl": "Malware (malicious software) encompasses viruses, ransomware, trojans, and worms."
+        "ans": 2,
+        "ansText": "Tuple sequence",
+        "expl": "Tuples are ordered, immutable sequences defined using parentheses in Python."
+      },
+      {
+        "q": "What does the popular web programming acronym 'DOM' stand for?",
+        "options": [
+          "Data Online Model",
+          "Direct Object Mode",
+          "Document Object Model",
+          "Disk Operating Module"
+        ],
+        "ans": 2,
+        "ansText": "Document Object Model",
+        "expl": "The DOM is the programming API representation of HTML document trees in browsers."
       },
       {
         "q": "Which cryptographic protocol replaced the insecure Telnet protocol for remote terminal server access?",
@@ -1378,18 +1390,6 @@
         "ans": 1,
         "ansText": "SSH Protocol",
         "expl": "SSH (Secure Shell) encrypts command-line sessions and file transfers across networks."
-      },
-      {
-        "q": "In Python, which built-in data type is immutable and defined using round parentheses ()?",
-        "options": [
-          "List array",
-          "Dictionary map",
-          "Tuple sequence",
-          "Set collection"
-        ],
-        "ans": 2,
-        "ansText": "Tuple sequence",
-        "expl": "Tuples are ordered, immutable sequences defined using parentheses in Python."
       },
       {
         "q": "Which cloud computing model provides virtualized servers, storage, and networking over the internet?",

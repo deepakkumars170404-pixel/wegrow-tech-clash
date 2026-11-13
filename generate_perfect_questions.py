@@ -467,6 +467,10 @@ r3_items = [
     }
 ]
 
+# Shuffle Round 3 to randomize answer positions (C, A, D, B, A, C, B, D...)
+order_r3 = [10, 0, 15, 5, 1, 11, 6, 16, 2, 17, 7, 12, 18, 3, 13, 8, 4, 14, 19, 9]
+r3_items = [r3_items[i] for i in order_r3]
+
 rounds.append({
     "id": 3,
     "name": "Round 3: Odd One Out (The Imposter)",
