@@ -263,11 +263,11 @@
     transition: all 0.15s;
   }
   .touch-btn:hover { transform: translateY(-2px); }
-  .btn-correct { background: #059669; }
-  .btn-wrong { background: #dc2626; }
   .btn-reveal { background: #4f46e5; }
   .btn-next { background: #0284c7; }
-  .btn-test { background: #334155; border: 1px dashed var(--accent); }
+  .btn-skip { background: #475569; }
+  .btn-test { background: #1e293b; border: 1px dashed var(--accent); }
+  .mcq-opt:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.15); transform: scale(1.01); }
 
   .smart-flash {
     position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
@@ -378,10 +378,9 @@
   </div>
 
   <div class="touch-controls">
-    <button class="touch-btn btn-test" onclick="simulateBotBuzz()" title="Test Buzzer without phone">🤖 TEST BOT BUZZ</button>
-    <button class="touch-btn btn-wrong" onclick="markWrong()">❌ WRONG / PASS</button>
-    <button class="touch-btn btn-reveal" onclick="toggleReveal()">💡 REVEAL ANSWER</button>
-    <button class="touch-btn btn-correct" onclick="markCorrect()">✅ CORRECT (+100)</button>
+    <button class="touch-btn btn-test" onclick="simulateAutoPlay()" title="Auto-test bot buzz and answer">🤖 AUTO-TEST (BUZZ & ANSWER)</button>
+    <button class="touch-btn btn-skip" onclick="skipCurrentTurn()" title="Pass turn to next team in queue">⏭️ PASS TO NEXT TEAM</button>
+    <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER & EXPLANATION</button>
     <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
   </div>
 </footer>
@@ -499,21 +498,33 @@
 
   function showSmartboardFlash(res) {
     const banner = document.getElementById('smart-flash-banner');
+    const opts = document.querySelectorAll('.mcq-opt');
+
     if (res.status === 'correct') {
       banner.className = 'smart-flash correct';
       banner.textContent = `✅ ${res.teamName || 'Team'} CORRECT! +100 PTS`;
       if (window.soundFX) window.soundFX.playCorrect();
       if (window.launchConfetti) window.launchConfetti();
       document.getElementById('q-answer-banner').classList.add('show');
+
+      // Highlight correct option in glowing emerald green
+      if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
+        opts[currentQ.ans].classList.add('correct');
+      }
     } else {
       banner.className = 'smart-flash wrong';
-      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG! PASSING...`;
+      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING...`;
       if (window.soundFX) window.soundFX.playWrong();
+
+      // Shake/mark red on the selected wrong option
+      if (res.selectedOptionIndex !== undefined && opts[res.selectedOptionIndex]) {
+        opts[res.selectedOptionIndex].classList.add('wrong');
+      }
     }
 
     setTimeout(() => {
       banner.className = 'smart-flash';
-    }, 2000);
+    }, 2200);
   }
 
   function renderLobbyRosters(teams) {
@@ -548,7 +559,9 @@
       q.options.forEach((opt, idx) => {
         const div = document.createElement('div');
         div.className = 'mcq-opt';
+        div.id = `mcq-opt-${idx}`;
         div.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
+        div.onclick = () => onSmartboardOptionClick(idx);
         grid.appendChild(div);
       });
       contentBox.appendChild(grid);
@@ -568,9 +581,11 @@
       q.items.forEach((item, idx) => {
         const div = document.createElement('div');
         div.className = 'mcq-opt';
+        div.id = `mcq-opt-${idx}`;
         div.style.textAlign = 'center';
         div.style.fontSize = '22px';
         div.textContent = item;
+        div.onclick = () => onSmartboardOptionClick(idx);
         grid.appendChild(div);
       });
       contentBox.appendChild(grid);
@@ -691,6 +706,24 @@
       const opts = document.querySelectorAll('.mcq-opt');
       if (opts[currentQ.ans]) opts[currentQ.ans].classList.add('correct');
     }
+  }
+
+  function onSmartboardOptionClick(idx) {
+    if (window.soundFX) window.soundFX.playTick();
+    ws.send(JSON.stringify({
+      type: 'SMARTBOARD_SELECT_OPTION',
+      selectedOptionIndex: idx
+    }));
+  }
+
+  function simulateAutoPlay() {
+    if (window.soundFX) window.soundFX.playUnlock();
+    ws.send(JSON.stringify({ type: 'SIMULATE_AUTO_PLAY' }));
+  }
+
+  function skipCurrentTurn() {
+    if (window.soundFX) window.soundFX.playTick();
+    ws.send(JSON.stringify({ type: 'SKIP_CURRENT_TURN' }));
   }
 
   function markCorrect() {

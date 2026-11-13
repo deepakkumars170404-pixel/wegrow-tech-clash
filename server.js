@@ -168,6 +168,73 @@ try {
   console.error('Error loading questions in server.js:', e);
 }
 
+function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnswer) {
+  const currentRound = allRounds[gameState.currentRoundIdx];
+  const currentQ = currentRound ? currentRound.questions[gameState.currentQuestionIdx] : null;
+  if (!currentQ) return;
+
+  const team = gameState.teams.find(t => t.id === teamId);
+  const player = playerId ? gameState.players[playerId] : null;
+
+  let isCorrect = false;
+  if (currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
+    isCorrect = (selectedOptionIndex === currentQ.ans);
+  } else {
+    const userText = (textAnswer || '').trim().toLowerCase();
+    const correctText = (currentQ.ansText || '').trim().toLowerCase();
+    isCorrect = userText && (correctText.includes(userText) || userText.includes(correctText.split(' ')[0]));
+  }
+
+  if (isCorrect) {
+    if (team) team.score += 100;
+
+    gameState.lastAnswerResult = {
+      status: 'correct',
+      teamId: team ? team.id : null,
+      teamName: team ? team.name : 'Team',
+      playerName: player ? player.name : (team ? team.name : 'Team'),
+      selectedOptionIndex: selectedOptionIndex,
+      correctOptionIndex: currentQ.ans,
+      message: `${team ? team.name : 'Team'} answered CORRECTLY! (+100 PTS)`,
+      time: Date.now()
+    };
+    gameState.buzzerState = 'locked';
+  } else {
+    if (team) {
+      team.score = Math.max(0, team.score - 20);
+      gameState.lockedTeamsForQuestion.push(team.id);
+    }
+
+    gameState.lastAnswerResult = {
+      status: 'wrong',
+      teamId: team ? team.id : null,
+      teamName: team ? team.name : 'Team',
+      playerName: player ? player.name : (team ? team.name : 'Team'),
+      selectedOptionIndex: selectedOptionIndex,
+      correctOptionIndex: currentQ.ans,
+      message: `${team ? team.name : 'Team'} WRONG! (-20 PTS)`,
+      time: Date.now()
+    };
+
+    if (team) {
+      gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== team.id);
+    }
+
+    if (gameState.buzzerQueue.length > 0) {
+      const nextBuzzed = gameState.buzzerQueue[0];
+      gameState.activeAnsweringTeamId = nextBuzzed.teamId;
+      gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
+      gameState.buzzerState = 'buzzing';
+    } else {
+      gameState.activeAnsweringTeamId = null;
+      gameState.activeAnsweringPlayerId = null;
+      gameState.buzzerState = 'open';
+    }
+  }
+
+  broadcastState();
+}
+
 wss.on('connection', (ws) => {
   const playerId = 'p_' + Math.random().toString(36).substr(2, 9);
   ws.playerId = playerId;
@@ -284,48 +351,20 @@ wss.on('connection', (ws) => {
         case 'SUBMIT_STUDENT_ANSWER': {
           const player = gameState.players[ws.playerId];
           if (!player || player.teamId !== gameState.activeAnsweringTeamId) return;
+          processAnswerSubmission(player.teamId, player.id, data.selectedOptionIndex, data.textAnswer);
+          break;
+        }
 
-          const currentRound = allRounds[gameState.currentRoundIdx];
-          const currentQ = currentRound ? currentRound.questions[gameState.currentQuestionIdx] : null;
+        case 'SMARTBOARD_SELECT_OPTION': {
+          const activeTeamId = gameState.activeAnsweringTeamId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].teamId : (gameState.teams[0] ? gameState.teams[0].id : null));
+          processAnswerSubmission(activeTeamId, null, data.selectedOptionIndex, null);
+          break;
+        }
 
-          let isCorrect = false;
-          if (currentQ) {
-            if (currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
-              isCorrect = (data.selectedOptionIndex === currentQ.ans);
-            } else {
-              const userText = (data.textAnswer || '').trim().toLowerCase();
-              const correctText = (currentQ.ansText || '').trim().toLowerCase();
-              isCorrect = userText && (correctText.includes(userText) || userText.includes(correctText.split(' ')[0]));
-            }
-          }
-
-          if (isCorrect) {
-            const team = gameState.teams.find(t => t.id === player.teamId);
-            if (team) team.score += 100;
-
-            gameState.lastAnswerResult = {
-              status: 'correct',
-              teamId: player.teamId,
-              teamName: player.teamName,
-              playerName: player.name,
-              time: Date.now()
-            };
-            gameState.buzzerState = 'locked';
-          } else {
-            const team = gameState.teams.find(t => t.id === player.teamId);
-            if (team) team.score = Math.max(0, team.score - 20);
-
-            gameState.lockedTeamsForQuestion.push(player.teamId);
-            gameState.lastAnswerResult = {
-              status: 'wrong',
-              teamId: player.teamId,
-              teamName: player.teamName,
-              playerName: player.name,
-              time: Date.now()
-            };
-
-            gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== player.teamId);
-
+        case 'SKIP_CURRENT_TURN': {
+          if (gameState.activeAnsweringTeamId) {
+            gameState.lockedTeamsForQuestion.push(gameState.activeAnsweringTeamId);
+            gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== gameState.activeAnsweringTeamId);
             if (gameState.buzzerQueue.length > 0) {
               const nextBuzzed = gameState.buzzerQueue[0];
               gameState.activeAnsweringTeamId = nextBuzzed.teamId;
@@ -336,9 +375,63 @@ wss.on('connection', (ws) => {
               gameState.activeAnsweringPlayerId = null;
               gameState.buzzerState = 'open';
             }
+            broadcastState();
           }
+          break;
+        }
 
-          broadcastState();
+        case 'SIMULATE_AUTO_PLAY': {
+          // 1-Click Auto Demo: Unlocks buzzer, picks bot, buzzes, and submits answer automatically
+          gameState.buzzerState = 'open';
+          const playerList = Object.values(gameState.players);
+          const eligible = playerList.filter(p => !gameState.lockedTeamsForQuestion.includes(p.teamId) && !gameState.buzzerQueue.some(b => b.teamId === p.teamId));
+          const bot = (eligible.length > 0) ? eligible[Math.floor(Math.random() * eligible.length)] : (playerList[0] || null);
+
+          if (bot) {
+            gameState.buzzerQueue.push({
+              playerId: bot.id,
+              playerName: bot.name,
+              teamId: bot.teamId,
+              teamName: bot.teamName,
+              time: Date.now()
+            });
+            gameState.activeAnsweringTeamId = bot.teamId;
+            gameState.activeAnsweringPlayerId = bot.id;
+            gameState.buzzerState = 'buzzing';
+            broadcastState();
+
+            // Auto submit correct answer after 1.2 seconds!
+            setTimeout(() => {
+              const curR = allRounds[gameState.currentRoundIdx];
+              const curQ = curR ? curR.questions[gameState.currentQuestionIdx] : null;
+              if (curQ && gameState.activeAnsweringTeamId === bot.teamId) {
+                processAnswerSubmission(bot.teamId, bot.id, curQ.ans, curQ.ansText);
+              }
+            }, 1200);
+          }
+          break;
+        }
+
+        case 'SIMULATE_BOT_BUZZ': {
+          gameState.buzzerState = 'open';
+          const playerList = Object.values(gameState.players);
+          const eligible = playerList.filter(p => !gameState.lockedTeamsForQuestion.includes(p.teamId) && !gameState.buzzerQueue.some(b => b.teamId === p.teamId));
+          if (eligible.length > 0) {
+            const bot = eligible[Math.floor(Math.random() * eligible.length)];
+            gameState.buzzerQueue.push({
+              playerId: bot.id,
+              playerName: bot.name,
+              teamId: bot.teamId,
+              teamName: bot.teamName,
+              time: Date.now()
+            });
+            if (!gameState.activeAnsweringTeamId) {
+              gameState.activeAnsweringTeamId = bot.teamId;
+              gameState.activeAnsweringPlayerId = bot.id;
+            }
+            gameState.buzzerState = 'buzzing';
+            broadcastState();
+          }
           break;
         }
 
@@ -383,31 +476,6 @@ wss.on('connection', (ws) => {
             }
           }
           broadcastState();
-          break;
-        }
-
-        case 'SIMULATE_BOT_BUZZ': {
-          // Testing helper: picks a random dummy player to buzz
-          const playerList = Object.values(gameState.players);
-          if (playerList.length > 0 && gameState.buzzerState === 'open') {
-            const eligible = playerList.filter(p => !gameState.lockedTeamsForQuestion.includes(p.teamId) && !gameState.buzzerQueue.some(b => b.teamId === p.teamId));
-            if (eligible.length > 0) {
-              const bot = eligible[Math.floor(Math.random() * eligible.length)];
-              gameState.buzzerQueue.push({
-                playerId: bot.id,
-                playerName: bot.name,
-                teamId: bot.teamId,
-                teamName: bot.teamName,
-                time: Date.now()
-              });
-              if (!gameState.activeAnsweringTeamId) {
-                gameState.activeAnsweringTeamId = bot.teamId;
-                gameState.activeAnsweringPlayerId = bot.id;
-              }
-              gameState.buzzerState = 'buzzing';
-              broadcastState();
-            }
-          }
           break;
         }
 
