@@ -822,7 +822,9 @@
       const queueInfo = document.getElementById('buzzer-queue-info');
       if (queueInfo) {
         if (res.status === 'correct') {
-          queueInfo.innerHTML = `✅ <span style="color:#10b981; font-weight:900;">${res.teamName || 'Team'}</span> answered CORRECTLY (+100 PTS)!`;
+          queueInfo.innerHTML = `✅ <span style="color:#10b981; font-weight:900;">${res.teamName || 'Team'}</span> answered CORRECTLY (+100 PTS)! Moving to next question...`;
+        } else if (res.status === 'max_attempts_exceeded') {
+          queueInfo.innerHTML = `⚠️ <span style="color:#f59e0b; font-weight:900;">2 Teams answered incorrectly!</span> Revealing answer & moving to next question in 3.5s...`;
         } else {
           queueInfo.innerHTML = `❌ <span style="color:#ef4444; font-weight:900;">${res.teamName || 'Team'}</span> answered WRONG (-20 PTS)! Turn passing...`;
         }
@@ -846,6 +848,18 @@
       }
       if (window.soundFX) window.soundFX.playCorrect();
       if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
+    } else if (res.status === 'max_attempts_exceeded') {
+      overlay.className = 'flash-overlay wrong';
+      title.textContent = 'WRONG! ❌';
+      sub.textContent = '2 TEAMS FAILED! NEXT QUESTION IN 3.5s';
+      if (selIdx !== null && btns[selIdx]) {
+        btns[selIdx].style.background = '#ef4444';
+        btns[selIdx].style.color = '#ffffff';
+        btns[selIdx].style.borderColor = '#f87171';
+        btns[selIdx].style.boxShadow = '0 0 25px #ef4444';
+      }
+      if (window.soundFX) window.soundFX.playWrong();
+      if (navigator.vibrate) navigator.vibrate(400);
     } else {
       overlay.className = 'flash-overlay wrong';
       title.textContent = 'WRONG! ❌';

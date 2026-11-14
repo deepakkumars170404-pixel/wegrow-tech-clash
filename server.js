@@ -271,6 +271,48 @@ function assignNewPlayerToTeam(player) {
 // seedDummyPlayers();
 
 let answerTimerInterval = null;
+let autoAdvanceTimeout = null;
+
+function clearAutoAdvance() {
+  if (autoAdvanceTimeout) {
+    clearTimeout(autoAdvanceTimeout);
+    autoAdvanceTimeout = null;
+  }
+}
+
+function advanceToNextQuestion(delayMs = 3500) {
+  clearAutoAdvance();
+  autoAdvanceTimeout = setTimeout(() => {
+    if (gameState.currentView !== 'game') return;
+
+    let nextQ = gameState.currentQuestionIdx + 1;
+    let nextR = gameState.currentRoundIdx;
+    const curRound = allRounds[nextR];
+
+    if (curRound && nextQ >= curRound.questions.length) {
+      nextR++;
+      nextQ = 0;
+    }
+
+    if (nextR >= allRounds.length) {
+      gameState.currentView = 'winner';
+      broadcastState();
+      return;
+    }
+
+    gameState.currentRoundIdx = nextR;
+    gameState.currentQuestionIdx = nextQ;
+    gameState.buzzerState = 'locked';
+    gameState.buzzerQueue = [];
+    gameState.lockedTeamsForQuestion = [];
+    gameState.activeAnsweringTeamId = null;
+    gameState.activeAnsweringPlayerId = null;
+    gameState.answerCountdown = null;
+    gameState.lastAnswerResult = null;
+    console.log(`[SERVER AUTO-ADVANCE] Automatically moved to Round ${nextR + 1}, Question ${nextQ + 1}`);
+    broadcastState();
+  }, delayMs);
+}
 
 function clearAnswerTimer() {
   if (answerTimerInterval) {
@@ -341,6 +383,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       time: Date.now()
     };
     gameState.buzzerState = 'locked';
+    advanceToNextQuestion(3500);
   } else {
     if (team) {
       team.score = Math.max(0, team.score - 20);
@@ -370,7 +413,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
 
     // 2-CHANCE ATTEMPT RULE: Maximum 2 teams can attempt each question!
     if (gameState.lockedTeamsForQuestion.length >= 2) {
-      console.log(`Question attempt limit reached (2 teams failed). Auto-locking question and revealing answer.`);
+      console.log(`[ATTEMPT LIMIT] 2 teams failed on question. Auto-advancing in 3.5 seconds.`);
       gameState.buzzerState = 'locked';
       gameState.buzzerQueue = [];
       gameState.activeAnsweringTeamId = null;
@@ -385,6 +428,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
         message: `2 Teams answered incorrectly! Revealing correct answer...`,
         time: Date.now()
       };
+      advanceToNextQuestion(3500);
     } else if (gameState.buzzerQueue.length > 0) {
       const nextBuzzed = gameState.buzzerQueue[0];
       gameState.activeAnsweringTeamId = nextBuzzed.teamId;
@@ -606,6 +650,7 @@ wss.on('connection', (ws) => {
 
         case 'CHANGE_QUESTION': {
           clearAnswerTimer();
+          clearAutoAdvance();
           gameState.currentRoundIdx = data.roundIdx;
           gameState.currentQuestionIdx = data.questionIdx;
           gameState.buzzerState = 'locked';
@@ -621,6 +666,7 @@ wss.on('connection', (ws) => {
 
         case 'OPEN_BUZZER': {
           clearAnswerTimer();
+          clearAutoAdvance();
           gameState.buzzerState = 'open';
           gameState.buzzerQueue = [];
           gameState.activeAnsweringTeamId = null;
@@ -719,6 +765,7 @@ wss.on('connection', (ws) => {
                 ansText: curQ ? curQ.ansText : '',
                 time: Date.now()
               };
+              advanceToNextQuestion(3500);
             } else if (gameState.buzzerQueue.length > 0) {
               const nextBuzzed = gameState.buzzerQueue[0];
               gameState.activeAnsweringTeamId = nextBuzzed.teamId;
@@ -831,6 +878,7 @@ wss.on('connection', (ws) => {
             time: Date.now()
           };
           gameState.buzzerState = 'locked';
+          advanceToNextQuestion(3500);
           updateLeaderboard();
           broadcastState();
           break;
@@ -873,6 +921,7 @@ wss.on('connection', (ws) => {
                 ansText: curQ ? curQ.ansText : '',
                 time: Date.now()
               };
+              advanceToNextQuestion(3500);
             } else if (gameState.buzzerQueue.length > 0) {
               const nextBuzzed = gameState.buzzerQueue[0];
               gameState.activeAnsweringTeamId = nextBuzzed.teamId;
@@ -913,6 +962,7 @@ wss.on('connection', (ws) => {
 
         case 'RESET_ALL': {
           clearAnswerTimer();
+          clearAutoAdvance();
           gameState.currentView = 'lobby';
           gameState.currentRoundIdx = 0;
           gameState.currentQuestionIdx = 0;
