@@ -659,6 +659,41 @@
   let currentGameState = null;
   let lastRenderedRoundIdx = -1;
   let lastRenderedQuestionIdx = -1;
+  let currentServerIp = '192.168.29.60';
+  let isAdvancingQuestion = false;
+  let autoAdvanceTimer = null;
+
+  function initQr(newIp) {
+    if (newIp) currentServerIp = newIp;
+    let url;
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      url = window.location.origin + '/player.html';
+    } else {
+      const portStr = window.location.port ? (':' + window.location.port) : ':3000';
+      url = 'http://' + currentServerIp + portStr + '/player.html';
+    }
+    const urlText = document.getElementById('join-url-text');
+    if (urlText) urlText.textContent = url;
+    const qrEl = document.getElementById('qrcode');
+    if (qrEl) {
+      if (typeof QRCode !== 'undefined') {
+        try {
+          qrEl.innerHTML = '';
+          new QRCode(qrEl, {
+            text: url,
+            width: 170,
+            height: 170,
+            colorDark: '#090d16',
+            colorLight: '#ffffff'
+          });
+        } catch (e) {
+          console.warn('QRCode render issue:', e);
+        }
+      } else {
+        setTimeout(() => initQr(newIp), 300);
+      }
+    }
+  }
 
   function connectWs() {
     const loc = window.location;
@@ -675,40 +710,9 @@
     ws.onclose = () => setTimeout(connectWs, 2000);
   }
 
-  // Initialize immediately - never block on external fetches!
+  // Initialize immediately
   initQr();
   connectWs();
-
-  let currentServerIp = '192.168.29.60';
-
-  function initQr(newIp) {
-    if (newIp) currentServerIp = newIp;
-    let url;
-    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-      url = window.location.origin + '/player.html';
-    } else {
-      const portStr = window.location.port ? (':' + window.location.port) : ':3000';
-      url = 'http://' + currentServerIp + portStr + '/player.html';
-    }
-    const urlText = document.getElementById('join-url-text');
-    if (urlText) urlText.textContent = url;
-    const qrEl = document.getElementById('qrcode');
-    if (qrEl) {
-      if (typeof QRCode !== 'undefined') {
-        qrEl.innerHTML = '';
-        new QRCode(qrEl, {
-          text: url,
-          width: 170,
-          height: 170,
-          colorDark: '#090d16',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      } else {
-        setTimeout(() => initQr(newIp), 300);
-      }
-    }
-  }
 
   function renderGlobalState(state) {
     currentGameState = state;
@@ -825,8 +829,6 @@
       }
     });
   }
-
-  let autoAdvanceTimer = null;
 
   function showSmartboardFlash(res) {
     const banner = document.getElementById('smart-flash-banner');
@@ -1249,8 +1251,6 @@
     ws.send(JSON.stringify({ type: 'HOST_MARK_WRONG' }));
   }
 
-  let isAdvancingQuestion = false;
-
   function nextQuestion() {
     if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
     if (isAdvancingQuestion) return;
@@ -1266,8 +1266,6 @@
     if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
     lastRenderedRoundIdx = -1;
     lastRenderedQuestionIdx = -1;
-    ws.send(JSON.stringify({ type: 'RESET_ALL' }));
-  }
     ws.send(JSON.stringify({ type: 'RESET_ALL' }));
   }
 
