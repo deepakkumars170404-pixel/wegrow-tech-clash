@@ -696,8 +696,14 @@ wss.on('connection', (ws) => {
         }
 
         case 'SMARTBOARD_SELECT_OPTION': {
-          const activeTeamId = gameState.activeAnsweringTeamId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].teamId : (gameState.teams[0] ? gameState.teams[0].id : null));
-          processAnswerSubmission(activeTeamId, null, data.selectedOptionIndex, null);
+          const activeTeamId = gameState.activeAnsweringTeamId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].teamId : null);
+          if (!activeTeamId) {
+            console.log('SMARTBOARD_SELECT_OPTION ignored: No team currently buzzing/answering.');
+            return;
+          }
+          const activePlayerId = gameState.activeAnsweringPlayerId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].playerId : null);
+          const optIdx = parseInt(data.selectedOptionIndex, 10);
+          processAnswerSubmission(activeTeamId, activePlayerId, optIdx, null);
           break;
         }
 

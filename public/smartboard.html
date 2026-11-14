@@ -1116,6 +1116,10 @@
   }
 
   function onSmartboardOptionClick(idx) {
+    if (!currentGameState || currentGameState.buzzerState !== 'buzzing') {
+      console.log('Cannot select option on smartboard: no team is currently answering.');
+      return;
+    }
     if (window.soundFX) window.soundFX.playTick();
     ws.send(JSON.stringify({
       type: 'SMARTBOARD_SELECT_OPTION',
