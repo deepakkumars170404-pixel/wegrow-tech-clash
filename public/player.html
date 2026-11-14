@@ -368,7 +368,10 @@
 
   <!-- Real-time Mobile Answer Panel for Buzzed Team -->
   <div class="answer-panel" id="mobile-answer-panel">
-    <div style="color: var(--yellow); font-size: 18px; font-weight: 900; text-align:center;">🎯 YOUR TURN! Select Your Answer</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:10px;">
+      <div style="color: var(--yellow); font-size: 17px; font-weight: 900;">🎯 YOUR TURN!</div>
+      <div id="phone-countdown-badge" style="background:#ef4444; color:white; padding:4px 12px; border-radius:20px; font-size:15px; font-weight:900; animation:pulseGlow 1s infinite alternate;">⏳ 10s</div>
+    </div>
     <div class="options-btn-grid" id="mobile-options-container">
       <!-- Options or Clue Cards injected by JS -->
     </div>
@@ -626,6 +629,12 @@
     if (isMyTeamAnswering && state.buzzerState === 'buzzing') {
       buzzerBox.style.display = 'none';
       answerPanel.className = 'answer-panel show';
+      const countdownBadge = document.getElementById('phone-countdown-badge');
+      if (countdownBadge) {
+        const secs = (state.answerCountdown !== undefined) ? state.answerCountdown : 10;
+        countdownBadge.textContent = `⏳ ${secs}s`;
+        countdownBadge.style.background = secs <= 3 ? '#ef4444' : '#f59e0b';
+      }
       renderMobileOptions(state);
       return;
     } else {
@@ -773,6 +782,12 @@
       sub.textContent = 'YOUR TEAM +100 POINTS';
       if (window.soundFX) window.soundFX.playCorrect();
       if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
+    } else if (res.status === 'timeout') {
+      overlay.className = 'flash-overlay wrong';
+      title.textContent = "TIME'S UP! ⏰";
+      sub.textContent = 'YOUR TEAM -20 PTS • LOCKED!';
+      if (window.soundFX) window.soundFX.playWrong();
+      if (navigator.vibrate) navigator.vibrate(400);
     } else {
       overlay.className = 'flash-overlay wrong';
       title.textContent = 'WRONG! ❌';

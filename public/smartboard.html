@@ -52,6 +52,19 @@
   .score-chip.active { border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
   .score-chip.updated { animation: chipPulse 0.5s ease; }
 
+  .manual-score-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.1s;
+  }
+  .manual-score-btn:hover { transform: scale(1.15); opacity: 0.9; }
+  .manual-score-btn.plus { background: #10b981; color: white; }
+  .manual-score-btn.minus { background: #ef4444; color: white; }
+
   .round-indicator {
     background: #1e293b;
     border: 1px solid #334155;
@@ -594,6 +607,8 @@
   <div class="touch-controls" style="width:100%; justify-content:center; gap:16px;">
     <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER</button>
     <button class="touch-btn btn-correct" onclick="hostMarkCorrect()" title="Award +100 to answering team">✅ CORRECT (+100)</button>
+    <button class="touch-btn btn-wrong" onclick="hostMarkWrong()" title="Mark WRONG (-20 PTS) and pass to next team">❌ WRONG (-20)</button>
+    <button class="touch-btn btn-skip" onclick="skipCurrentTurn()" title="Pass chance to next team in queue">⏭️ PASS / SKIP</button>
     <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
   </div>
 </footer>
@@ -669,7 +684,7 @@
       initQr(state.networkIp);
     }
 
-    // Render 4-Team Continuous Score Bar in Header
+    // Render 4-Team Continuous Score Bar in Header with Manual + / - Controls
     const scoreBar = document.getElementById('team-scores-bar');
     scoreBar.innerHTML = '';
     state.teams.forEach(t => {
@@ -679,13 +694,14 @@
       chip.style.borderColor = t.color;
       chip.innerHTML = `
         <span style="color:${t.color}; font-weight:900;">${t.name}:</span>
-        <span style="font-weight:900;">${t.score} pts</span>
+        <span style="font-weight:900; min-width:48px; text-align:center;">${t.score} pts</span>
         <small style="color:var(--muted); font-size:12px;">(${t.correctCount || 0}✓)</small>
+        <div style="display:inline-flex; gap:4px; margin-left:6px;">
+          <button class="manual-score-btn plus" title="Add 50 pts to ${t.name}" onclick="event.stopPropagation(); adjustTeamScore(${t.id}, 50)">+50</button>
+          <button class="manual-score-btn minus" title="Deduct 20 pts from ${t.name}" onclick="event.stopPropagation(); adjustTeamScore(${t.id}, -20)">-20</button>
+        </div>
       `;
-      chip.onclick = () => {
-        if (window.soundFX) window.soundFX.playCorrect();
-        ws.send(JSON.stringify({ type: 'ADD_SCORE', teamId: t.id, points: 50 }));
-      };
+      chip.onclick = () => adjustTeamScore(t.id, 50);
       scoreBar.appendChild(chip);
     });
 
@@ -735,12 +751,14 @@
       const teamName = answeringTeam ? answeringTeam.name : 'TEAM';
       const teamColor = answeringTeam ? answeringTeam.color : 'var(--accent)';
       const playerObj = state.activeAnsweringPlayerId && state.players ? state.players[state.activeAnsweringPlayerId] : null;
-      const playerName = playerObj ? ` (Student: ${playerObj.name})` : '';
+      const playerName = playerObj ? ` (${playerObj.name})` : '';
+      const secondsLeft = (state.answerCountdown !== undefined) ? state.answerCountdown : 10;
+      const timerColor = secondsLeft <= 3 ? '#ef4444' : '#fbbf24';
 
       banner.style.display = 'flex';
       banner.style.borderColor = teamColor;
       banner.style.boxShadow = `0 0 35px ${teamColor}88`;
-      text.innerHTML = `⚡ <span style="color:${teamColor}; font-size:24px;">${teamName.toUpperCase()}${playerName}</span> IS ANSWERING NOW! 🎙️`;
+      text.innerHTML = `⚡ <span style="color:${teamColor}; font-size:24px;">${teamName.toUpperCase()}${playerName}</span> IS ANSWERING! <span style="display:inline-block; margin-left:14px; background:${timerColor}; color:#090d16; padding:3px 12px; border-radius:20px; font-weight:900; font-size:20px; animation:bannerGlow 0.5s infinite alternate;">⏳ ${secondsLeft}s</span>`;
     } else if (state.buzzerState === 'open') {
       banner.style.display = 'flex';
       banner.style.borderColor = '#10b981';
@@ -835,6 +853,10 @@
         nextQuestion();
       }, 3500);
 
+    } else if (res.status === 'timeout') {
+      banner.className = 'smart-flash wrong';
+      banner.textContent = `⏰ ${res.teamName || 'Team'} TIME'S UP (-20 PTS)! PASSING...`;
+      if (window.soundFX) window.soundFX.playWrong();
     } else {
       banner.className = 'smart-flash wrong';
       banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING...`;
@@ -1012,11 +1034,12 @@
       tag.textContent = 'OPEN! 🚨';
       activeTurn.className = 'active-turn-box';
     } else if (state.buzzerState === 'buzzing') {
+      const secondsLeft = (state.answerCountdown !== undefined) ? state.answerCountdown : 10;
       tag.className = 'buzzer-status-tag open';
-      tag.textContent = 'ANSWERING 🎙️';
+      tag.textContent = `⏳ ${secondsLeft}s LEFT`;
       activeTurn.className = 'active-turn-box show';
       const answeringTeam = state.teams.find(t => t.id === state.activeAnsweringTeamId);
-      activeTurn.textContent = `📱 ${answeringTeam ? answeringTeam.name : 'TEAM'} ANSWERING ON PHONE!`;
+      activeTurn.textContent = `📱 ${answeringTeam ? answeringTeam.name : 'TEAM'} ANSWERING (${secondsLeft}s)!`;
     } else {
       activeTurn.className = 'active-turn-box';
     }
@@ -1097,6 +1120,16 @@
     ws.send(JSON.stringify({
       type: 'SMARTBOARD_SELECT_OPTION',
       selectedOptionIndex: idx
+    }));
+  }
+
+  function adjustTeamScore(teamId, delta) {
+    if (delta > 0 && window.soundFX) window.soundFX.playCorrect();
+    if (delta < 0 && window.soundFX) window.soundFX.playWrong();
+    ws.send(JSON.stringify({
+      type: 'ADJUST_SCORE',
+      teamId: teamId,
+      points: delta
     }));
   }
 

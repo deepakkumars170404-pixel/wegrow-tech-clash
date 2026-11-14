@@ -25,7 +25,8 @@ const gameState = {
   lockedTeamsForQuestion: [], // teamIds that answered wrong for current question
   activeAnsweringTeamId: null, // the team currently answering on their phone
   activeAnsweringPlayerId: null, // the player who buzzed first
-  lastAnswerResult: null, // { status: 'correct'|'wrong', teamId, teamName, time }
+  answerCountdown: 10, // 10-second countdown timer for answering team
+  lastAnswerResult: null, // { status: 'correct'|'wrong'|'timeout', teamId, teamName, time }
   teams: [
     { id: 1, name: 'Team Alpha', color: '#38bdf8', score: 0, correctCount: 0, wrongCount: 0, members: [] },
     { id: 2, name: 'Team Beta', color: '#a855f7', score: 0, correctCount: 0, wrongCount: 0, members: [] },
@@ -201,6 +202,7 @@ function broadcastState() {
       lockedTeamsForQuestion: gameState.lockedTeamsForQuestion,
       activeAnsweringTeamId: gameState.activeAnsweringTeamId,
       activeAnsweringPlayerId: gameState.activeAnsweringPlayerId,
+      answerCountdown: gameState.answerCountdown,
       lastAnswerResult: gameState.lastAnswerResult,
       teams: gameState.teams,
       players: gameState.players,
@@ -257,14 +259,103 @@ function assignNewPlayerToTeam(player) {
 // Initial seed (Disabled for live student session - students join dynamically!)
 // seedDummyPlayers();
 
-let allRounds = [];
-try {
-  allRounds = JSON.parse(fs.readFileSync(path.join(PUBLIC_DIR, 'questions.json'), 'utf8'));
-} catch (e) {
-  console.error('Error loading questions in server.js:', e);
+let answerTimerInterval = null;
+
+function clearAnswerTimer() {
+  if (answerTimerInterval) {
+    clearInterval(answerTimerInterval);
+    answerTimerInterval = null;
+  }
+}
+
+function startAnswerTimer() {
+  clearAnswerTimer();
+  gameState.answerCountdown = 10;
+
+  answerTimerInterval = setInterval(() => {
+    if (gameState.buzzerState !== 'buzzing' || !gameState.activeAnsweringTeamId) {
+      clearAnswerTimer();
+      return;
+    }
+
+    gameState.answerCountdown--;
+    broadcastState();
+
+    if (gameState.answerCountdown <= 0) {
+      clearAnswerTimer();
+      handleAnswerTimeout();
+    }
+  }, 1000);
+}
+
+function handleAnswerTimeout() {
+  const teamId = gameState.activeAnsweringTeamId;
+  const playerId = gameState.activeAnsweringPlayerId;
+  const team = gameState.teams.find(t => t.id === teamId);
+  const player = playerId ? gameState.players[playerId] : null;
+
+  if (team) {
+    team.score = Math.max(0, team.score - 20);
+    team.wrongCount = (team.wrongCount || 0) + 1;
+    gameState.lockedTeamsForQuestion.push(team.id);
+  }
+  if (player) {
+    player.wrongCount = (player.wrongCount || 0) + 1;
+  }
+
+  const currentRound = allRounds[gameState.currentRoundIdx];
+  const currentQ = currentRound ? currentRound.questions[gameState.currentQuestionIdx] : null;
+
+  gameState.lastAnswerResult = {
+    status: 'timeout',
+    teamId: team ? team.id : null,
+    teamName: team ? team.name : 'Team',
+    playerName: player ? player.name : (team ? team.name : 'Team'),
+    correctOptionIndex: currentQ ? currentQ.ans : null,
+    ansText: currentQ ? currentQ.ansText : '',
+    message: `⏰ TIME'S UP! ${team ? team.name : 'Team'} took >10s! (-20 PTS)`,
+    time: Date.now()
+  };
+
+  if (team) {
+    gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== team.id);
+  }
+
+  // Check 2-Chance Rule: If 2 teams have attempted (and failed/timed out)
+  if (gameState.lockedTeamsForQuestion.length >= 2) {
+    console.log(`Question attempt limit reached (2 teams failed/timed out). Auto-locking question and revealing answer.`);
+    gameState.buzzerState = 'locked';
+    gameState.buzzerQueue = [];
+    gameState.activeAnsweringTeamId = null;
+    gameState.activeAnsweringPlayerId = null;
+    gameState.lastAnswerResult = {
+      status: 'max_attempts_exceeded',
+      teamId: team ? team.id : null,
+      teamName: team ? team.name : 'Team',
+      playerName: player ? player.name : (team ? team.name : 'Team'),
+      correctOptionIndex: currentQ ? currentQ.ans : null,
+      ansText: currentQ ? currentQ.ansText : '',
+      message: `2 Teams failed! Revealing correct answer...`,
+      time: Date.now()
+    };
+  } else if (gameState.buzzerQueue.length > 0) {
+    const nextBuzzed = gameState.buzzerQueue[0];
+    gameState.activeAnsweringTeamId = nextBuzzed.teamId;
+    gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
+    gameState.buzzerState = 'buzzing';
+    startAnswerTimer();
+  } else {
+    gameState.activeAnsweringTeamId = null;
+    gameState.activeAnsweringPlayerId = null;
+    gameState.buzzerState = 'open';
+  }
+
+  updateLeaderboard();
+  broadcastState();
 }
 
 function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnswer) {
+  clearAnswerTimer();
   const currentRound = allRounds[gameState.currentRoundIdx];
   const currentQ = currentRound ? currentRound.questions[gameState.currentQuestionIdx] : null;
   if (!currentQ) return;
@@ -359,6 +450,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       gameState.activeAnsweringTeamId = nextBuzzed.teamId;
       gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
       gameState.buzzerState = 'buzzing';
+      startAnswerTimer();
     } else {
       gameState.activeAnsweringTeamId = null;
       gameState.activeAnsweringPlayerId = null;
@@ -393,6 +485,7 @@ wss.on('connection', (ws) => {
       lockedTeamsForQuestion: gameState.lockedTeamsForQuestion,
       activeAnsweringTeamId: gameState.activeAnsweringTeamId,
       activeAnsweringPlayerId: gameState.activeAnsweringPlayerId,
+      answerCountdown: gameState.answerCountdown,
       lastAnswerResult: gameState.lastAnswerResult,
       teams: gameState.teams,
       players: gameState.players,
@@ -540,6 +633,7 @@ wss.on('connection', (ws) => {
         }
 
         case 'CHANGE_QUESTION': {
+          clearAnswerTimer();
           gameState.currentRoundIdx = data.roundIdx;
           gameState.currentQuestionIdx = data.questionIdx;
           gameState.buzzerState = 'locked';
@@ -547,16 +641,19 @@ wss.on('connection', (ws) => {
           gameState.lockedTeamsForQuestion = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
+          gameState.answerCountdown = 10;
           gameState.lastAnswerResult = null;
           broadcastState();
           break;
         }
 
         case 'OPEN_BUZZER': {
+          clearAnswerTimer();
           gameState.buzzerState = 'open';
           gameState.buzzerQueue = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
+          gameState.answerCountdown = 10;
           gameState.lastAnswerResult = null;
           broadcastState();
           break;
@@ -583,6 +680,7 @@ wss.on('connection', (ws) => {
           if (!gameState.activeAnsweringTeamId) {
             gameState.activeAnsweringTeamId = player.teamId;
             gameState.activeAnsweringPlayerId = player.id;
+            startAnswerTimer();
           }
 
           gameState.buzzerState = 'buzzing';
@@ -604,14 +702,30 @@ wss.on('connection', (ws) => {
         }
 
         case 'SKIP_CURRENT_TURN': {
+          clearAnswerTimer();
           if (gameState.activeAnsweringTeamId) {
             gameState.lockedTeamsForQuestion.push(gameState.activeAnsweringTeamId);
             gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== gameState.activeAnsweringTeamId);
-            if (gameState.buzzerQueue.length > 0) {
+            if (gameState.lockedTeamsForQuestion.length >= 2) {
+              const curR = allRounds[gameState.currentRoundIdx];
+              const curQ = curR ? curR.questions[gameState.currentQuestionIdx] : null;
+              gameState.buzzerState = 'locked';
+              gameState.buzzerQueue = [];
+              gameState.activeAnsweringTeamId = null;
+              gameState.activeAnsweringPlayerId = null;
+              gameState.lastAnswerResult = {
+                status: 'max_attempts_exceeded',
+                message: `2 Teams skipped/locked! Revealing correct answer...`,
+                correctOptionIndex: curQ ? curQ.ans : null,
+                ansText: curQ ? curQ.ansText : '',
+                time: Date.now()
+              };
+            } else if (gameState.buzzerQueue.length > 0) {
               const nextBuzzed = gameState.buzzerQueue[0];
               gameState.activeAnsweringTeamId = nextBuzzed.teamId;
               gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
               gameState.buzzerState = 'buzzing';
+              startAnswerTimer();
             } else {
               gameState.activeAnsweringTeamId = null;
               gameState.activeAnsweringPlayerId = null;
@@ -671,6 +785,7 @@ wss.on('connection', (ws) => {
             if (!gameState.activeAnsweringTeamId) {
               gameState.activeAnsweringTeamId = bot.teamId;
               gameState.activeAnsweringPlayerId = bot.id;
+              startAnswerTimer();
             }
             gameState.buzzerState = 'buzzing';
             broadcastState();
@@ -679,6 +794,7 @@ wss.on('connection', (ws) => {
         }
 
         case 'HOST_MARK_CORRECT': {
+          clearAnswerTimer();
           let awardedTeam = null;
           let awardedPlayer = null;
 
@@ -721,14 +837,20 @@ wss.on('connection', (ws) => {
         }
 
         case 'HOST_MARK_WRONG': {
+          clearAnswerTimer();
           if (gameState.activeAnsweringTeamId) {
             const team = gameState.teams.find(t => t.id === gameState.activeAnsweringTeamId);
-            if (team) team.score = Math.max(0, team.score - 20);
+            if (team) {
+              team.score = Math.max(0, team.score - 20);
+              team.wrongCount = (team.wrongCount || 0) + 1;
+            }
 
             gameState.lockedTeamsForQuestion.push(gameState.activeAnsweringTeamId);
             gameState.lastAnswerResult = {
               status: 'wrong',
               teamId: gameState.activeAnsweringTeamId,
+              teamName: team ? team.name : 'Team',
+              message: `${team ? team.name : 'Team'} WRONG! (-20 PTS)`,
               time: Date.now()
             };
 
@@ -756,30 +878,40 @@ wss.on('connection', (ws) => {
               gameState.activeAnsweringTeamId = nextBuzzed.teamId;
               gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
               gameState.buzzerState = 'buzzing';
+              startAnswerTimer();
             } else {
               gameState.activeAnsweringTeamId = null;
               gameState.activeAnsweringPlayerId = null;
               gameState.buzzerState = 'open';
             }
           }
+          updateLeaderboard();
           broadcastState();
           break;
         }
 
+        case 'ADJUST_SCORE':
         case 'ADD_SCORE': {
           const team = gameState.teams.find(t => t.id === data.teamId);
-          if (team) team.score += (data.points || 50);
+          if (team) {
+            const delta = (data.points !== undefined) ? data.points : 50;
+            team.score = Math.max(0, team.score + delta);
+            console.log(`Manual score adjustment for ${team.name}: ${delta >= 0 ? '+' : ''}${delta} (New total: ${team.score})`);
+          }
+          updateLeaderboard();
           broadcastState();
           break;
         }
 
         case 'DECLARE_WINNER': {
+          clearAnswerTimer();
           gameState.currentView = 'winner';
           broadcastState();
           break;
         }
 
         case 'RESET_ALL': {
+          clearAnswerTimer();
           gameState.currentView = 'lobby';
           gameState.currentRoundIdx = 0;
           gameState.currentQuestionIdx = 0;
@@ -788,6 +920,7 @@ wss.on('connection', (ws) => {
           gameState.lockedTeamsForQuestion = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
+          gameState.answerCountdown = 10;
           gameState.lastAnswerResult = null;
           gameState.teams.forEach(t => { t.score = 0; t.correctCount = 0; t.wrongCount = 0; t.members = []; });
           gameState.players = {};
