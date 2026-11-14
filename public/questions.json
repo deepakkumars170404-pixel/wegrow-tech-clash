@@ -1,1407 +1,1824 @@
 [
   {
     "id": 1,
-    "name": "Round 1: The Bidding MCQ",
+    "name": "Round 1: The Price is Right (Guess the Retail Price)",
     "type": "mcq",
-    "description": "IT Foundation Essentials • 4 Balanced Options • 20 Questions",
+    "description": "Guess the Real Indian MRP/Retail Price • 4 Close Options • 25 Questions",
     "questions": [
       {
-        "q": "When you type 'google.com' in a browser, where does the computer look first for the IP address?",
+        "q": "What is the retail price of a Starbucks Caffe Latte (Tall size, 354ml) in an Indian Metro outlet?",
         "options": [
-          "Internet Service Provider",
-          "Local DNS Cache in OS/Browser",
-          "Google Central Data Center",
-          "Undersea Fiber Optic Cable"
+          "₹185",
+          "₹285",
+          "₹395",
+          "₹480"
         ],
         "ans": 1,
-        "ansText": "Local DNS Cache in OS/Browser",
-        "expl": "The operating system checks its local cache first to avoid slow network lookups."
+        "ansText": "₹285",
+        "expl": "Starbucks India charges ₹285 (plus taxes) for a classic Tall Caffe Latte."
       },
       {
-        "q": "What core benefit does HTTPS provide compared to regular unencrypted HTTP?",
+        "q": "What was the official launch price of the Apple iPhone 16 (Base 128GB model) in India?",
         "options": [
-          "Doubles file download rate",
-          "Guarantees zero PC viruses",
-          "Encrypts data during transit",
-          "Provides unlimited storage"
+          "₹69,900",
+          "₹79,900",
+          "₹89,900",
+          "₹99,900"
         ],
-        "ans": 2,
-        "ansText": "Encrypts data during transit",
-        "expl": "HTTPS uses SSL/TLS encryption so third parties on the network cannot read your data."
+        "ans": 1,
+        "ansText": "₹79,900",
+        "expl": "Apple officially launched the base iPhone 16 128GB at ₹79,900 in India."
       },
       {
-        "q": "Why does data remain saved on an SSD when your PC is turned off, but disappears from RAM?",
+        "q": "What is the official annual cost for a 1-Year Amazon Prime subscription in India?",
         "options": [
-          "SSD uses non-volatile NAND",
-          "RAM has a built-in battery",
-          "SSD connects directly to CPU",
-          "Windows restores it at boot"
+          "₹1,499",
+          "₹999",
+          "₹1,999",
+          "₹2,499"
         ],
         "ans": 0,
-        "ansText": "SSD uses non-volatile NAND",
-        "expl": "RAM requires continuous electrical power, while SSD NAND flash traps charge permanently."
+        "ansText": "₹1,499",
+        "expl": "Amazon Prime annual membership in India is standard at ₹1,499/year."
       },
       {
-        "q": "In HTTP status codes, what does the first digit '4' mean in a '404 Not Found' error?",
+        "q": "What is the typical price of a Large Salted Tub Popcorn at a PVR Cinemas weekend multiplex?",
         "options": [
-          "Network hardware failure",
-          "Server internal error",
-          "Redirect to another URL",
-          "Client-side request error"
+          "₹190",
+          "₹250",
+          "₹380",
+          "₹490"
         ],
         "ans": 3,
-        "ansText": "Client-side request error",
-        "expl": "4xx codes indicate client-side errors, meaning the requested URL does not exist."
+        "ansText": "₹490",
+        "expl": "Multiplex large popcorn tubs range between ₹450 and ₹490 at weekend PVR counters."
       },
       {
-        "q": "Where does 'Cloud Computing' physically operate in the real world?",
+        "q": "What is the monthly subscription price of the Netflix Standard HD Plan (2 screens) in India?",
         "options": [
-          "Atmospheric radio waves",
-          "Global data center server farms",
-          "Cellular satellite towers",
-          "Personal Wi-Fi home routers"
-        ],
-        "ans": 1,
-        "ansText": "Global data center server farms",
-        "expl": "Cloud computing runs inside massive, climate-controlled enterprise data centers."
-      },
-      {
-        "q": "During ticket flash sales, why do payments sometimes succeed but seats fail to confirm?",
-        "options": [
-          "Computer ran out of RAM",
-          "Browser cookie got deleted",
-          "Database row locking conflicts",
-          "Internet provider shut down"
+          "₹199",
+          "₹349",
+          "₹499",
+          "₹799"
         ],
         "ans": 2,
-        "ansText": "Database row locking conflicts",
-        "expl": "When thousands try to book the same row simultaneously, database transactions conflict."
+        "ansText": "₹499",
+        "expl": "Netflix Standard 1080p two-screen plan costs ₹499 per month in India."
       },
       {
-        "q": "What is the primary difference between traditional programming and Machine Learning?",
+        "q": "What is the counter price of a single McDonald's McAloo Tikki Burger in India?",
         "options": [
-          "Humans write rules; ML learns rules",
-          "ML requires zero computer memory",
-          "Traditional code has zero bugs",
-          "ML works without any training data"
+          "₹35",
+          "₹59",
+          "₹89",
+          "₹110"
         ],
-        "ans": 0,
-        "ansText": "Humans write rules; ML learns rules",
-        "expl": "Traditional code requires manual rules, while ML extracts mathematical patterns from data."
+        "ans": 1,
+        "ansText": "₹59",
+        "expl": "The standalone McAloo Tikki burger is priced at ₹59 (plus taxes) across Indian outlets."
       },
       {
-        "q": "Why did JSON become more popular than XML for transferring data in modern web APIs?",
+        "q": "What is the official retail price of the iconic Nike Air Force 1 '07 Classic White sneakers in India?",
         "options": [
-          "Invented directly by Apple",
-          "Works only on Linux servers",
-          "Requires no internet connection",
-          "Lightweight and native to JavaScript"
+          "₹4,495",
+          "₹7,495",
+          "₹9,695",
+          "₹12,995"
+        ],
+        "ans": 2,
+        "ansText": "₹9,695",
+        "expl": "Nike India retails the classic Air Force 1 '07 Triple White at ₹9,695."
+      },
+      {
+        "q": "What is the price of 1 Tub (450ml) of Baskin Robbins Belgian Chocolate Ice Cream?",
+        "options": [
+          "₹220",
+          "₹340",
+          "₹425",
+          "₹599"
+        ],
+        "ans": 2,
+        "ansText": "₹425",
+        "expl": "A 450ml pre-packed Baskin Robbins gourmet tub costs ₹425."
+      },
+      {
+        "q": "What was the launch price of Apple AirPods Pro (2nd Generation with USB-C) in India?",
+        "options": [
+          "₹18,900",
+          "₹24,900",
+          "₹29,900",
+          "₹34,900"
+        ],
+        "ans": 1,
+        "ansText": "₹24,900",
+        "expl": "AirPods Pro (2nd Gen) with MagSafe Case USB-C officially retailed at ₹24,900."
+      },
+      {
+        "q": "What is the menu price of a Domino's Regular Farmhouse Pizza (Single pizza)?",
+        "options": [
+          "₹149",
+          "₹389",
+          "₹499",
+          "₹259"
         ],
         "ans": 3,
-        "ansText": "Lightweight and native to JavaScript",
-        "expl": "JSON avoids verbose tags and maps directly to native JavaScript data structures."
+        "ansText": "₹259",
+        "expl": "A regular size Domino's Farmhouse pizza is priced at ₹259."
       },
       {
-        "q": "What does browser 'Incognito Mode' actually do on your computer?",
+        "q": "What is the annual individual membership cost for YouTube Premium in India?",
         "options": [
-          "Blocks government monitoring",
-          "Stops local history and cookies",
-          "Changes your real IP address",
-          "Encrypts all outgoing traffic"
-        ],
-        "ans": 1,
-        "ansText": "Stops local history and cookies",
-        "expl": "Incognito only prevents local session saving; websites and networks can still see your IP."
-      },
-      {
-        "q": "Which data structure does a browser use to manage the Back and Forward history buttons?",
-        "options": [
-          "FIFO First-In First-Out Queue",
-          "Relational Database Table",
-          "LIFO Call Stack Data Structure",
-          "Binary Search Tree Index"
-        ],
-        "ans": 2,
-        "ansText": "LIFO Call Stack Data Structure",
-        "expl": "Navigating pages pushes URLs onto a stack; the Back button pops the most recent page."
-      },
-      {
-        "q": "What mechanism allows a single CPU core to run music, coding, and web browsing together?",
-        "options": [
-          "Time-sliced multitasking in OS",
-          "Hardware overclocking booster",
-          "Multiple optical laser heads",
-          "Virtual power supply doubling"
+          "₹1,490",
+          "₹890",
+          "₹1,290",
+          "₹1,890"
         ],
         "ans": 0,
-        "ansText": "Time-sliced multitasking in OS",
-        "expl": "The OS scheduler switches execution contexts every millisecond to create concurrency."
+        "ansText": "₹1,490",
+        "expl": "YouTube Premium individual annual prepaid plan in India is ₹1,490."
       },
       {
-        "q": "Which database type is best designed for social network friends and mutual connections?",
+        "q": "What is the retail price of an Amul Butter 500g slab at Indian supermarkets?",
         "options": [
-          "Flat CSV text document",
-          "Microsoft Excel workbook",
-          "Relational SQL database",
-          "Graph database like Neo4j"
+          "₹195",
+          "₹235",
+          "₹285",
+          "₹320"
+        ],
+        "ans": 2,
+        "ansText": "₹285",
+        "expl": "A 500g slab of Amul Pasteurised Butter currently retails at ₹285 MRP."
+      },
+      {
+        "q": "What is the official Indian price for a Dyson Supersonic Hair Dryer?",
+        "options": [
+          "₹19,900",
+          "₹28,900",
+          "₹37,900",
+          "₹45,900"
+        ],
+        "ans": 2,
+        "ansText": "₹37,900",
+        "expl": "Dyson India retails the Supersonic Hair Dryer at ₹37,900."
+      },
+      {
+        "q": "What is the standard price of a Zara Men’s Classic Oxford Cotton Shirt in India?",
+        "options": [
+          "₹1,290",
+          "₹1,990",
+          "₹4,590",
+          "₹2,990"
         ],
         "ans": 3,
-        "ansText": "Graph database like Neo4j",
-        "expl": "Graph databases store nodes and edge relationships directly for fast traversal."
+        "ansText": "₹2,990",
+        "expl": "Classic Oxford cotton shirts at Zara India retail at ₹2,990."
       },
       {
-        "q": "What is the main role of an API (Application Programming Interface) in software development?",
+        "q": "What is the counter price of a KFC 8-Piece Hot & Crispy Chicken Bucket in India?",
         "options": [
-          "Replaces the operating system",
-          "Enables two apps to communicate",
-          "Cools down the motherboard",
-          "Displays graphics on monitor"
-        ],
-        "ans": 1,
-        "ansText": "Enables two apps to communicate",
-        "expl": "APIs define the standard contracts and endpoints for different services to exchange data."
-      },
-      {
-        "q": "Why is an IPv6 address needed when IPv4 has been used for decades?",
-        "options": [
-          "IPv4 was hacked completely",
-          "IPv6 makes Wi-Fi 10x faster",
-          "World ran out of IPv4 addresses",
-          "IPv4 cannot send text messages"
+          "₹449",
+          "₹599",
+          "₹749",
+          "₹899"
         ],
         "ans": 2,
-        "ansText": "World ran out of IPv4 addresses",
-        "expl": "IPv4 supports ~4.3 billion addresses; IPv6 provides 340 undecillion addresses."
+        "ansText": "₹749",
+        "expl": "The KFC 8-piece signature Hot & Crispy chicken bucket is priced around ₹749."
       },
       {
-        "q": "In Git, what is the exact difference between 'git fetch' and 'git pull'?",
+        "q": "What is the official retail price of a classic pair of Crocs Classic Clogs in India?",
         "options": [
-          "Fetch downloads; pull also merges",
-          "Fetch deletes all local changes",
-          "Pull only works on GitHub repos",
-          "They are 100% identical commands"
-        ],
-        "ans": 0,
-        "ansText": "Fetch downloads; pull also merges",
-        "expl": "'git fetch' downloads remote commits; 'git pull' downloads and immediately merges them."
-      },
-      {
-        "q": "What is the function of a 'Compiler' in languages like C, C++, and Java?",
-        "options": [
-          "Runs the app inside a browser",
-          "Translates code to machine binaries",
-          "Increases your internet bandwidth",
-          "Cleans the computer cooling fan"
-        ],
-        "ans": 1,
-        "ansText": "Translates code to machine binaries",
-        "expl": "Compilers translate human-readable source code into CPU machine instructions."
-      },
-      {
-        "q": "Which layer of the OSI model handles physical routing across international IP networks?",
-        "options": [
-          "Application Layer (Layer 7)",
-          "Data Link Layer (Layer 2)",
-          "Network Layer (Layer 3)",
-          "Presentation Layer (Layer 6)"
-        ],
-        "ans": 2,
-        "ansText": "Network Layer (Layer 3)",
-        "expl": "Layer 3 handles logical packet addressing, routing, and path determination (IPv4/IPv6)."
-      },
-      {
-        "q": "What happens during a 'Buffer Overflow' security vulnerability in software?",
-        "options": [
-          "Monitor screen turns off",
-          "Hard drive gets formatted",
-          "Battery discharges quickly",
-          "Data overwrites adjacent memory"
+          "₹1,495",
+          "₹2,495",
+          "₹5,495",
+          "₹3,995"
         ],
         "ans": 3,
-        "ansText": "Data overwrites adjacent memory",
-        "expl": "Writing past allocated memory boundaries can overwrite return addresses and inject shellcode."
+        "ansText": "₹3,995",
+        "expl": "The adult Crocs Classic Clog retails officially at ₹3,995 in India."
       },
       {
-        "q": "Why do modern microprocessors include multiple CPU cores instead of just 1 very high GHz core?",
+        "q": "What is the MRP of a Ferrero Rocher 16-Pieces Chocolate gift box in India?",
         "options": [
-          "Preventing excessive heat & power",
-          "Dual cores double monitor sizes",
-          "Single cores cannot run 64-bit OS",
-          "Motherboards require 4 sockets"
-        ],
-        "ans": 0,
-        "ansText": "Preventing excessive heat & power",
-        "expl": "Pushing clock speed generates unmanageable heat; parallel cores improve efficiency."
-      },
-      {
-        "q": "In web architecture, what is the primary role of a 'Load Balancer'?",
-        "options": [
-          "Compresses CSS and JavaScript",
-          "Distributes traffic across servers",
-          "Scans user photos for viruses",
-          "Charges user credit cards safely"
+          "₹350",
+          "₹549",
+          "₹695",
+          "₹850"
         ],
         "ans": 1,
-        "ansText": "Distributes traffic across servers",
-        "expl": "Load balancers spread incoming network requests across multiple backend instances."
+        "ansText": "₹549",
+        "expl": "A 16-piece (200g) Ferrero Rocher box carries an MRP of ₹549."
+      },
+      {
+        "q": "What is the price of Ray-Ban Classic Aviator Sunglasses (Gold frame, G-15 green lens)?",
+        "options": [
+          "₹8,990",
+          "₹4,290",
+          "₹6,590",
+          "₹11,990"
+        ],
+        "ans": 0,
+        "ansText": "₹8,990",
+        "expl": "Original Ray-Ban Aviator RB3025 sunglasses retail at ₹8,990 in India."
+      },
+      {
+        "q": "What is the standard price of a Fastrack Casual Analog Watch for Men/Women in India?",
+        "options": [
+          "₹895",
+          "₹1,695",
+          "₹2,995",
+          "₹4,495"
+        ],
+        "ans": 1,
+        "ansText": "₹1,695",
+        "expl": "Popular entry-level Fastrack analog watches retail around ₹1,695."
+      },
+      {
+        "q": "What is the MRP of 1 Can of Red Bull Energy Drink (250ml) in India?",
+        "options": [
+          "₹65",
+          "₹90",
+          "₹125",
+          "₹160"
+        ],
+        "ans": 2,
+        "ansText": "₹125",
+        "expl": "A 250ml can of Red Bull retails at ₹125 MRP across India."
+      },
+      {
+        "q": "What is the standard price of a Cult.fit 12-Month Elite All-Access Gym Pass?",
+        "options": [
+          "₹8,990",
+          "₹14,990",
+          "₹19,990",
+          "₹24,990"
+        ],
+        "ans": 1,
+        "ansText": "₹14,990",
+        "expl": "The standard promotional rate for Cultpass Elite 12-Month pass is ₹14,990."
+      },
+      {
+        "q": "What is the price of an Amazon Kindle Paperwhite (16GB, 6.8-inch display) in India?",
+        "options": [
+          "₹9,999",
+          "₹14,999",
+          "₹18,999",
+          "₹22,999"
+        ],
+        "ans": 1,
+        "ansText": "₹14,999",
+        "expl": "The 16GB Kindle Paperwhite with adjustable warm light is ₹14,999."
+      },
+      {
+        "q": "What is the price of a 1 Litre bottle of imported Evian Natural Spring Mineral Water in India?",
+        "options": [
+          "₹75",
+          "₹140",
+          "₹240",
+          "₹450"
+        ],
+        "ans": 2,
+        "ansText": "₹240",
+        "expl": "Imported French Evian 1L bottled water retails at ₹240 in India."
+      },
+      {
+        "q": "What is the retail price of a single pack of Maggi 2-Minute Noodles (70g pack)?",
+        "options": [
+          "₹10",
+          "₹14",
+          "₹18",
+          "₹22"
+        ],
+        "ans": 1,
+        "ansText": "₹14",
+        "expl": "A single standard 70g pack of Maggi Masala noodles is ₹14."
+      },
+      {
+        "q": "What is the regular price for a Swiggy One 3-Month Membership in India?",
+        "options": [
+          "₹149",
+          "₹299",
+          "₹499",
+          "₹899"
+        ],
+        "ans": 1,
+        "ansText": "₹299",
+        "expl": "Swiggy One 3-month subscription plan has a standard price of ₹299."
       }
     ]
   },
   {
     "id": 2,
-    "name": "Round 2: Tech Mythbusters (Fact or Fiction?)",
-    "type": "fact_fiction",
-    "description": "Buzz Fast • FACT or FICTION? • Bust Real-World Tech Myths • 20 Questions",
+    "name": "Round 2: Spot the Global MNC Imposter",
+    "type": "imposter",
+    "description": "Find the Corporate / Product DNA Outlier • 4 Global Brands • 25 Questions",
     "questions": [
       {
-        "q": "Leaving your smartphone plugged into the charger overnight will overcharge and destroy the battery.",
-        "statement": "Leaving your smartphone plugged in overnight will overcharge and destroy the battery.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "KitKat",
+          "Maggi",
+          "Nescafe",
+          "Oreo"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Modern smartphones have smart Power Management ICs that automatically cut current at 100%."
+        "ans": 3,
+        "ansText": "Oreo",
+        "expl": "Oreo is owned by Mondelez; KitKat, Maggi, and Nescafe are all owned by Nestlé!"
       },
       {
-        "q": "RAM memory permanently loses all stored data the moment computer power is switched off.",
-        "statement": "RAM memory permanently loses all stored data the moment power is switched off.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Sprite",
+          "Fanta",
+          "Thums Up",
+          "7UP"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "RAM is volatile memory; capacitors discharge in milliseconds without continuous electrical refresh."
+        "ans": 3,
+        "ansText": "7UP",
+        "expl": "7UP is manufactured by PepsiCo; Sprite, Fanta, and Thums Up belong to Coca-Cola!"
       },
       {
-        "q": "Browsing in 'Incognito Mode' completely hides your activity from your Wi-Fi owner, college, and ISP.",
-        "statement": "Browsing in 'Incognito Mode' completely hides your browsing activity from your Wi-Fi owner, college, and ISP.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Rolls-Royce",
+          "Mini Cooper",
+          "BMW",
+          "Bentley"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Incognito only clears local history on your device; network routers, college proxies, and ISPs still log requests."
+        "ans": 3,
+        "ansText": "Bentley",
+        "expl": "Bentley belongs to Volkswagen Group; Rolls-Royce and Mini Cooper belong to BMW Group!"
       },
       {
-        "q": "A processor with 4.0 GHz clock speed is always faster than a processor with 3.2 GHz clock speed.",
-        "statement": "A processor with 4.0 GHz clock speed is always faster than a processor with 3.2 GHz clock speed.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Mountain Dew",
+          "Mirinda",
+          "Doritos",
+          "Limca"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Architecture, IPC (Instructions Per Cycle), cache size, and core count matter far more than raw GHz."
+        "ans": 3,
+        "ansText": "Limca",
+        "expl": "Limca belongs to Coca-Cola; Mountain Dew, Mirinda, and Doritos are PepsiCo brands!"
       },
       {
-        "q": "Over 95% of international internet traffic travels through undersea subsea fiber cables, not satellites.",
-        "statement": "Over 95% of international internet traffic travels through undersea subsea fiber cables, not satellites.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Instagram",
+          "WhatsApp",
+          "Oculus VR",
+          "Snapchat"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "Hundreds of high-capacity fiber cables cross ocean floors carrying virtually all global intercontinental data."
+        "ans": 3,
+        "ansText": "Snapchat",
+        "expl": "Snapchat is owned by Snap Inc.; the other three are subsidiaries of Meta Platforms!"
       },
       {
-        "q": "More camera Megapixels (e.g. 108 MP vs 12 MP) automatically guarantees superior photo quality.",
-        "statement": "More camera Megapixels automatically guarantees superior photo quality.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Gucci",
+          "Saint Laurent",
+          "Balenciaga",
+          "Louis Vuitton"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Sensor physical size, lens aperture, optical stabilization, and computational ISP software matter much more."
+        "ans": 3,
+        "ansText": "Louis Vuitton",
+        "expl": "Louis Vuitton belongs to LVMH; Gucci, Saint Laurent, and Balenciaga belong to Kering!"
       },
       {
-        "q": "Symmetric encryption like AES-256 is computationally much faster to execute than asymmetric RSA encryption.",
-        "statement": "Symmetric encryption like AES-256 is computationally much faster to execute than asymmetric RSA encryption.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Zara",
+          "Massimo Dutti",
+          "Bershka",
+          "H&M"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "AES uses fast bitwise CPU instructions, while RSA requires heavy modular arithmetic on giant prime numbers."
+        "ans": 3,
+        "ansText": "H&M",
+        "expl": "H&M is an independent Swedish group; Zara, Massimo Dutti, and Bershka belong to Inditex!"
       },
       {
-        "q": "Mac computers and Apple iPhones are 100% immune to viruses and cannot be infected by malware.",
-        "statement": "Mac computers and Apple iPhones are 100% immune to viruses and cannot be infected by malware.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "YouTube",
+          "Waze GPS",
+          "Fitbit",
+          "Spotify"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "While sandboxing helps, macOS and iOS have documented zero-day exploits, adware, and targeted spyware like Pegasus."
+        "ans": 3,
+        "ansText": "Spotify",
+        "expl": "Spotify is an independent Swedish company; YouTube, Waze, and Fitbit are owned by Google!"
       },
       {
-        "q": "Turning on Dark Mode on an OLED screen genuinely saves battery power.",
-        "statement": "Turning on Dark Mode on an OLED screen genuinely saves battery power.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Dove",
+          "Lifebuoy",
+          "Pears",
+          "Head & Shoulders"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "OLED pixels produce their own light; displaying true black physically shuts those individual LEDs completely off."
+        "ans": 3,
+        "ansText": "Head & Shoulders",
+        "expl": "Head & Shoulders belongs to P&G; Dove, Lifebuoy, and Pears belong to Unilever!"
       },
       {
-        "q": "Emptying the Recycle Bin or Trash permanently erases data so it can never be recovered.",
-        "statement": "Emptying the Recycle Bin permanently erases data so it can never be recovered.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Pantene",
+          "Gillette",
+          "Oral-B",
+          "Nivea"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "The OS only marks that disk space as available for overwrite; the raw magnetic/NAND bits remain until overwritten."
+        "ans": 3,
+        "ansText": "Nivea",
+        "expl": "Nivea is owned by Beiersdorf; Pantene, Gillette, and Oral-B belong to P&G!"
       },
       {
-        "q": "The name 'Bluetooth' was named after a 10th-century Scandinavian Viking King named Harald Bluetooth.",
-        "statement": "The name 'Bluetooth' was named after a 10th-century Scandinavian Viking King named Harald Bluetooth.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Tinder",
+          "Hinge",
+          "OkCupid",
+          "Bumble"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "King Harald united Scandinavian tribes; engineers named the protocol to unite gadgets without wires."
+        "ans": 3,
+        "ansText": "Bumble",
+        "expl": "Bumble is independent; Tinder, Hinge, and OkCupid are all owned by Match Group!"
       },
       {
-        "q": "Putting a wet smartphone into a bowl of dry uncooked rice is the best way to fix water damage.",
-        "statement": "Putting a wet smartphone into a bowl of dry uncooked rice is the best way to fix water damage.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Lamborghini",
+          "Porsche",
+          "Bugatti",
+          "Ferrari"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Rice is slow to absorb moisture and deposits starch dust into ports; silica gel packets and airflow work far better."
+        "ans": 3,
+        "ansText": "Ferrari",
+        "expl": "Ferrari is an independent public company; the others share Volkswagen Group ownership!"
       },
       {
-        "q": "HTML is an official computer programming language that compiles logic into executable code.",
-        "statement": "HTML is an official computer programming language that compiles logic into executable code.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Lay's",
+          "Cheetos",
+          "Quaker Oats",
+          "Pringles"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "HTML is a HyperText Markup Language defining document structure; it has no variables, functions, or loops."
+        "ans": 3,
+        "ansText": "Pringles",
+        "expl": "Pringles is owned by Kellanova; Lay's, Cheetos, and Quaker Oats are PepsiCo brands!"
       },
       {
-        "q": "Over 90% of the world's top 500 supercomputers and cloud servers run on the Linux operating system.",
-        "statement": "Over 90% of the world's top 500 supercomputers and cloud servers run on the Linux operating system.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Ray-Ban",
+          "Oakley",
+          "Persol",
+          "Titan"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "100% of the world's top 500 supercomputers and majority of global cloud servers run Linux distributions."
+        "ans": 3,
+        "ansText": "Titan",
+        "expl": "Titan is Indian/Tata; Ray-Ban, Oakley, and Persol are luxury brands of EssilorLuxottica!"
       },
       {
-        "q": "A longer passphrase of simple words (e.g. 'purple elephant jumps high') is harder to brute force than a short complex password (e.g. 'P@ss1').",
-        "statement": "A longer passphrase of simple words is harder to brute force than a short complex password.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Pizza Hut",
+          "KFC",
+          "Taco Bell",
+          "Subway"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "Mathematical password entropy scales exponentially with length; 25+ characters takes centuries to brute force."
+        "ans": 3,
+        "ansText": "Subway",
+        "expl": "Subway is owned by Roark Capital; Pizza Hut, KFC, and Taco Bell are Yum! Brands!"
       },
       {
-        "q": "Deleting all browser cookies will also log you out of your desktop games like Steam and Discord.",
-        "statement": "Deleting all browser cookies will also log you out of your desktop games like Steam and Discord.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "PlayStation",
+          "Columbia Pictures",
+          "Sony Music",
+          "Xbox"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Desktop applications store their authentication tokens in their own app data folders, not in browser cookie jars."
+        "ans": 3,
+        "ansText": "Xbox",
+        "expl": "Xbox is owned by Microsoft; the other three are divisions of Sony Group!"
       },
       {
-        "q": "Python is an interpreted language and can never be converted or compiled into standalone binary code.",
-        "statement": "Python is strictly an interpreted language and can never be converted into standalone binary code.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Toblerone",
+          "Milka",
+          "Cadbury",
+          "Snickers"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Tools like Cython, Nuitka, PyInstaller, and Mojo compile Python into native C/machine code binaries."
+        "ans": 3,
+        "ansText": "Snickers",
+        "expl": "Snickers is made by Mars Inc.; Toblerone, Milka, and Cadbury belong to Mondelez!"
       },
       {
-        "q": "The term 'Bug' in software engineering literally came from a real moth trapped inside a computer relay in 1947.",
-        "statement": "The term 'Bug' in computer science came from a real moth trapped inside a computer relay switch.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Marvel Studios",
+          "Pixar",
+          "Lucasfilm",
+          "Warner Bros"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "Grace Hopper's team found an actual moth in the Harvard Mark II computer and taped it into their logbook."
+        "ans": 3,
+        "ansText": "Warner Bros",
+        "expl": "Warner Bros is Warner Bros. Discovery; Marvel, Pixar, and Lucasfilm belong to Disney!"
       },
       {
-        "q": "Closing all background apps on modern iOS and Android smartphones will drastically speed up your phone.",
-        "statement": "Force-closing all background apps on modern iOS and Android will drastically speed up your phone.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "LinkedIn",
+          "GitHub",
+          "Skype",
+          "Slack"
         ],
-        "ans": 1,
-        "ansText": "FICTION / MYTH",
-        "expl": "Background apps are frozen in RAM; killing them forces the CPU to reload all assets from storage, using MORE battery."
+        "ans": 3,
+        "ansText": "Slack",
+        "expl": "Slack was acquired by Salesforce; LinkedIn, GitHub, and Skype belong to Microsoft!"
       },
       {
-        "q": "The very first domain name ever registered on the commercial internet in 1985 was 'Symbolics.com'.",
-        "statement": "The very first commercial '.com' domain name registered in internet history was 'Symbolics.com'.",
-        "options": [
-          "FACT",
-          "FICTION / MYTH"
+        "items": [
+          "Sephora",
+          "Dior",
+          "Fendi",
+          "L'Oreal"
         ],
-        "ans": 0,
-        "ansText": "FACT",
-        "expl": "Symbolics.com was registered on March 15, 1985, years before google.com or apple.com existed."
+        "ans": 3,
+        "ansText": "L'Oreal",
+        "expl": "L'Oreal is an independent French group; Sephora, Dior, and Fendi belong to LVMH!"
+      },
+      {
+        "items": [
+          "Uber",
+          "Uber Eats",
+          "Careem",
+          "Swiggy"
+        ],
+        "ans": 3,
+        "ansText": "Swiggy",
+        "expl": "Swiggy is an Indian independent company; the others are Uber Technologies brands!"
+      },
+      {
+        "items": [
+          "Colgate",
+          "Palmolive",
+          "Speed Stick",
+          "Dettol"
+        ],
+        "ans": 3,
+        "ansText": "Dettol",
+        "expl": "Dettol is made by Reckitt; Colgate, Palmolive, and Speed Stick belong to Colgate-Palmolive!"
+      },
+      {
+        "items": [
+          "Jaguar",
+          "Land Rover",
+          "Tetley Tea",
+          "Royal Enfield"
+        ],
+        "ans": 3,
+        "ansText": "Royal Enfield",
+        "expl": "Royal Enfield belongs to Eicher Motors; Jaguar, Land Rover, and Tetley belong to Tata Group!"
+      },
+      {
+        "items": [
+          "Ariel",
+          "Tide",
+          "Downy",
+          "Surf Excel"
+        ],
+        "ans": 3,
+        "ansText": "Surf Excel",
+        "expl": "Surf Excel belongs to Unilever; Ariel, Tide, and Downy are P&G laundry brands!"
+      },
+      {
+        "items": [
+          "Cartier",
+          "Montblanc",
+          "Van Cleef & Arpels",
+          "Rolex"
+        ],
+        "ans": 3,
+        "ansText": "Rolex",
+        "expl": "Rolex is an independent charitable trust; Cartier, Montblanc, and Van Cleef belong to Richemont!"
       }
     ]
   },
   {
     "id": 3,
-    "name": "Round 3: Odd One Out (The Imposter)",
-    "type": "imposter",
-    "description": "Deep Architecture & Logic • Spot the Subtle Imposter • 20 Tough Questions",
+    "name": "Round 3: Global MNC Tagline Master",
+    "type": "mcq",
+    "description": "Complete the World-Famous Brand Slogans • 4 Options • 25 Questions",
     "questions": [
       {
-        "items": [
-          "Redis Cache",
-          "Memcached",
-          "Cassandra",
-          "Aerospike"
+        "q": "Apple (1997 Historic Renaissance Campaign) — \"Think...\"",
+        "options": [
+          "Big",
+          "Ahead",
+          "Different",
+          "Simple"
         ],
         "ans": 2,
-        "ansText": "Cassandra",
-        "expl": "Cassandra is a persistent wide-column store using disk SSTables; Redis, Memcached, and Aerospike are primarily in-memory RAM datastores."
+        "ansText": "Different",
+        "expl": "Apple's 'Think Different' campaign marked Steve Jobs' return and company rebirth."
       },
       {
-        "items": [
-          "PostgreSQL",
-          "MongoDB",
-          "Cassandra",
-          "Neo4j"
-        ],
-        "ans": 0,
-        "ansText": "PostgreSQL",
-        "expl": "PostgreSQL is an ACID-compliant Relational SQL database; MongoDB, Cassandra, and Neo4j are all NoSQL databases (Document, Columnar, Graph)."
-      },
-      {
-        "items": [
-          "Array Structure",
-          "Singly Linked List",
-          "Doubly Linked List",
-          "Hash Map"
+        "q": "Nike — \"Just...\"",
+        "options": [
+          "Run",
+          "Fly",
+          "Win",
+          "Do It"
         ],
         "ans": 3,
-        "ansText": "Hash Map",
-        "expl": "Arrays and Linked Lists are ordered sequential data structures; standard Hash Maps are unordered associative key-value bucket structures."
+        "ansText": "Do It",
+        "expl": "'Just Do It' was created in 1988 by Wieden+Kennedy and is Nike's worldwide motto."
       },
       {
-        "items": [
-          "SHA-256",
-          "AES-256",
-          "MD5",
-          "Bcrypt"
-        ],
-        "ans": 1,
-        "ansText": "AES-256",
-        "expl": "AES-256 is a two-way reversible encryption cipher (data can be decrypted); SHA-256, MD5, and Bcrypt are one-way irreversible cryptographic hash functions."
-      },
-      {
-        "items": [
-          "UDP Protocol",
-          "TCP Protocol",
-          "SCTP Protocol",
-          "DCCP Protocol"
+        "q": "McDonald's — \"I'm...\"",
+        "options": [
+          "Loving It",
+          "Craving It",
+          "Happy Now",
+          "Hungry"
         ],
         "ans": 0,
-        "ansText": "UDP Protocol",
-        "expl": "UDP is connectionless and unreliable (no handshakes or ACKs); TCP, SCTP, and DCCP are connection-oriented protocols with delivery guarantees."
+        "ansText": "Loving It",
+        "expl": "'I'm Lovin' It' launched in 2003 with Justin Timberlake and is their longest-running slogan."
       },
       {
-        "items": [
-          "TCP",
-          "SCTP",
-          "IP (Internet Protocol)",
-          "UDP"
+        "q": "L'Oreal Paris — \"Because You're...\"",
+        "options": [
+          "Beautiful",
+          "Worth It",
+          "Special",
+          "The Queen"
+        ],
+        "ans": 1,
+        "ansText": "Worth It",
+        "expl": "'Because You're Worth It' was coined in 1971 celebrating female self-worth."
+      },
+      {
+        "q": "Gillette (P&G Men's Grooming) — \"The Best a Man Can...\"",
+        "options": [
+          "Shave",
+          "Choose",
+          "Wear",
+          "Get"
+        ],
+        "ans": 3,
+        "ansText": "Get",
+        "expl": "'The Best a Man Can Get' debuted during Super Bowl XXIII in 1989."
+      },
+      {
+        "q": "BMW (German Luxury Motors) — \"The Ultimate Driving...\"",
+        "options": [
+          "Experience",
+          "Machine",
+          "Performance",
+          "Passion"
+        ],
+        "ans": 1,
+        "ansText": "Machine",
+        "expl": "'The Ultimate Driving Machine' has defined BMW engineering for over 45 years."
+      },
+      {
+        "q": "Red Bull — \"Red Bull gives you...\"",
+        "options": [
+          "Energy",
+          "Wings",
+          "Power",
+          "Speed"
+        ],
+        "ans": 1,
+        "ansText": "Wings",
+        "expl": "'Red Bull gives you wiiings' is the world-famous energy drink tagline."
+      },
+      {
+        "q": "KitKat (Nestlé Confectionery) — \"Have a break, have a...\"",
+        "options": [
+          "KitKat",
+          "Snickers",
+          "Coffee",
+          "Smile"
+        ],
+        "ans": 0,
+        "ansText": "KitKat",
+        "expl": "'Have a break, have a KitKat' was coined in 1957 by Donald Gilles."
+      },
+      {
+        "q": "De Beers (The 1947 Diamond Slogan) — \"A Diamond is...\"",
+        "options": [
+          "Forever",
+          "Precious",
+          "Eternal",
+          "Unbreakable"
+        ],
+        "ans": 0,
+        "ansText": "Forever",
+        "expl": "'A Diamond is Forever' by Frances Gerety was named Slogan of the 20th Century."
+      },
+      {
+        "q": "Coca-Cola — \"Open...\"",
+        "options": [
+          "Refreshment",
+          "Happiness",
+          "Cold Joy",
+          "The Bottle"
+        ],
+        "ans": 1,
+        "ansText": "Happiness",
+        "expl": "'Open Happiness' was Coca-Cola's global feel-good campaign launched in 2009."
+      },
+      {
+        "q": "Adidas (Global Athletic Campaign) — \"Impossible is...\"",
+        "options": [
+          "Temporary",
+          "Overcome",
+          "Nothing",
+          "Defeated"
         ],
         "ans": 2,
-        "ansText": "IP (Internet Protocol)",
-        "expl": "IP operates at Network Layer 3; TCP, SCTP, and UDP operate at Transport Layer 4."
+        "ansText": "Nothing",
+        "expl": "'Impossible is Nothing' was inspired by a quote from boxing legend Muhammad Ali."
       },
       {
-        "items": [
-          "Binary Search",
-          "Linear Search",
-          "Exponential Search",
-          "Interpolation Search"
+        "q": "KFC (Yum! Brands Poultry Mascot) — \"It's Finger Lickin'...\"",
+        "options": [
+          "Tasty",
+          "Good",
+          "Fresh",
+          "Hot"
         ],
         "ans": 1,
-        "ansText": "Linear Search",
-        "expl": "Linear Search operates on unsorted arrays; Binary, Exponential, and Interpolation Search strictly require a pre-sorted array to function."
+        "ansText": "Good",
+        "expl": "'Finger Lickin' Good' has been KFC's trademark slogan since the 1950s."
       },
       {
-        "items": [
-          "C++ Language",
-          "Java",
-          "C# Language",
-          "C Language"
+        "q": "Subway — \"Eat...\"",
+        "options": [
+          "Healthy",
+          "Fresh",
+          "Clean",
+          "Good"
         ],
-        "ans": 3,
-        "ansText": "C Language",
-        "expl": "C is a procedural language without native object-oriented classes or encapsulation; C++, Java, and C# are Object-Oriented (OOP) languages."
+        "ans": 1,
+        "ansText": "Fresh",
+        "expl": "'Eat Fresh' highlights Subway's custom sandwiches made in front of customers."
       },
       {
-        "items": [
-          "Go (Golang)",
-          "Python",
-          "Ruby",
-          "JavaScript"
+        "q": "Disneyland / Walt Disney Parks — \"The Happiest Place on...\"",
+        "options": [
+          "Earth",
+          "The Globe",
+          "Vacation",
+          "The Map"
         ],
         "ans": 0,
-        "ansText": "Go (Golang)",
-        "expl": "Go compiles directly ahead-of-time (AOT) into standalone native machine binary code; Python, Ruby, and JavaScript are interpreted/JIT scripting runtimes."
+        "ansText": "Earth",
+        "expl": "Walt Disney personally dedicated Disneyland as 'The Happiest Place on Earth' in 1955."
       },
       {
-        "items": [
-          "Linux Kernel",
-          "FreeBSD",
-          "macOS Darwin",
-          "Windows Server"
-        ],
-        "ans": 3,
-        "ansText": "Windows Server",
-        "expl": "Windows Server runs on the proprietary Microsoft NT kernel; Linux, FreeBSD, and macOS Darwin are Unix / Unix-like POSIX-compliant kernels."
-      },
-      {
-        "items": [
-          "Docker Engine",
-          "VirtualBox",
-          "Podman",
-          "containerd"
-        ],
-        "ans": 1,
-        "ansText": "VirtualBox",
-        "expl": "VirtualBox is a Type-2 Hypervisor running full guest OS kernels; Docker, Podman, and containerd are container engines sharing the host OS kernel."
-      },
-      {
-        "items": [
-          "Kafka",
-          "AWS Kinesis",
-          "RabbitMQ",
-          "Apache Pulsar"
-        ],
-        "ans": 2,
-        "ansText": "RabbitMQ",
-        "expl": "RabbitMQ is a traditional message broker (messages are deleted upon acknowledgment); Kafka, Kinesis, and Pulsar are distributed append-only log streams."
-      },
-      {
-        "items": [
-          "Bubble Sort",
-          "Insertion Sort",
-          "Merge Sort",
-          "Quick Sort"
-        ],
-        "ans": 3,
-        "ansText": "Quick Sort",
-        "expl": "Quick Sort is an unstable sorting algorithm (relative order of duplicate keys can change); Bubble Sort, Insertion Sort, and Merge Sort are stable."
-      },
-      {
-        "items": [
-          "Merge Sort",
-          "Quick Sort",
-          "Heap Sort",
-          "Selection Sort"
+        "q": "Mercedes-Benz — \"The Best or...\"",
+        "options": [
+          "Nothing",
+          "Luxury",
+          "Perfection",
+          "Standard"
         ],
         "ans": 0,
-        "ansText": "Merge Sort",
-        "expl": "Merge Sort requires O(N) auxiliary extra memory space to merge subarrays; Quick Sort, Heap Sort, and Selection Sort are in-place sorting algorithms."
+        "ansText": "Nothing",
+        "expl": "'Das Beste oder nichts' translates globally to 'The Best or Nothing'."
       },
       {
-        "items": [
-          "Primary Key",
-          "Foreign Key",
-          "B-Tree Index",
-          "Unique Constraint"
+        "q": "Burger King — \"Have It Your...\"",
+        "options": [
+          "Style",
+          "Taste",
+          "Way",
+          "Choice"
         ],
         "ans": 2,
-        "ansText": "B-Tree Index",
-        "expl": "A B-Tree Index is an internal physical query performance data structure; Primary Key, Foreign Key, and Unique Constraints are logical integrity rules."
+        "ansText": "Way",
+        "expl": "'Have It Your Way' emphasized custom burger toppings compared to McDonald's."
       },
       {
-        "items": [
-          "FastAPI",
-          "Next.js",
-          "Express.js",
-          "Flask"
+        "q": "Mastercard — \"There are some things money can't buy. For everything else, there's...\"",
+        "options": [
+          "Cash",
+          "Credit",
+          "Mastercard",
+          "Freedom"
+        ],
+        "ans": 2,
+        "ansText": "Mastercard",
+        "expl": "The 'Priceless' campaign launched in 1997 is one of the most successful in finance."
+      },
+      {
+        "q": "Airbnb — \"Belong...\"",
+        "options": [
+          "Everywhere",
+          "Anywhere",
+          "Together",
+          "At Home"
         ],
         "ans": 1,
-        "ansText": "Next.js",
-        "expl": "Next.js is a full-stack React framework rendering UI components; FastAPI, Express, and Flask are headless backend REST API server microframeworks."
+        "ansText": "Anywhere",
+        "expl": "'Belong Anywhere' reflects Airbnb's vision of community-powered global travel."
       },
       {
-        "items": [
-          "TLS / SSL",
-          "JWT (JSON Web Token)",
-          "OAuth 2.0",
-          "SAML"
+        "q": "Calvin Klein — \"Between love and madness lies...\"",
+        "options": [
+          "Passion",
+          "Obsession",
+          "Desire",
+          "Eternity"
+        ],
+        "ans": 1,
+        "ansText": "Obsession",
+        "expl": "Calvin Klein's iconic fragrance campaign declared: 'Between love and madness lies Obsession'."
+      },
+      {
+        "q": "Skittles (Mars Candy) — \"Taste the...\"",
+        "options": [
+          "Colors",
+          "Sweetness",
+          "Rainbow",
+          "Fruit"
+        ],
+        "ans": 2,
+        "ansText": "Rainbow",
+        "expl": "'Taste the Rainbow' has been Skittles' colorful slogan since 1994."
+      },
+      {
+        "q": "Nokia — \"Connecting...\"",
+        "options": [
+          "People",
+          "The World",
+          "Hearts",
+          "Minds"
         ],
         "ans": 0,
-        "ansText": "TLS / SSL",
-        "expl": "TLS is a Transport Layer encryption protocol securing network connections; JWT, OAuth 2.0, and SAML are Application Layer identity and authorization protocols."
+        "ansText": "People",
+        "expl": "'Connecting People' debuted in 1992 alongside the famous Nokia ringtone."
       },
       {
-        "items": [
-          "HTTP/1.1",
-          "HTTP/2",
-          "HTTP/3",
-          "WebSocket"
-        ],
-        "ans": 2,
-        "ansText": "HTTP/3",
-        "expl": "HTTP/3 runs over UDP using the QUIC transport protocol; HTTP/1.1, HTTP/2, and WebSocket all run over TCP."
-      },
-      {
-        "items": [
-          "Supervised Learning",
-          "Unsupervised Learning",
-          "Reinforcement Learning",
-          "Deep Learning"
+        "q": "Thums Up — \"Taste the...\"",
+        "options": [
+          "Power",
+          "Lightning",
+          "Energy",
+          "Thunder"
         ],
         "ans": 3,
-        "ansText": "Deep Learning",
-        "expl": "Deep Learning is a neural network architectural subfield; Supervised, Unsupervised, and Reinforcement Learning are the three core machine learning paradigms."
+        "ansText": "Thunder",
+        "expl": "'Taste the Thunder' is the bold, fizzy trademark slogan of Thums Up."
       },
       {
-        "items": [
-          "GET Method",
-          "POST Method",
-          "HEAD Method",
-          "PUT Method"
+        "q": "Lay's Potato Chips — \"No one can eat just...\"",
+        "options": [
+          "Once",
+          "A Few",
+          "One",
+          "A Packet"
+        ],
+        "ans": 2,
+        "ansText": "One",
+        "expl": "'Betcha can't eat just one' / 'No one can eat just one' is Lay's crispy promise."
+      },
+      {
+        "q": "Boost — \"Boost is the secret of our...\"",
+        "options": [
+          "Energy",
+          "Power",
+          "Victory",
+          "Strength"
+        ],
+        "ans": 0,
+        "ansText": "Energy",
+        "expl": "'Boost is the secret of my energy' was voiced by Kapil Dev and Sachin Tendulkar."
+      },
+      {
+        "q": "Mentos — \"Dimag ki...\"",
+        "options": [
+          "Ghanti Bajao",
+          "Bati Jala De",
+          "Shakti Badhao",
+          "Light On"
         ],
         "ans": 1,
-        "ansText": "POST Method",
-        "expl": "POST is non-idempotent (submitting twice creates duplicate resources); GET, HEAD, and PUT are idempotent HTTP methods defined by RFC standards."
+        "ansText": "Bati Jala De",
+        "expl": "'Mentos: Dimag ki bati jala de' is the classic clever-thinking candy campaign."
       }
     ]
   },
   {
     "id": 4,
-    "name": "Round 4: Tech Detective (Who Am I?)",
-    "type": "detective",
-    "description": "3 Progressive Clues (300/200/100 Pts) • Buzz Early to Win • 20 Questions",
+    "name": "Round 4: The Origin Story (Birthplace of Global Brands)",
+    "type": "mcq",
+    "description": "Which Country or City was this Famous Brand Born in? • 25 Questions",
     "questions": [
       {
-        "clue1": "I began in 1994 as an online bookstore operating from a Seattle garage.",
-        "clue2": "Today, a huge portion of the global internet runs on my hyperscale cloud servers.",
-        "clue3": "My logo features a smile arrow pointing from letter 'A' to 'Z'.",
-        "ansText": "Amazon (AWS)",
-        "expl": "Jeff Bezos founded Amazon, growing it into the world's leading e-commerce and cloud provider."
+        "q": "In which country did the flat-pack furniture and home superstore IKEA originate?",
+        "options": [
+          "Sweden",
+          "Germany",
+          "Denmark",
+          "Switzerland"
+        ],
+        "ans": 0,
+        "ansText": "Sweden",
+        "expl": "IKEA was founded by Ingvar Kamprad in Almhult, Sweden in 1943."
       },
       {
-        "clue1": "My creator wrote me over a Christmas holiday in 1989 as a hobby project.",
-        "clue2": "My name does not come from a snake, but from BBC comedy 'Monty Python'.",
-        "clue3": "Today, I am the #1 programming language for Data Science and Machine Learning.",
-        "ansText": "Python Programming Language",
-        "expl": "Guido van Rossum developed Python, famous for clean indentation and rich libraries."
+        "q": "In which country was the athletic sportswear giant Adidas founded?",
+        "options": [
+          "USA",
+          "Germany",
+          "UK",
+          "Italy"
+        ],
+        "ans": 1,
+        "ansText": "Germany",
+        "expl": "Adidas was founded in Herzogenaurach, Germany by Adolf Dassler in 1949."
       },
       {
-        "clue1": "I was created in 1995 in just 10 days by a programmer named Brendan Eich.",
-        "clue2": "Part of my name was chosen for marketing hype; I share no engine design with my namesake.",
-        "clue3": "Today, over 98% of all websites in the world depend on me for interactive logic.",
-        "ansText": "JavaScript",
-        "expl": "JavaScript powers browser interactivity alongside HTML and CSS across the web."
+        "q": "In which city did coffeehouse chain Starbucks open its very first store in 1971?",
+        "options": [
+          "Seattle",
+          "New York",
+          "Los Angeles",
+          "Chicago"
+        ],
+        "ans": 0,
+        "ansText": "Seattle",
+        "expl": "Starbucks opened its historic first cafe at Pike Place Market, Seattle in 1971."
       },
       {
-        "clue1": "I started in 1997 as a mail-order DVD rental service that beat Blockbuster.",
-        "clue2": "My streaming service accounts for approximately 15% of all global downstream internet traffic.",
-        "clue3": "My TV and mobile apps greet viewers with an unmistakable 'Tudum' sound.",
-        "ansText": "Netflix",
-        "expl": "Reed Hastings and Marc Randolph pioneered video streaming and recommendation algorithms."
+        "q": "In which country did the fast-fashion clothing giant Zara originate?",
+        "options": [
+          "France",
+          "Italy",
+          "Spain",
+          "Portugal"
+        ],
+        "ans": 2,
+        "ansText": "Spain",
+        "expl": "Amancio Ortega opened the first Zara store in A Coruna, Galicia, Spain in 1975."
       },
       {
-        "clue1": "I was created by Linus Torvalds to manage the Linux operating system source code.",
-        "clue2": "My core vocabulary includes Commit, Push, Pull, Branch, and Rebase.",
-        "clue3": "My cloud counterpart features a mascot that is half-cat, half-octopus called Octocat.",
-        "ansText": "Git / GitHub",
-        "expl": "Git is the distributed version control system used by software developers globally."
+        "q": "Which Indian city is the birthplace and headquarters of food delivery platform Swiggy?",
+        "options": [
+          "Bengaluru",
+          "Mumbai",
+          "Hyderabad",
+          "Delhi"
+        ],
+        "ans": 0,
+        "ansText": "Bengaluru",
+        "expl": "Swiggy was founded in Koramangala, Bengaluru in 2014."
       },
       {
-        "clue1": "My original research project name at Stanford in 1996 was 'Backrub'.",
-        "clue2": "My name is a misspelling of the mathematical number 1 followed by 100 zeros (Googol).",
-        "clue3": "Searching for information anywhere on the web has turned my brand into a common English verb.",
-        "ansText": "Google Search",
-        "expl": "Larry Page and Sergey Brin founded Google, indexing the web via PageRank algorithms."
+        "q": "In which country did the electronics and smartphone giant Samsung originate?",
+        "options": [
+          "Japan",
+          "South Korea",
+          "Taiwan",
+          "Singapore"
+        ],
+        "ans": 1,
+        "ansText": "South Korea",
+        "expl": "Lee Byung-chul founded Samsung in Daegu, South Korea in 1938 as a trading firm."
       },
       {
-        "clue1": "I was unveiled in January 2007 by Steve Jobs as an iPod, a phone, and an internet communicator.",
-        "clue2": "I discarded physical plastic keypads in favor of a capacitive multi-touch glass screen.",
-        "clue3": "My aluminum body features a logo of an apple with a single bite taken out.",
-        "ansText": "Apple iPhone",
-        "expl": "The iPhone launched modern mobile computing and the global smartphone app economy."
+        "q": "In which European country was luxury supercar manufacturer Ferrari founded?",
+        "options": [
+          "Germany",
+          "France",
+          "Italy",
+          "Austria"
+        ],
+        "ans": 2,
+        "ansText": "Italy",
+        "expl": "Enzo Ferrari founded Scuderia Ferrari in Maranello / Modena, Italy in 1939."
       },
       {
-        "clue1": "I reached 100 million active users in just 60 days, breaking all software growth records.",
-        "clue2": "I was developed in San Francisco by an AI research laboratory led by Sam Altman.",
-        "clue3": "The last three letters of my name stand for 'Generative Pre-trained Transformer'.",
-        "ansText": "ChatGPT",
-        "expl": "ChatGPT democratized conversational generative AI and large language models worldwide."
+        "q": "Which Indian state is dairy giant Amul (Anand Milk Union Limited) headquartered in?",
+        "options": [
+          "Gujarat",
+          "Maharashtra",
+          "Punjab",
+          "Rajasthan"
+        ],
+        "ans": 0,
+        "ansText": "Gujarat",
+        "expl": "Amul was founded in Anand, Gujarat in 1946 sparking India's White Revolution."
       },
       {
-        "clue1": "I was introduced in 2008 in a cryptography whitepaper by Satoshi Nakamoto.",
-        "clue2": "My protocol has an absolute mathematical hard cap of 21 million total units.",
-        "clue3": "I am recognized as the original decentralized cryptocurrency secured by proof-of-work.",
-        "ansText": "Bitcoin",
-        "expl": "Bitcoin established peer-to-peer electronic cash without central banks or intermediaries."
+        "q": "In which country was the multinational food company Nestlé born in 1866?",
+        "options": [
+          "Switzerland",
+          "Belgium",
+          "UK",
+          "Netherlands"
+        ],
+        "ans": 0,
+        "ansText": "Switzerland",
+        "expl": "Henri Nestle founded the company in Vevey, Switzerland."
       },
       {
-        "clue1": "I am represented by a friendly blue whale carrying stacked shipping containers.",
-        "clue2": "I solved the famous developer complaint: 'It works on my local machine, but breaks on the server!'",
-        "clue3": "I standardized software containerization and runtime image packaging across the cloud.",
-        "ansText": "Docker",
-        "expl": "Solomon Hykes launched Docker, isolating application binaries and dependencies cleanly."
+        "q": "In which country was global fashion retailer H&M (Hennes & Mauritz) founded?",
+        "options": [
+          "Sweden",
+          "Norway",
+          "Finland",
+          "France"
+        ],
+        "ans": 0,
+        "ansText": "Sweden",
+        "expl": "Erling Persson founded Hennes in Vasteras, Sweden in 1947."
       },
       {
-        "clue1": "I was founded in 2004 in a Harvard dorm room under the domain 'TheFacebook.com'.",
-        "clue2": "I later acquired Instagram, WhatsApp, and VR company Oculus into my portfolio.",
-        "clue3": "My parent holding company officially rebranded in 2021 as 'Meta'.",
-        "ansText": "Facebook (Meta)",
-        "expl": "Mark Zuckerberg's social networking platform connects over 3 billion monthly active users."
+        "q": "In which Indian city was Zomato founded in 2008 (originally launched as Foodiebay)?",
+        "options": [
+          "Gurugram / Delhi NCR",
+          "Bengaluru",
+          "Pune",
+          "Chennai"
+        ],
+        "ans": 0,
+        "ansText": "Gurugram / Delhi NCR",
+        "expl": "Deepinder Goyal and Pankaj Chaddah founded Zomato in Gurugram, Haryana."
       },
       {
-        "clue1": "I was conceived in the 1970s at IBM Research under the initial project name 'SEQUEL'.",
-        "clue2": "My core operations revolve around four keywords: SELECT, INSERT, UPDATE, and DELETE.",
-        "clue3": "I am the standard language powering relational database queries for half a century.",
-        "ansText": "SQL (Structured Query Language)",
-        "expl": "SQL remains the timeless universal query dialect for databases and data pipelines."
+        "q": "In which country did the iconic building-brick toy company Lego originate?",
+        "options": [
+          "Denmark",
+          "Sweden",
+          "Germany",
+          "Netherlands"
+        ],
+        "ans": 0,
+        "ansText": "Denmark",
+        "expl": "Ole Kirk Christiansen founded Lego in Billund, Denmark in 1932."
       },
       {
-        "clue1": "I spent my early decades engineering specialized graphics chips for PC 3D video gamers.",
-        "clue2": "When the Generative AI boom arrived, my Tensor Core chips became mandatory infrastructure.",
-        "clue3": "My CEO Jensen Huang famously delivers product keynotes wearing a black leather jacket.",
-        "ansText": "NVIDIA",
-        "expl": "NVIDIA pioneered GPU accelerated computing and powers modern AI model training."
+        "q": "In which country did the luxury chocolate brand Ferrero Rocher originate?",
+        "options": [
+          "Italy",
+          "Belgium",
+          "Switzerland",
+          "France"
+        ],
+        "ans": 0,
+        "ansText": "Italy",
+        "expl": "Michele Ferrero introduced Ferrero Rocher in Alba, Piedmont, Italy in 1982."
       },
       {
-        "clue1": "I am named after 10th-century King Harald of Denmark who united Scandinavian tribes.",
-        "clue2": "Just like the king, I unite gadgets over short-range radio signals without wires.",
-        "clue3": "My blue logo combines two ancient Nordic runes: Hagall (H) and Bjarkan (B).",
-        "ansText": "Bluetooth",
-        "expl": "Bluetooth was standardized for short-range personal area device networking."
+        "q": "In which country was the popular energy drink Red Bull co-created and formulated?",
+        "options": [
+          "Austria (inspired by Thailand)",
+          "USA",
+          "UK",
+          "Germany"
+        ],
+        "ans": 0,
+        "ansText": "Austria (inspired by Thailand)",
+        "expl": "Dietrich Mateschitz adapted Thai drink Krating Daeng into Austria's Red Bull in 1987."
       },
       {
-        "clue1": "My official operating system mascot is an amicable, chubby penguin named Tux.",
-        "clue2": "Over 90% of the world's public cloud servers, supercomputers, and Android phones run on my kernel.",
-        "clue3": "I am the most successful open-source operating system project in history.",
-        "ansText": "Linux",
-        "expl": "Linus Torvalds released the Linux kernel in 1991, reshaping enterprise computing."
+        "q": "In which city did ride-hailing company Uber launch its very first cab service?",
+        "options": [
+          "San Francisco",
+          "New York",
+          "Boston",
+          "London"
+        ],
+        "ans": 0,
+        "ansText": "San Francisco",
+        "expl": "UberCab launched in San Francisco, California in May 2010."
       },
       {
-        "clue1": "I was founded in San Francisco in 2009 under the initial name 'UberCab'.",
-        "clue2": "Without owning a single vehicle fleet, I became the largest ride-hailing company on Earth.",
-        "clue3": "My primary Indian rival in the mobility sector is Ola.",
-        "ansText": "Uber",
-        "expl": "Travis Kalanick and Garrett Camp pioneered algorithmic ride dispatching via GPS smartphones."
+        "q": "In which country did the luxury sports car maker Porsche originate?",
+        "options": [
+          "Germany",
+          "Italy",
+          "Switzerland",
+          "Sweden"
+        ],
+        "ans": 0,
+        "ansText": "Germany",
+        "expl": "Ferdinand Porsche founded the automotive design firm in Stuttgart, Germany in 1931."
       },
       {
-        "clue1": "When Microsoft released me in 1985, critics dismissed me as a simple bookkeeping grid.",
-        "clue2": "Today, even multinational banks run a massive percentage of their financial logic on me.",
-        "clue3": "VLOOKUP, Pivot Tables, and a recognizable emerald green icon are my signatures.",
-        "ansText": "Microsoft Excel",
-        "expl": "Excel remains the world's most enduring and widely used computational spreadsheet software."
+        "q": "In which Indian city was beauty retail platform Nykaa founded by Falguni Nayar?",
+        "options": [
+          "Mumbai",
+          "Bengaluru",
+          "Delhi",
+          "Kolkata"
+        ],
+        "ans": 0,
+        "ansText": "Mumbai",
+        "expl": "Former investment banker Falguni Nayar launched Nykaa in Mumbai in 2012."
       },
       {
-        "clue1": "I was founded by Andy Rubin in 2003 and acquired by Google in 2005.",
-        "clue2": "My legacy versions were named after treats like Cupcake, KitKat, and Oreo.",
-        "clue3": "Today, I power over 70% of all smartphones globally symbolized by a green robot.",
-        "ansText": "Android OS",
-        "expl": "Android is Google's open-source mobile platform dominating global smartphone usage."
+        "q": "In which European country was music streaming giant Spotify created in 2006?",
+        "options": [
+          "Sweden",
+          "UK",
+          "Germany",
+          "Ireland"
+        ],
+        "ans": 0,
+        "ansText": "Sweden",
+        "expl": "Daniel Ek and Martin Lorentzon founded Spotify in Stockholm, Sweden."
       },
       {
-        "clue1": "I was invented in 1989 at CERN in Switzerland by British scientist Sir Tim Berners-Lee.",
-        "clue2": "I linked research documents across computer networks using hyperlinked HTML pages.",
-        "clue3": "Almost every legacy website address in the world opened with three repeated letters: 'WWW'.",
-        "ansText": "World Wide Web (WWW)",
-        "expl": "Tim Berners-Lee released the Web royalty-free, igniting the modern digital information age."
+        "q": "In which country was luxury wristwatch brand Rolex founded and headquartered today?",
+        "options": [
+          "Switzerland",
+          "Germany",
+          "Italy",
+          "Japan"
+        ],
+        "ans": 0,
+        "ansText": "Switzerland",
+        "expl": "Rolex was registered in Geneva, Switzerland and maintains its global headquarters there."
       },
       {
-        "clue1": "I disrupted the music industry by offering legal streaming access for a flat monthly fee.",
-        "clue2": "I was founded in Stockholm, Sweden in 2006 by Daniel Ek and Martin Lorentzon.",
-        "clue3": "My brand is recognized by three curved soundwaves inside a vibrant lime green circle.",
-        "ansText": "Spotify",
-        "expl": "Spotify revolutionized global music streaming economics and personalized audio playlists."
+        "q": "In which country did sportswear giant Puma originate?",
+        "options": [
+          "Germany",
+          "USA",
+          "UK",
+          "France"
+        ],
+        "ans": 0,
+        "ansText": "Germany",
+        "expl": "Rudolf Dassler founded Puma in Herzogenaurach, Germany in 1948."
+      },
+      {
+        "q": "In which country was consumer electronics giant Sony founded in 1946?",
+        "options": [
+          "Japan",
+          "South Korea",
+          "China",
+          "Singapore"
+        ],
+        "ans": 0,
+        "ansText": "Japan",
+        "expl": "Masaru Ibuka and Akio Morita founded Tokyo Tsushin Kogyo (Sony) in Tokyo, Japan."
+      },
+      {
+        "q": "In which country was multinational supermarket pioneer Carrefour founded?",
+        "options": [
+          "France",
+          "Germany",
+          "Spain",
+          "Belgium"
+        ],
+        "ans": 0,
+        "ansText": "France",
+        "expl": "Carrefour opened its first hypermarket in Annecy, France in 1958."
+      },
+      {
+        "q": "In which country did eyewear giant Ray-Ban originally begin before moving to Italy?",
+        "options": [
+          "USA (Bausch & Lomb)",
+          "UK",
+          "France",
+          "Germany"
+        ],
+        "ans": 0,
+        "ansText": "USA (Bausch & Lomb)",
+        "expl": "Ray-Ban was created by Bausch & Lomb in Rochester, New York in 1937."
+      },
+      {
+        "q": "In which European country was beverage giant Heineken founded in 1864?",
+        "options": [
+          "Netherlands",
+          "Germany",
+          "Belgium",
+          "Denmark"
+        ],
+        "ans": 0,
+        "ansText": "Netherlands",
+        "expl": "Gerard Adriaan Heineken founded the historic brewery in Amsterdam, Netherlands."
+      },
+      {
+        "q": "In which city was e-commerce behemoth Amazon founded by Jeff Bezos in 1994?",
+        "options": [
+          "Bellevue / Seattle (Washington)",
+          "San Francisco",
+          "New York",
+          "Austin"
+        ],
+        "ans": 0,
+        "ansText": "Bellevue / Seattle (Washington)",
+        "expl": "Jeff Bezos founded Amazon in the garage of his rented house in Bellevue, Washington."
       }
     ]
   },
   {
     "id": 5,
-    "name": "Round 5: Future or Fired? (4-Team Debate)",
-    "type": "debate",
-    "description": "4-Team Battle • 60-Second Timed Speeches • Industry Reality Verdict • 10 Questions",
+    "name": "Round 5: Guess the Brand Logo (Visuals & Insignias)",
+    "type": "mcq",
+    "description": "Identify Global Logos, Hidden Symbols & Insignias • 25 Questions",
     "questions": [
       {
-        "topic": "AI coding assistants (Claude, Copilot) will eliminate 70% of entry-level developer roles within 5 years.",
-        "reality": "FIRED ❌ (Evolution, Not Extinction)",
-        "expl": "AI automates boilerplate code, but complex system design, security, and domain problem-solving require human engineers."
+        "q": "In the FedEx logo, what hidden symbol is formed in the negative white space between letters 'E' and 'x'?",
+        "options": [
+          "A Package",
+          "A Forward Arrow",
+          "An Airplane",
+          "A Star"
+        ],
+        "ans": 1,
+        "ansText": "A Forward Arrow",
+        "expl": "The white space between 'E' and 'x' forms an arrow symbolizing forward motion and speed."
       },
       {
-        "topic": "In the future, nobody will need to write code because No-Code drag-and-drop tools will build all enterprise apps.",
-        "reality": "FIRED ❌ (Partial Myth)",
-        "expl": "No-Code handles simple marketing websites; custom enterprise logic, scalability, and algorithmic security always demand code."
+        "q": "In the Amazon logo, what does the curved yellow arrow specifically point between?",
+        "options": [
+          "Letter 'A' to letter 'Z'",
+          "Letter 'a' to letter 'm'",
+          "First and last letter",
+          "Arrow has no meaning"
+        ],
+        "ans": 0,
+        "ansText": "Letter 'A' to letter 'Z'",
+        "expl": "The yellow arrow represents customer happiness and shows they sell everything from A to Z."
       },
       {
-        "topic": "With high-speed 5G and fiber cloud, local PC hard drives will disappear in favor of 100% Cloud PCs.",
-        "reality": "FUTURE ✅ (Accelerating Reality)",
-        "expl": "Services like Windows 365 and Shadow PC prove dumb terminals with cloud virtualization are cost-effective and secure."
+        "q": "The logo of Baskin Robbins uses pink highlights inside 'B' and 'R' to reveal what famous number?",
+        "options": [
+          "24",
+          "31",
+          "50",
+          "99"
+        ],
+        "ans": 1,
+        "ansText": "31",
+        "expl": "The pink parts spell '31' representing a different ice cream flavor for every day of the month."
       },
       {
-        "topic": "Browsing in 'Incognito Mode' guarantees absolute anonymity from internet service providers and network monitors.",
-        "reality": "FIRED ❌ (Dangerous Myth)",
-        "expl": "Incognito only discards local device history; upstream ISPs, corporate routers, and government authorities still log traffic."
+        "q": "Which luxury car company features a Prancing Stallion (Cavallino Rampante) black horse on a yellow crest?",
+        "options": [
+          "Porsche",
+          "Ferrari",
+          "Mustang",
+          "Lamborghini"
+        ],
+        "ans": 1,
+        "ansText": "Ferrari",
+        "expl": "Enzo Ferrari adopted the prancing black horse from Italian WWI flying ace Francesco Baracca."
       },
       {
-        "topic": "Because of its beginner-friendly syntax, Python will completely replace languages like Java, C++, and JavaScript.",
-        "reality": "FIRED ❌ (Impossible)",
-        "expl": "Browsers strictly execute JavaScript; high-performance game engines require C++/Rust. Python's interpreted runtime is too slow."
+        "q": "Which Italian supercar manufacturer’s logo features a golden raging fighting bull?",
+        "options": [
+          "Maserati",
+          "Ferrari",
+          "Lamborghini",
+          "Alfa Romeo"
+        ],
+        "ans": 2,
+        "ansText": "Lamborghini",
+        "expl": "Ferruccio Lamborghini chose the raging bull based on his zodiac sign (Taurus)."
       },
       {
-        "topic": "A university degree is no longer necessary to land top software engineering careers; GitHub portfolios and skill suffice.",
-        "reality": "FUTURE ✅ (Validated Trend)",
-        "expl": "Silicon Valley giants and startups have dropped strict degree mandates in favor of verified open-source and coding competence."
+        "q": "The circular blue and white propeller quadrants in the BMW logo represent the flag colors of which German state?",
+        "options": [
+          "Bavaria",
+          "Saxony",
+          "Berlin",
+          "Hamburg"
+        ],
+        "ans": 0,
+        "ansText": "Bavaria",
+        "expl": "BMW (Bavarian Motor Works) uses the white and blue checkered colors of the Bavarian state flag."
       },
       {
-        "topic": "Brain-computer interfaces like Neuralink will allow humans to type and interact with computers using thought alone.",
-        "reality": "FUTURE ✅ (Clinical Reality)",
-        "expl": "Paralyzed human trial participants have already successfully controlled computer cursors and played chess using neural implants."
+        "q": "In the logo of chocolate brand Toblerone, what hidden animal is silhouetted inside the Matterhorn mountain drawing?",
+        "options": [
+          "An Eagle",
+          "A Wolf",
+          "A Mountain Bear",
+          "An Ibex Goat"
+        ],
+        "ans": 2,
+        "ansText": "A Mountain Bear",
+        "expl": "A silhouette of a bear is hidden inside the mountain representing Bern, the City of Bears."
       },
       {
-        "topic": "Traditional passwords will be entirely obsolete within 5 years, replaced by biometric Passkeys.",
-        "reality": "FUTURE ✅ (Standard Rollout)",
-        "expl": "The FIDO alliance (Google, Apple, Microsoft) is actively phasing out master passwords in favor of cryptographic device passkeys."
+        "q": "What legendary creature is featured as the green crowned icon in the Starbucks round logo?",
+        "options": [
+          "Twin-tailed Siren (Mermaid)",
+          "Greek Goddess Athena",
+          "Medusa",
+          "Sea Nymph"
+        ],
+        "ans": 0,
+        "ansText": "Twin-tailed Siren (Mermaid)",
+        "expl": "The icon is a Norse 16th-century twin-tailed siren reflecting maritime coffee roots."
       },
       {
-        "topic": "People will stop clicking 10 blue search links on Google, turning exclusively to direct conversational AI answers.",
-        "reality": "FUTURE ✅ (Major Paradigm Shift)",
-        "expl": "Perplexity and ChatGPT Search showcase that users prefer concise verified synthesis over wading through ad-bloated links."
+        "q": "The three parallel diagonal stripes in the Adidas logo are angled together to form what symbolic shape?",
+        "options": [
+          "A Mountain to overcome",
+          "A Shoe sole",
+          "An Arrow",
+          "A Running track"
+        ],
+        "ans": 0,
+        "ansText": "A Mountain to overcome",
+        "expl": "The three slanted stripes symbolize a mountain representing athletic challenges to conquer."
       },
       {
-        "topic": "AI software developers will soon produce 100% bug-free software that never crashes.",
-        "reality": "FIRED ❌ (Philosophical Myth)",
-        "expl": "Software requirements change constantly; edge cases, runtime anomalies, and shifting user expectations ensure bugs always exist."
+        "q": "Which luxury fashion house uses two interlocking, mirrored capital letters \"G\" as its primary monogram?",
+        "options": [
+          "Givenchy",
+          "Gucci",
+          "Goyard",
+          "Giorgio Armani"
+        ],
+        "ans": 1,
+        "ansText": "Gucci",
+        "expl": "The double-G logo honors the Italian fashion brand's founder, Guccio Gucci."
+      },
+      {
+        "q": "Which French luxury luggage brand is universally known for the gold interlocking monogram \"LV\"?",
+        "options": [
+          "Louis Vuitton",
+          "Lacoste",
+          "Longchamp",
+          "Lanvin"
+        ],
+        "ans": 0,
+        "ansText": "Louis Vuitton",
+        "expl": "Georges Vuitton designed the iconic 'LV' monogram canvas in 1896 to honor his late father."
+      },
+      {
+        "q": "Which sportswear brand features an iconic green crocodile stitched onto its polo t-shirts?",
+        "options": [
+          "Lacoste",
+          "Crocodile",
+          "Ralph Lauren",
+          "Tommy Hilfiger"
+        ],
+        "ans": 0,
+        "ansText": "Lacoste",
+        "expl": "French tennis champion Rene Lacoste was nicknamed 'The Crocodile' for his tenacity."
+      },
+      {
+        "q": "What is the famous single-stroke Nike curved checkmark logo officially called in corporate design history?",
+        "options": [
+          "The Tick",
+          "The Stripe",
+          "The Swoosh",
+          "The Glide"
+        ],
+        "ans": 2,
+        "ansText": "The Swoosh",
+        "expl": "Designed by Carolyn Davidson in 1971, it represents the sound and motion of speed."
+      },
+      {
+        "q": "In the Unilever corporate logo, the large letter 'U' is formed by weaving together 25 tiny icons representing what?",
+        "options": [
+          "Alphabet letters",
+          "Sustainable living and daily vitality icons",
+          "Chemical molecules",
+          "Historical dates"
+        ],
+        "ans": 1,
+        "ansText": "Sustainable living and daily vitality icons",
+        "expl": "The 25 distinct miniature icons include a sun, bird, tea leaf, and drop representing their diverse brands."
+      },
+      {
+        "q": "What animal is depicted on the luxury logo of British sports car manufacturer Jaguar?",
+        "options": [
+          "Leaping Panther",
+          "Leaping Jaguar",
+          "Roaring Lion",
+          "Sprinting Cheetah"
+        ],
+        "ans": 1,
+        "ansText": "Leaping Jaguar",
+        "expl": "The leaping silver feline embodies agility, speed, and sleek luxury."
+      },
+      {
+        "q": "What do the four horizontally interlocking chrome rings in the Audi logo historically represent?",
+        "options": [
+          "The four wheels of a car",
+          "Merger of 4 independent motor companies (Auto Union)",
+          "4 Olympic medals",
+          "4 German founders"
+        ],
+        "ans": 1,
+        "ansText": "Merger of 4 independent motor companies (Auto Union)",
+        "expl": "The rings symbolize the 1932 merger of Audi, DKW, Horch, and Wanderer."
+      },
+      {
+        "q": "The three points of the star in the Mercedes-Benz hood ornament symbolize Gottlieb Daimler's ambition for motorization where?",
+        "options": [
+          "Land, Sea, and Air",
+          "Europe, Asia, and America",
+          "Past, Present, and Future",
+          "Speed, Luxury, and Safety"
+        ],
+        "ans": 0,
+        "ansText": "Land, Sea, and Air",
+        "expl": "The tri-star represents universal motorization across land, water, and skies."
+      },
+      {
+        "q": "Which cycling event’s logo incorporates a hidden bicycle inside the letters 'T', 'o', and 'u' of its name?",
+        "options": [
+          "Tour de France",
+          "Giro d'Italia",
+          "Vuelta a Espana",
+          "Paris-Roubaix"
+        ],
+        "ans": 0,
+        "ansText": "Tour de France",
+        "expl": "The yellow circle and letters 'o-u-r' cleverly form a cyclist leaning over bicycle wheels."
+      },
+      {
+        "q": "The peacock logo of American TV network NBC originally used 6 colorful feathers to represent what breakthrough?",
+        "options": [
+          "6 Founding members",
+          "Transition to Color Television programming",
+          "6 continents",
+          "6 radio stations"
+        ],
+        "ans": 1,
+        "ansText": "Transition to Color Television programming",
+        "expl": "Introduced in 1956 to encourage viewers to purchase color TV sets."
+      },
+      {
+        "q": "Which famous luxury Swiss watchmaker uses a golden five-pointed royal coronet crown as its brand emblem?",
+        "options": [
+          "Omega",
+          "Tag Heuer",
+          "Rolex",
+          "Patek Philippe"
+        ],
+        "ans": 2,
+        "ansText": "Rolex",
+        "expl": "Rolex's coronet crown matches their slogan: 'A crown for every achievement'."
+      },
+      {
+        "q": "What fruit silhouette with a single bite taken out of its right side defines the tech giant Apple?",
+        "options": [
+          "Apple",
+          "Peach",
+          "Cherry",
+          "Pear"
+        ],
+        "ans": 0,
+        "ansText": "Apple",
+        "expl": "Designer Rob Janoff added the bite so people wouldn't confuse the apple with a cherry."
+      },
+      {
+        "q": "Which retail giant’s logo consists of a bright red circle containing a clean white bullseye target?",
+        "options": [
+          "Walmart",
+          "Target",
+          "Costco",
+          "Kmart"
+        ],
+        "ans": 1,
+        "ansText": "Target",
+        "expl": "Target debuted the iconic bullseye in 1962 to represent hitting the mark in retail value."
+      },
+      {
+        "q": "What fast-food chain features twin interlocking golden arches forming a giant letter 'M'?",
+        "options": [
+          "Burger King",
+          "Subway",
+          "McDonald's",
+          "Wendy's"
+        ],
+        "ans": 2,
+        "ansText": "McDonald's",
+        "expl": "The Golden Arches were originally architectural features of the first franchised restaurants."
+      },
+      {
+        "q": "Which food brand’s logo depicts a caricature of a southern gentleman with white hair and black string tie?",
+        "options": [
+          "KFC (Colonel Sanders)",
+          "Wendy's",
+          "Popeyes",
+          "Chic-fil-A"
+        ],
+        "ans": 0,
+        "ansText": "KFC (Colonel Sanders)",
+        "expl": "Colonel Harland Sanders' face has been the global mascot of Kentucky Fried Chicken since 1952."
+      },
+      {
+        "q": "Which beverage logo features a circular red, white, and blue globe with a horizontal wavy center stripe?",
+        "options": [
+          "Pepsi",
+          "Coca-Cola",
+          "Red Bull",
+          "Thums Up"
+        ],
+        "ans": 0,
+        "ansText": "Pepsi",
+        "expl": "The Pepsi Globe adopted the red, white, and blue colors during WWII to show patriotism."
       }
     ]
   },
   {
     "id": 6,
-    "name": "Round 6: The Tech Millionaire",
-    "type": "millionaire",
-    "description": "High Stakes • Balanced A/B/C/D • No Length Clues • 20 Questions",
+    "name": "Round 6: Who Owns Who? (Mega Conglomerates & Brand Parents)",
+    "type": "mcq",
+    "description": "Which Parent Company Owns These Famous Household Brands? • 25 Questions",
     "questions": [
       {
-        "q": "Which memory level inside a computer delivers the absolute lowest access latency?",
+        "q": "Which global food giant owns both Maggi instant noodles and KitKat chocolate?",
         "options": [
-          "CPU L1 hardware cache",
-          "High-speed DDR5 RAM",
-          "Fast PCIe NVMe drive",
-          "External flash drive"
-        ],
-        "ans": 0,
-        "ansText": "CPU L1 hardware cache",
-        "expl": "CPU SRAM cache sits directly on the processor die with sub-nanosecond clock cycle latency."
-      },
-      {
-        "q": "What benchmark unit measures the operational computation speed of global supercomputers?",
-        "options": [
-          "Megahertz Clock Rate",
-          "Floating Point FLOPS",
-          "Gigabytes Per Second",
-          "Revolutions Per Minute"
+          "Unilever",
+          "Nestle",
+          "Mondelez",
+          "Danone"
         ],
         "ans": 1,
-        "ansText": "Floating Point FLOPS",
-        "expl": "Supercomputers are measured by how many quintillion floating-point calculations they solve per second."
+        "ansText": "Nestle",
+        "expl": "Nestle owns hundreds of brands worldwide including Maggi, KitKat, and Nescafe."
       },
       {
-        "q": "Why does Netflix stream HD video smoothly in India without lag, even though original servers are in the USA?",
+        "q": "Which Indian conglomerate owns British luxury car makers Jaguar and Land Rover (JLR)?",
         "options": [
-          "Direct satellite dishes",
-          "CDN edge server caches",
-          "Chrome web accelerator",
-          "Wi-Fi router boosters"
+          "Mahindra Group",
+          "Tata Motors",
+          "Reliance Industries",
+          "Ashok Leyland"
         ],
         "ans": 1,
-        "ansText": "CDN edge server caches",
-        "expl": "Netflix pre-caches video streams onto local ISP network appliances closer to viewers."
+        "ansText": "Tata Motors",
+        "expl": "Tata Motors acquired Jaguar Land Rover from Ford in 2008 for $2.3 Billion."
       },
       {
-        "q": "Why do mobile banking OTP verification codes automatically expire after 5 or 10 minutes?",
+        "q": "Who is the parent company that owns Instagram, WhatsApp, and Facebook?",
         "options": [
-          "SIM card powers down",
-          "SMS storage gets full",
-          "Time-To-Live replay fix",
-          "Telecom regulation rule"
-        ],
-        "ans": 2,
-        "ansText": "Time-To-Live replay fix",
-        "expl": "Strict expiration windows prevent attackers from intercepting and re-using captured tokens."
-      },
-      {
-        "q": "What cyber attack floods a server with coordinated traffic from thousands of infected botnet devices?",
-        "options": [
-          "Social engineering phishing",
-          "Encrypted ransomware hold",
-          "Silent keystroke logger spy",
-          "Distributed denial of service"
-        ],
-        "ans": 3,
-        "ansText": "Distributed denial of service",
-        "expl": "DDoS attacks exhaust network bandwidth and connection queues, blocking legitimate users."
-      },
-      {
-        "q": "What is the technical term when an AI chatbot invents fake historical facts with high confidence?",
-        "options": [
-          "Runtime segmentation fault",
-          "Operating system kernel panic",
-          "Browser script memory leak",
-          "Artificial intelligence hallucination"
-        ],
-        "ans": 3,
-        "ansText": "Artificial intelligence hallucination",
-        "expl": "LLMs predict the most statistically probable token without an inherent grounded factual truth database."
-      },
-      {
-        "q": "If you delete a critical tracked file in a Git project, what command restores it from HEAD?",
-        "options": [
-          "git restore <filename>",
-          "git revert master branch",
-          "git delete undo file",
-          "git checkout root origin"
-        ],
-        "ans": 0,
-        "ansText": "git restore <filename>",
-        "expl": "'git restore' discards local working directory modifications and recovers the clean file from index."
-      },
-      {
-        "q": "How does Google Maps determine live traffic congestion and color road segments red or green?",
-        "options": [
-          "Traffic police radios",
-          "Overhead drone cameras",
-          "Crowdsourced mobile GPS",
-          "Highway toll radar beams"
-        ],
-        "ans": 2,
-        "ansText": "Crowdsourced mobile GPS",
-        "expl": "Active smartphones send anonymous velocity updates; when phones slow down, routes turn red."
-      },
-      {
-        "q": "Why does a brand new 1,000 GB external drive show only ~931 GB in Windows Explorer?",
-        "options": [
-          "Decimal vs Binary units",
-          "Operating system file tax",
-          "Defective factory sectors",
-          "Hidden backup partition"
-        ],
-        "ans": 0,
-        "ansText": "Decimal vs Binary units",
-        "expl": "Hardware makers define 1 GB = 1000^3 bytes, while Windows counts in binary 1024^3 bytes."
-      },
-      {
-        "q": "Why were keyboard keys arranged in the scrambled 'QWERTY' layout instead of ABCDEF order?",
-        "options": [
-          "Military cryptographic code",
-          "Preventing mechanical key jams",
-          "Latin language typing rules",
-          "Accidental manufacturing typo"
-        ],
-        "ans": 1,
-        "ansText": "Preventing mechanical key jams",
-        "expl": "Christopher Sholes separated frequently co-occurring letters so mechanical typewriter arms wouldn't jam."
-      },
-      {
-        "q": "When millions order food at midnight on New Year's Eve, what cloud architecture prevents server crash?",
-        "options": [
-          "Higher internet bandwidth",
-          "Manual developer overtime",
-          "Auto-scaling load balancer",
-          "Local database backup copies"
-        ],
-        "ans": 2,
-        "ansText": "Auto-scaling load balancer",
-        "expl": "Auto-scaling automatically adds server instances dynamically as incoming traffic surges."
-      },
-      {
-        "q": "What is the official expanded technical acronym of the word 'Wi-Fi'?",
-        "options": [
-          "Wireless Fiber Link",
-          "Wide Frequency Internet",
-          "Wired Interface File",
-          "Catchy rhyme (Not an acronym)"
-        ],
-        "ans": 3,
-        "ansText": "Catchy rhyme (Not an acronym)",
-        "expl": "The Wi-Fi Alliance hired a marketing agency to coin a consumer name for IEEE 802.11b."
-      },
-      {
-        "q": "What was the very first commercial '.com' domain name registered in internet history in 1985?",
-        "options": [
-          "Apple.com computer",
-          "Microsoft.com software",
-          "Symbolics.com system",
-          "Google.com search engine"
-        ],
-        "ans": 2,
-        "ansText": "Symbolics.com system",
-        "expl": "Symbolics.com was registered on March 15, 1985, by a computer manufacturer in Massachusetts."
-      },
-      {
-        "q": "Why did Microsoft submerge an entire data center capsule onto the ocean floor in Scotland?",
-        "options": [
-          "Seawater cooling efficiency",
-          "Hiding from government taxes",
-          "Providing Wi-Fi to submarines",
-          "Avoiding earthquakes on land"
-        ],
-        "ans": 0,
-        "ansText": "Seawater cooling efficiency",
-        "expl": "Project Natick proved underwater servers benefit from natural free chilling and low failure rates."
-      },
-      {
-        "q": "Why do products you view on Amazon follow you as advertisements on Instagram and news sites?",
-        "options": [
-          "Phone microphone listening",
-          "Ad-network tracking cookies",
-          "Instagram owns all retailers",
-          "Pure algorithmic coincidence"
-        ],
-        "ans": 1,
-        "ansText": "Ad-network tracking cookies",
-        "expl": "Ad networks use third-party tracking cookies and device fingerprinting to target cross-site ads."
-      },
-      {
-        "q": "Which NASA computer scientist wrote the asynchronous software that saved Apollo 11's moon landing?",
-        "options": [
-          "Marie Curie Physicist",
-          "Margaret Hamilton Engineer",
-          "Ada Lovelace Mathematician",
-          "Katherine Johnson Pioneer"
-        ],
-        "ans": 1,
-        "ansText": "Margaret Hamilton Engineer",
-        "expl": "Her priority scheduling dropped radar overload tasks, allowing the computer to focus on descent engines."
-      },
-      {
-        "q": "What does a 'Reverse Proxy' like Nginx do in front of an enterprise web application?",
-        "options": [
-          "Protects and balances backend",
-          "Generates user passwords",
-          "Formats hard drive partitions",
-          "Increases monitor refresh rate"
-        ],
-        "ans": 0,
-        "ansText": "Protects and balances backend",
-        "expl": "Reverse proxies handle SSL termination, caching, and distribute incoming traffic to backend nodes."
-      },
-      {
-        "q": "Which data structure provides constant O(1) average lookup time for key-value pairs?",
-        "options": [
-          "Singly Linked List",
-          "Binary Search Tree",
-          "Hash Table Key Map",
-          "Sorted Array Sequence"
-        ],
-        "ans": 2,
-        "ansText": "Hash Table Key Map",
-        "expl": "Hash tables compute a bucket index directly from the key hash, giving instantaneous O(1) lookup."
-      },
-      {
-        "q": "What was the title of the very first video ever uploaded to YouTube in April 2005?",
-        "options": [
-          "Hello World Coding",
-          "My First Video Post",
-          "Google Campus Tour",
-          "Me at the zoo video"
-        ],
-        "ans": 3,
-        "ansText": "Me at the zoo video",
-        "expl": "Co-founder Jawed Karim uploaded an 19-second video standing in front of elephants at the zoo."
-      },
-      {
-        "q": "In machine learning, what happens when a model performs 100% on training data but fails on real users?",
-        "options": [
-          "Model Underfitting Error",
-          "Data Normalization Shift",
-          "Zero Gradient Vanish",
-          "Model Overfitting Defect"
-        ],
-        "ans": 3,
-        "ansText": "Model Overfitting Defect",
-        "expl": "Overfitting occurs when a neural model memorizes noise instead of learning generalizable patterns."
-      }
-    ]
-  },
-  {
-    "id": 7,
-    "name": "Round 7: Rapid Fire Clash",
-    "type": "rapid",
-    "description": "5-Second Buzzes • Fast Elimination • High-Speed Clashes • 20 Questions",
-    "questions": [
-      {
-        "q": "Which standard internet port does unencrypted HTTP use by default?",
-        "options": [
-          "Port 443",
-          "Port 80",
-          "Port 21",
-          "Port 22"
-        ],
-        "ans": 1,
-        "ansText": "Port 80",
-        "expl": "HTTP runs on port 80; HTTPS runs on port 443."
-      },
-      {
-        "q": "What is the standard networking loopback IP address representing 'localhost'?",
-        "options": [
-          "192.168.1.1",
-          "10.0.0.1",
-          "0.0.0.0",
-          "127.0.0.1"
-        ],
-        "ans": 3,
-        "ansText": "127.0.0.1",
-        "expl": "127.0.0.1 is the standard loopback IP address assigned to localhost."
-      },
-      {
-        "q": "What does the 'C' stand for in the popular CPU acronym?",
-        "options": [
-          "Central",
-          "Circuit",
-          "Control",
-          "Compute"
-        ],
-        "ans": 0,
-        "ansText": "Central",
-        "expl": "CPU stands for Central Processing Unit."
-      },
-      {
-        "q": "Which company originally created the Android mobile operating system before Google acquired it?",
-        "options": [
-          "Apple Inc",
+          "Alphabet",
           "Microsoft",
-          "Android Inc",
-          "Samsung Co"
+          "Meta Platforms",
+          "Apple"
         ],
         "ans": 2,
-        "ansText": "Android Inc",
-        "expl": "Andy Rubin founded Android Inc in 2003, acquired by Google in 2005."
+        "ansText": "Meta Platforms",
+        "expl": "Mark Zuckerberg rebranded the parent company to Meta Platforms in 2021."
       },
       {
-        "q": "What does the 'S' stand for in the secure protocol HTTPS?",
+        "q": "Which soft drink giant owns Thums Up, Limca, Sprite, and Maaza in India?",
         "options": [
-          "System",
-          "Secure",
-          "Socket",
-          "Server"
+          "PepsiCo",
+          "The Coca-Cola Company",
+          "Parle Agro",
+          "Red Bull GmbH"
         ],
         "ans": 1,
-        "ansText": "Secure",
-        "expl": "HTTPS stands for HyperText Transfer Protocol Secure."
+        "ansText": "The Coca-Cola Company",
+        "expl": "Coca-Cola acquired Indian brands Thums Up, Limca, and Gold Spot from Parle in 1993."
       },
       {
-        "q": "What is the smallest unit of digital data in computer science, representing a 0 or 1?",
+        "q": "Which multinational acquired quick-commerce delivery platform Blinkit in an all-stock deal?",
         "options": [
-          "Bit",
-          "Byte",
-          "Nibble",
-          "Pixel"
-        ],
-        "ans": 0,
-        "ansText": "Bit",
-        "expl": "A bit (binary digit) is the fundamental atomic unit of digital computation."
-      },
-      {
-        "q": "Which binary logic gate outputs True (1) only when BOTH inputs are True (1)?",
-        "options": [
-          "AND Gate",
-          "OR Gate",
-          "XOR Gate",
-          "NOT Gate"
-        ],
-        "ans": 0,
-        "ansText": "AND Gate",
-        "expl": "AND logic requires all inputs to be high (1) to produce a high output."
-      },
-      {
-        "q": "What is the primary volatile memory storage used by the CPU to store running process data?",
-        "options": [
-          "Hard Drive",
-          "CD-ROM",
-          "USB Drive",
-          "RAM Memory"
-        ],
-        "ans": 3,
-        "ansText": "RAM Memory",
-        "expl": "RAM (Random Access Memory) provides high-speed volatile workspace for active programs."
-      },
-      {
-        "q": "What software layer serves as the intermediary between hardware silicon and user application software?",
-        "options": [
-          "Web Browser",
-          "Text Editor",
-          "Operating System",
-          "Antivirus Tool"
-        ],
-        "ans": 2,
-        "ansText": "Operating System",
-        "expl": "The OS manages hardware abstraction, CPU scheduling, memory, and file systems."
-      },
-      {
-        "q": "Which programming language was created by Sun Microsystems under the motto 'Write Once, Run Anywhere'?",
-        "options": [
-          "Python",
-          "C++",
-          "Java",
-          "Ruby"
-        ],
-        "ans": 2,
-        "ansText": "Java",
-        "expl": "Java compiles to bytecode running on any Java Virtual Machine (JVM)."
-      },
-      {
-        "q": "Which open-source relational database management system features a dolphin named Sakila in its logo?",
-        "options": [
-          "Oracle DB",
-          "MySQL",
-          "SQLite",
-          "MongoDB"
+          "Swiggy",
+          "Zomato",
+          "Flipkart",
+          "Amazon India"
         ],
         "ans": 1,
-        "ansText": "MySQL",
-        "expl": "MySQL is the widely used open-source relational database represented by a dolphin mascot."
+        "ansText": "Zomato",
+        "expl": "Zomato acquired quick-commerce platform Blinkit (formerly Grofers) in 2022."
       },
       {
-        "q": "In Git version control, which command creates and switches to a brand new isolated branch in one step?",
+        "q": "Which parent company owns luxury vehicle brands Audi, Porsche, Lamborghini, and Bentley?",
         "options": [
-          "git branch new",
-          "git merge branch",
-          "git commit branch",
-          "git checkout -b"
-        ],
-        "ans": 3,
-        "ansText": "git checkout -b",
-        "expl": "'git checkout -b <name>' or 'git switch -c <name>' creates and checks out the branch."
-      },
-      {
-        "q": "What hardware device routes data packets between different computer networks and connects to the internet?",
-        "options": [
-          "Sound Card",
-          "Network Router",
-          "Graphics Card",
-          "Power Supply"
-        ],
-        "ans": 1,
-        "ansText": "Network Router",
-        "expl": "Routers forward data packets across network boundaries using IP routing tables."
-      },
-      {
-        "q": "What is the common term for malicious software designed to disrupt, damage, or gain unauthorized access?",
-        "options": [
-          "Malware",
-          "Firmware",
-          "Shareware",
-          "Middleware"
-        ],
-        "ans": 0,
-        "ansText": "Malware",
-        "expl": "Malware (malicious software) encompasses viruses, ransomware, trojans, and worms."
-      },
-      {
-        "q": "Which standard format is universally used for styling and designing visual presentation on web pages?",
-        "options": [
-          "CSS Stylesheet",
-          "JSON Payload",
-          "SQL Query",
-          "C++ Binary"
-        ],
-        "ans": 0,
-        "ansText": "CSS Stylesheet",
-        "expl": "Cascading Style Sheets (CSS) controls typography, layouts, colors, and responsive design."
-      },
-      {
-        "q": "Which non-volatile solid-state storage technology replaced spinning mechanical magnetic hard disk drives?",
-        "options": [
-          "Floppy Disk Drive",
-          "Magnetic Tape Reel",
-          "Optical Laser Disc",
-          "Solid State Drive"
-        ],
-        "ans": 3,
-        "ansText": "Solid State Drive",
-        "expl": "SSDs use flash memory with zero moving parts, providing vastly superior I/O speeds."
-      },
-      {
-        "q": "In Python, which built-in data type is immutable and defined using round parentheses ()?",
-        "options": [
-          "List array",
-          "Dictionary map",
-          "Tuple sequence",
-          "Set collection"
+          "BMW Group",
+          "Mercedes-Benz Group",
+          "Volkswagen Group",
+          "Stellantis"
         ],
         "ans": 2,
-        "ansText": "Tuple sequence",
-        "expl": "Tuples are ordered, immutable sequences defined using parentheses in Python."
+        "ansText": "Volkswagen Group",
+        "expl": "German giant Volkswagen Group owns Audi, Porsche, Lamborghini, Bentley, and Ducati."
       },
       {
-        "q": "What does the popular web programming acronym 'DOM' stand for?",
+        "q": "Who is the corporate parent holding company that owns search giant Google, YouTube, and Android?",
         "options": [
-          "Data Online Model",
-          "Direct Object Mode",
-          "Document Object Model",
-          "Disk Operating Module"
+          "Alphabet Inc.",
+          "Meta",
+          "Oracle",
+          "SoftBank"
         ],
-        "ans": 2,
-        "ansText": "Document Object Model",
-        "expl": "The DOM is the programming API representation of HTML document trees in browsers."
+        "ans": 0,
+        "ansText": "Alphabet Inc.",
+        "expl": "Larry Page and Sergey Brin reorganized Google under the parent holding company Alphabet in 2015."
       },
       {
-        "q": "Which cryptographic protocol replaced the insecure Telnet protocol for remote terminal server access?",
+        "q": "Which Indian corporate titan owns Jio Platforms, Hamleys toy stores, and Trends retail?",
         "options": [
-          "FTP Protocol",
-          "SSH Protocol",
-          "SMTP Protocol",
-          "SNMP Protocol"
+          "Adani Group",
+          "Reliance Industries",
+          "Tata Group",
+          "Aditya Birla Group"
         ],
         "ans": 1,
-        "ansText": "SSH Protocol",
-        "expl": "SSH (Secure Shell) encrypts command-line sessions and file transfers across networks."
+        "ansText": "Reliance Industries",
+        "expl": "Mukesh Ambani's Reliance Industries holds diverse stakes in telecom, retail, and energy."
       },
       {
-        "q": "Which cloud computing model provides virtualized servers, storage, and networking over the internet?",
+        "q": "Which American conglomerate owns consumer brands Gillette, Oral-B, Pampers, and Ariel?",
         "options": [
-          "SaaS Software",
-          "PaaS Platform",
-          "BaaS Backend",
-          "IaaS Infrastructure"
+          "Procter & Gamble (P&G)",
+          "Johnson & Johnson",
+          "Unilever",
+          "Colgate-Palmolive"
         ],
-        "ans": 3,
-        "ansText": "IaaS Infrastructure",
-        "expl": "IaaS (Infrastructure as a Service) provides raw compute instances, storage, and networking."
+        "ans": 0,
+        "ansText": "Procter & Gamble (P&G)",
+        "expl": "P&G operates household staples across personal grooming, hygiene, and baby care."
+      },
+      {
+        "q": "Which confectionery multinational owns Oreo, Toblerone, and Cadbury Dairy Milk?",
+        "options": [
+          "Nestle",
+          "Mondelez International",
+          "Mars Inc.",
+          "Hershey's"
+        ],
+        "ans": 1,
+        "ansText": "Mondelez International",
+        "expl": "Mondelez was created from the spinoff of Kraft Foods and owns Cadbury and Oreo."
+      },
+      {
+        "q": "Which retail empire acquired Indian e-commerce pioneer Flipkart in 2018 for $16 Billion?",
+        "options": [
+          "Amazon",
+          "Walmart",
+          "Alibaba",
+          "SoftBank"
+        ],
+        "ans": 1,
+        "ansText": "Walmart",
+        "expl": "Walmart bought a majority 77% stake in Flipkart in the world's largest e-commerce deal."
+      },
+      {
+        "q": "Which quick-service restaurant conglomerate operates KFC, Pizza Hut, and Taco Bell globally?",
+        "options": [
+          "Restaurant Brands International",
+          "Yum! Brands",
+          "McDonald's Corp",
+          "Darden Restaurants"
+        ],
+        "ans": 1,
+        "ansText": "Yum! Brands",
+        "expl": "Yum! Brands operates over 55,000 restaurants across KFC, Pizza Hut, and Taco Bell."
+      },
+      {
+        "q": "Which parent company acquired code-sharing platform GitHub and owns LinkedIn?",
+        "options": [
+          "Apple",
+          "Microsoft",
+          "Google",
+          "IBM"
+        ],
+        "ans": 1,
+        "ansText": "Microsoft",
+        "expl": "Microsoft acquired LinkedIn for $26.2B in 2016 and GitHub for $7.5B in 2018."
+      },
+      {
+        "q": "Which Indian consumer group manufactures Bingo! chips, Aashirvaad Atta, and Sunfeast biscuits?",
+        "options": [
+          "Britannia",
+          "ITC Limited",
+          "Parle",
+          "Marico"
+        ],
+        "ans": 1,
+        "ansText": "ITC Limited",
+        "expl": "Kolkata-headquartered ITC is one of India's largest FMCG and packaging conglomerates."
+      },
+      {
+        "q": "Which German luxury conglomerate owns both Rolls-Royce Motor Cars and MINI Cooper?",
+        "options": [
+          "Volkswagen Group",
+          "BMW Group",
+          "Mercedes-Benz Group",
+          "Porsche SE"
+        ],
+        "ans": 1,
+        "ansText": "BMW Group",
+        "expl": "BMW Group owns BMW, MINI, Rolls-Royce Motor Cars, and BMW Motorrad."
+      },
+      {
+        "q": "Which French luxury titan headed by Bernard Arnault owns Louis Vuitton, Dior, Sephora, and Tiffany & Co.?",
+        "options": [
+          "Kering",
+          "LVMH (Moët Hennessy Louis Vuitton)",
+          "Hermes",
+          "Richemont"
+        ],
+        "ans": 1,
+        "ansText": "LVMH",
+        "expl": "LVMH is the world's largest luxury goods empire comprising 75 prestigious houses."
+      },
+      {
+        "q": "Which snack & beverage giant owns Lay's, Doritos, Kurkure, and Gatorade?",
+        "options": [
+          "PepsiCo",
+          "Coca-Cola",
+          "Kraft Heinz",
+          "Kellogg's"
+        ],
+        "ans": 0,
+        "ansText": "PepsiCo",
+        "expl": "PepsiCo owns major snack brands via Frito-Lay alongside its global beverage empire."
+      },
+      {
+        "q": "Which consumer company owns health food drinks Horlicks and Boost in India?",
+        "options": [
+          "GlaxoSmithKline",
+          "Hindustan Unilever (HUL)",
+          "Nestle",
+          "Dabur"
+        ],
+        "ans": 1,
+        "ansText": "Hindustan Unilever (HUL)",
+        "expl": "HUL merged GSK Consumer Healthcare to acquire Horlicks and Boost for ₹31,700 Crore."
+      },
+      {
+        "q": "Which Indian conglomerate owns Titan, Tanishq, Fastrack, and Air India?",
+        "options": [
+          "Tata Group",
+          "Birla Group",
+          "Godrej",
+          "Mahindra"
+        ],
+        "ans": 0,
+        "ansText": "Tata Group",
+        "expl": "The Tata Group operates in steel, automotive, tech, jewelry, and aviation."
+      },
+      {
+        "q": "Which candy company manufactures M&M's, Snickers, Twix, and Pedigree pet food?",
+        "options": [
+          "Mars, Incorporated",
+          "Hershey's",
+          "Mondelez",
+          "Ferrero"
+        ],
+        "ans": 0,
+        "ansText": "Mars, Incorporated",
+        "expl": "Family-owned Mars Inc. operates global confectionery and pet care giants."
+      },
+      {
+        "q": "Which cloud CRM giant acquired workplace chat platform Slack for $27.7 Billion?",
+        "options": [
+          "Salesforce",
+          "Microsoft",
+          "Oracle",
+          "Adobe"
+        ],
+        "ans": 0,
+        "ansText": "Salesforce",
+        "expl": "Marc Benioff's Salesforce completed the blockbuster acquisition of Slack in 2021."
+      },
+      {
+        "q": "Which Italian eyewear monopoly owns Ray-Ban, Oakley, and Sunglass Hut?",
+        "options": [
+          "Safilo",
+          "EssilorLuxottica",
+          "Marcolin",
+          "De Rigo"
+        ],
+        "ans": 1,
+        "ansText": "EssilorLuxottica",
+        "expl": "EssilorLuxottica produces over 80% of the world's major designer eyewear frames."
+      },
+      {
+        "q": "Which entertainment powerhouse acquired Marvel Studios, Pixar, and Lucasfilm (Star Wars)?",
+        "options": [
+          "Warner Bros.",
+          "The Walt Disney Company",
+          "Sony Pictures",
+          "Paramount"
+        ],
+        "ans": 1,
+        "ansText": "The Walt Disney Company",
+        "expl": "Under Bob Iger, Disney acquired Pixar in 2006, Marvel in 2009, and Lucasfilm in 2012."
+      },
+      {
+        "q": "Which company acquired audio hardware brand Beats by Dre for $3 Billion in 2014?",
+        "options": [
+          "Sony",
+          "Apple",
+          "Bose",
+          "Samsung"
+        ],
+        "ans": 1,
+        "ansText": "Apple",
+        "expl": "Apple bought Beats Electronics from Dr. Dre and Jimmy Iovine to build Apple Music."
+      },
+      {
+        "q": "Which gaming giant acquired Activision Blizzard (Call of Duty, Candy Crush) for $68.7 Billion?",
+        "options": [
+          "Sony",
+          "Microsoft",
+          "Electronic Arts",
+          "Nintendo"
+        ],
+        "ans": 1,
+        "ansText": "Microsoft",
+        "expl": "Microsoft finalized the record-breaking $68.7B buyout of Activision Blizzard in 2023."
       }
     ]
   }

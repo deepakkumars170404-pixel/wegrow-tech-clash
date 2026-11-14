@@ -236,13 +236,8 @@ function autoShuffleTeams() {
 }
 
 function assignNewPlayerToTeam(player) {
-  // If in lobby phase, general shuffle keeps teams evenly balanced
-  if (gameState.currentView === 'lobby') {
-    autoShuffleTeams();
-    return;
-  }
-
-  // If game is already actively running: assign directly to the team with least players!
+  // Balanced Round-Robin Assignment: Always assign to the team with the fewest members!
+  // Never reshuffle existing players so their team remains permanent!
   let targetTeam = gameState.teams[0];
   let minMembers = gameState.teams[0].members.length;
   gameState.teams.forEach(t => {
@@ -256,7 +251,7 @@ function assignNewPlayerToTeam(player) {
   player.teamName = targetTeam.name;
   targetTeam.members.push({ id: player.id, name: player.name, role: player.role || 'player' });
   updateLeaderboard();
-  console.log(`Mid-game joiner '${player.name}' automatically assigned to ${targetTeam.name}!`);
+  console.log(`Player '${player.name}' permanently assigned to ${targetTeam.name} (Team count: ${targetTeam.members.length})`);
 }
 
 // Initial seed (Disabled for live student session - students join dynamically!)
@@ -342,7 +337,24 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== team.id);
     }
 
-    if (gameState.buzzerQueue.length > 0) {
+    // 2-CHANCE ATTEMPT RULE: Maximum 2 teams can attempt each question!
+    if (gameState.lockedTeamsForQuestion.length >= 2) {
+      console.log(`Question attempt limit reached (2 teams failed). Auto-locking question and revealing answer.`);
+      gameState.buzzerState = 'locked';
+      gameState.buzzerQueue = [];
+      gameState.activeAnsweringTeamId = null;
+      gameState.activeAnsweringPlayerId = null;
+      gameState.lastAnswerResult = {
+        status: 'max_attempts_exceeded',
+        teamId: team ? team.id : null,
+        teamName: team ? team.name : 'Team',
+        playerName: player ? player.name : (team ? team.name : 'Team'),
+        selectedOptionIndex: selectedOptionIndex,
+        correctOptionIndex: currentQ.ans,
+        message: `2 Teams answered incorrectly! Revealing correct answer...`,
+        time: Date.now()
+      };
+    } else if (gameState.buzzerQueue.length > 0) {
       const nextBuzzed = gameState.buzzerQueue[0];
       gameState.activeAnsweringTeamId = nextBuzzed.teamId;
       gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
@@ -397,20 +409,39 @@ wss.on('connection', (ws) => {
 
       switch (data.type) {
         case 'REGISTER_PLAYER': {
-          const pid = data.playerId || ws.playerId;
-          ws.playerId = pid;
-          const newPlayer = {
-            id: pid,
-            name: data.name || 'Player',
-            role: data.role || 'dev',
-            teamId: null,
-            teamName: null,
-            score: 0,
-            correctCount: 0,
-            wrongCount: 0
-          };
-          gameState.players[pid] = newPlayer;
-          assignNewPlayerToTeam(newPlayer);
+          const rawName = (data.name || 'Player').trim();
+          const cleanNameLower = rawName.toLowerCase();
+
+          // Block auto-register if player was kicked by host
+          if (gameState.kickedPlayers && (gameState.kickedPlayers.has(ws.playerId) || gameState.kickedPlayers.has(cleanNameLower))) {
+            try { ws.send(JSON.stringify({ type: 'YOU_WERE_REMOVED' })); } catch (e) {}
+            return;
+          }
+
+          // Check if player name already exists to prevent duplicate entries & preserve permanent team
+          let existingPlayer = Object.values(gameState.players).find(p => p.name && p.name.trim().toLowerCase() === cleanNameLower);
+
+          if (existingPlayer) {
+            // Re-bind current socket to the existing player record
+            ws.playerId = existingPlayer.id;
+            existingPlayer.role = data.role || existingPlayer.role;
+            console.log(`Re-bound socket to existing player profile: ${existingPlayer.name} in ${existingPlayer.teamName}`);
+          } else {
+            const pid = data.playerId || ws.playerId;
+            ws.playerId = pid;
+            const newPlayer = {
+              id: pid,
+              name: rawName,
+              role: data.role || 'dev',
+              teamId: null,
+              teamName: null,
+              score: 0,
+              correctCount: 0,
+              wrongCount: 0
+            };
+            gameState.players[pid] = newPlayer;
+            assignNewPlayerToTeam(newPlayer);
+          }
           broadcastState();
           break;
         }
@@ -703,7 +734,24 @@ wss.on('connection', (ws) => {
 
             gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== gameState.activeAnsweringTeamId);
 
-            if (gameState.buzzerQueue.length > 0) {
+            // 2-CHANCE ATTEMPT RULE: Maximum 2 teams can attempt each question!
+            if (gameState.lockedTeamsForQuestion.length >= 2) {
+              const curR = allRounds[gameState.currentRoundIdx];
+              const curQ = curR ? curR.questions[gameState.currentQuestionIdx] : null;
+              gameState.buzzerState = 'locked';
+              gameState.buzzerQueue = [];
+              gameState.activeAnsweringTeamId = null;
+              gameState.activeAnsweringPlayerId = null;
+              gameState.lastAnswerResult = {
+                status: 'max_attempts_exceeded',
+                teamId: team ? team.id : null,
+                teamName: team ? team.name : 'Team',
+                message: `2 Teams answered incorrectly! Revealing correct answer...`,
+                correctOptionIndex: curQ ? curQ.ans : null,
+                ansText: curQ ? curQ.ansText : '',
+                time: Date.now()
+              };
+            } else if (gameState.buzzerQueue.length > 0) {
               const nextBuzzed = gameState.buzzerQueue[0];
               gameState.activeAnsweringTeamId = nextBuzzed.teamId;
               gameState.activeAnsweringPlayerId = nextBuzzed.playerId;

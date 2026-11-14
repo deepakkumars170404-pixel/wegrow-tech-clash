@@ -801,6 +801,40 @@
         nextQuestion();
       }, 3500);
 
+    } else if (res.status === 'max_attempts_exceeded') {
+      // 2 TEAMS FAILED - Reveal Answer & Auto Advance
+      banner.className = 'smart-flash wrong';
+      banner.textContent = `⚠️ 2 TEAMS ATTEMPTED & WRONG! REVEALING ANSWER...`;
+      if (window.soundFX) window.soundFX.playWrong();
+      document.getElementById('q-answer-banner').classList.add('show');
+
+      // Shake/mark red on the selected wrong option
+      if (res.selectedOptionIndex !== undefined && opts[res.selectedOptionIndex]) {
+        opts[res.selectedOptionIndex].classList.add('wrong');
+      }
+      // Highlight correct answer in emerald green
+      if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
+        opts[currentQ.ans].classList.add('correct');
+      }
+
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      const ansBanner = document.getElementById('q-answer-banner');
+      let autoTimerDiv = document.getElementById('auto-advance-msg');
+      if (!autoTimerDiv) {
+        autoTimerDiv = document.createElement('div');
+        autoTimerDiv.id = 'auto-advance-msg';
+        autoTimerDiv.style.marginTop = '12px';
+        autoTimerDiv.style.fontSize = '15px';
+        autoTimerDiv.style.color = '#f59e0b';
+        autoTimerDiv.style.fontWeight = '900';
+        ansBanner.appendChild(autoTimerDiv);
+      }
+      autoTimerDiv.textContent = '⏳ Max attempts reached! Moving to next question in 3.5 seconds...';
+
+      autoAdvanceTimer = setTimeout(() => {
+        nextQuestion();
+      }, 3500);
+
     } else {
       banner.className = 'smart-flash wrong';
       banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING...`;
