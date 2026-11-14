@@ -438,6 +438,18 @@
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      if (data.type === 'YOU_WERE_REMOVED') {
+        localStorage.removeItem('tc_player_id');
+        localStorage.removeItem('tc_player_name');
+        localStorage.removeItem('tc_player_role');
+        myPlayerId = null;
+        myName = '';
+        myTeamId = null;
+        myTeamName = null;
+        alert('You were removed from the tournament roster by the host. Please re-enter your details if needed.');
+        showScreen('screen-login');
+        return;
+      }
       if (data.type === 'INIT') {
         if (!myPlayerId) {
           myPlayerId = data.playerId;

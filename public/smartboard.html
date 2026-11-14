@@ -63,6 +63,24 @@
     white-space: nowrap;
   }
 
+  .header-restart-btn {
+    background: rgba(244, 63, 94, 0.15);
+    border: 1px solid var(--red);
+    color: #fda4af;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .header-restart-btn:hover {
+    background: var(--red);
+    color: white;
+    transform: scale(1.04);
+  }
+
   .header-btn {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: #090d16;
@@ -450,6 +468,7 @@
   <div style="display:flex; align-items:center; gap:16px;">
     <div class="arena-logo">⚡ TECH CLASH ARENA PRO</div>
     <div class="round-indicator" id="round-indicator">Lobby Phase</div>
+    <button class="header-restart-btn" onclick="confirmRestartGame()" title="Reset Tournament to Lobby anytime">🔄 RESTART TO LOBBY</button>
   </div>
 
   <div class="team-scores" id="team-scores-bar">
@@ -806,7 +825,12 @@
       card.className = 'team-roster-card';
       card.style.borderColor = t.color;
 
-      let membersHtml = t.members.map(m => `<li>• ${m.name} <small>(${m.role.toUpperCase()})</small></li>`).join('');
+      let membersHtml = t.members.map(m => `
+        <li style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; padding:3px 6px; border-radius:6px; background:rgba(255,255,255,0.03);">
+          <span>• ${m.name} <small style="color:var(--muted); font-size:11px;">(${m.role.toUpperCase()})</small></span>
+          <button onclick="kickPlayer('${m.id}', '${m.name.replace(/'/g, "\\'")}')" style="background:#ef444425; border:1px solid #ef4444; color:#f87171; border-radius:4px; padding:2px 7px; font-size:11px; font-weight:900; cursor:pointer;" title="Remove student from team">✕</button>
+        </li>
+      `).join('');
       if (!membersHtml) membersHtml = '<li style="color:#64748b;">No players yet</li>';
 
       card.innerHTML = `
@@ -815,6 +839,18 @@
       `;
       grid.appendChild(card);
     });
+  }
+
+  function kickPlayer(playerId, playerName) {
+    if (confirm(`Remove student "${playerName}" from the tournament?`)) {
+      ws.send(JSON.stringify({ type: 'KICK_PLAYER', playerId: playerId }));
+    }
+  }
+
+  function confirmRestartGame() {
+    if (confirm('🔄 Are you sure you want to RESTART the game back to the Lobby? All scores will be reset to 0.')) {
+      resetTournament();
+    }
   }
 
   function renderQuestionUI(round, q, state) {

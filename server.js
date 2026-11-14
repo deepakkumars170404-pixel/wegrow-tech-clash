@@ -469,6 +469,27 @@ wss.on('connection', (ws) => {
           break;
         }
 
+        case 'KICK_PLAYER': {
+          const pid = data.playerId;
+          if (gameState.players[pid]) {
+            delete gameState.players[pid];
+          }
+          gameState.teams.forEach(t => {
+            t.members = t.members.filter(m => m.id !== pid);
+          });
+          // Send specific notification to the kicked client
+          wss.clients.forEach(client => {
+            if (client.playerId === pid && client.readyState === 1) {
+              try {
+                client.send(JSON.stringify({ type: 'YOU_WERE_REMOVED' }));
+              } catch (e) {}
+            }
+          });
+          updateLeaderboard();
+          broadcastState();
+          break;
+        }
+
         case 'CHANGE_QUESTION': {
           gameState.currentRoundIdx = data.roundIdx;
           gameState.currentQuestionIdx = data.questionIdx;
