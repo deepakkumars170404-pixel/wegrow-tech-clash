@@ -319,20 +319,11 @@
 <div class="screen active" id="screen-login">
   <div class="login-card">
     <h2>Enter Arena</h2>
-    <p>Enter your name and track to join the tournament</p>
+    <p>Enter your name to join the tournament</p>
 
     <div class="input-group">
       <label>Your Name:</label>
       <input type="text" id="player-name" class="input-field" placeholder="Ex: Alex / Priya / John" autocomplete="off">
-    </div>
-
-    <div class="input-group">
-      <label>Your Track / Specialization:</label>
-      <div class="role-select">
-        <button type="button" class="role-btn selected" onclick="selectRole('dev', this)">💻 Full Stack</button>
-        <button type="button" class="role-btn" onclick="selectRole('analyst', this)">📊 Data Analyst</button>
-        <button type="button" class="role-btn" onclick="selectRole('scientist', this)">🤖 Data Scientist</button>
-      </div>
     </div>
 
     <button type="button" class="submit-btn" onclick="registerPlayer()">JOIN TOURNAMENT 🚀</button>
@@ -433,15 +424,14 @@
         ws.send(JSON.stringify({
           type: 'RECONNECT_PLAYER',
           playerId: myPlayerId,
-          name: myName,
-          role: myRole
+          name: myName
         }));
       }
     };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      if (data.type === 'YOU_WERE_REMOVED') {
+      if (data.type === 'YOU_WERE_REMOVED' || data.type === 'RESET_SESSION_FORCE') {
         localStorage.removeItem('tc_player_id');
         localStorage.removeItem('tc_player_name');
         localStorage.removeItem('tc_player_role');
@@ -449,7 +439,9 @@
         myName = '';
         myTeamId = null;
         myTeamName = null;
-        alert('You were removed from the tournament roster by the host. Please re-enter your details if needed.');
+        if (data.type === 'YOU_WERE_REMOVED') {
+          alert('You were removed from the tournament roster by the host. Please re-enter your details if needed.');
+        }
         showScreen('screen-login');
         return;
       }
@@ -509,13 +501,11 @@
     // Save in localStorage for persistent session
     localStorage.setItem('tc_player_id', myPlayerId);
     localStorage.setItem('tc_player_name', myName);
-    localStorage.setItem('tc_player_role', myRole);
 
     ws.send(JSON.stringify({
       type: 'REGISTER_PLAYER',
       playerId: myPlayerId,
-      name: myName,
-      role: myRole
+      name: myName
     }));
 
     if (currentGameState && currentGameState.currentView === 'game') {
@@ -857,7 +847,7 @@
           <span class="lead-rank">${p.rank === 1 ? '👑' : p.rank === 2 ? '🥈' : p.rank === 3 ? '🥉' : `#${p.rank}`}</span>
           <div>
             <b>${p.name}</b>
-            <div style="font-size:11px; color:var(--muted);">${p.teamName} • ${p.role.toUpperCase()}</div>
+            <div style="font-size:11px; color:var(--muted);">${p.teamName}</div>
           </div>
         </div>
         <div style="font-weight:900; color:var(--yellow);">${p.score} pts <small style="color:var(--muted); font-size:11px;">(${p.correctCount || 0}✓)</small></div>

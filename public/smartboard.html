@@ -589,7 +589,6 @@
           <tr>
             <th>Rank</th>
             <th>Student Name</th>
-            <th>Specialization Track</th>
             <th>Team</th>
             <th>Correct</th>
             <th>Total Points</th>
@@ -606,7 +605,6 @@
 <footer>
   <div class="touch-controls" style="width:100%; justify-content:center; gap:16px;">
     <button class="touch-btn btn-reveal" onclick="toggleReveal()" title="Show correct answer and explanation">💡 REVEAL ANSWER</button>
-    <button class="touch-btn btn-correct" onclick="hostMarkCorrect()" title="Award +100 to answering team">✅ CORRECT (+100)</button>
     <button class="touch-btn btn-wrong" onclick="hostMarkWrong()" title="Mark WRONG (-20 PTS) and pass to next team">❌ WRONG (-20)</button>
     <button class="touch-btn btn-skip" onclick="skipCurrentTurn()" title="Pass chance to next team in queue">⏭️ PASS / SKIP</button>
     <button class="touch-btn btn-next" onclick="nextQuestion()">NEXT QUESTION ▶</button>
@@ -883,7 +881,7 @@
 
       let membersHtml = t.members.map(m => `
         <li style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; padding:3px 6px; border-radius:6px; background:rgba(255,255,255,0.03);">
-          <span>• ${m.name} <small style="color:var(--muted); font-size:11px;">(${m.role.toUpperCase()})</small></span>
+          <span>• ${m.name}</span>
           <button onclick="kickPlayer('${m.id}', '${m.name.replace(/'/g, "\\'")}')" style="background:#ef444425; border:1px solid #ef4444; color:#f87171; border-radius:4px; padding:2px 7px; font-size:11px; font-weight:900; cursor:pointer;" title="Remove student from team">✕</button>
         </li>
       `).join('');
@@ -1248,7 +1246,6 @@
       tr.innerHTML = `
         <td style="font-weight:900; color:${p.rank <= 3 ? 'var(--yellow)' : 'white'};">${rankBadge}</td>
         <td style="font-weight:800;">${p.name}</td>
-        <td><span style="background:#1e293b; border:1px solid #334155; padding:3px 8px; border-radius:6px; font-size:12px; font-weight:700;">${p.role.toUpperCase()}</span></td>
         <td style="color:var(--accent); font-weight:700;">${p.teamName}</td>
         <td style="color:#10b981; font-weight:800;">${p.correctCount || 0} ✓</td>
         <td style="font-weight:900; color:var(--yellow); font-size:17px;">${p.score || 0} pts</td>

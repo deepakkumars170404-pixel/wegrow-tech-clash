@@ -925,6 +925,12 @@ wss.on('connection', (ws) => {
           gameState.teams.forEach(t => { t.score = 0; t.correctCount = 0; t.wrongCount = 0; t.members = []; });
           gameState.players = {};
           gameState.kickedPlayers = new Set();
+          // Tell all connected clients to clear localStorage and reset to login screen!
+          wss.clients.forEach(client => {
+            try {
+              client.send(JSON.stringify({ type: 'RESET_SESSION_FORCE' }));
+            } catch (e) {}
+          });
           updateLeaderboard();
           broadcastState();
           break;
