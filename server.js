@@ -721,9 +721,19 @@ wss.on('connection', (ws) => {
         }
 
         case 'SUBMIT_STUDENT_ANSWER': {
-          const player = gameState.players[ws.playerId];
-          if (!player || player.teamId !== gameState.activeAnsweringTeamId) return;
-          processAnswerSubmission(player.teamId, player.id, data.selectedOptionIndex, data.textAnswer);
+          let player = gameState.players[ws.playerId];
+          if (!player && data.playerId) {
+            player = gameState.players[data.playerId];
+          }
+          const optIdx = parseInt(data.selectedOptionIndex, 10);
+          const answeringTeamId = gameState.activeAnsweringTeamId;
+
+          // If the player belongs to the currently answering team, or answeringTeam is active
+          if (player && player.teamId === answeringTeamId) {
+            processAnswerSubmission(player.teamId, player.id, optIdx, data.textAnswer);
+          } else if (answeringTeamId) {
+            processAnswerSubmission(answeringTeamId, player ? player.id : null, optIdx, data.textAnswer);
+          }
           break;
         }
 

@@ -784,6 +784,8 @@
   function submitAnswer(idx, text = '') {
     ws.send(JSON.stringify({
       type: 'SUBMIT_STUDENT_ANSWER',
+      playerId: myPlayerId,
+      teamId: myTeamId,
       selectedOptionIndex: idx,
       textAnswer: text
     }));
