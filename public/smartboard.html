@@ -713,13 +713,16 @@
       document.getElementById('round-indicator').textContent = `Lobby (${state.playerCount} Players)`;
       renderLobbyRosters(state.teams);
     } else if (state.currentView === 'game') {
+      const qChanged = (window.currentRIdx !== state.currentRoundIdx || window.currentQIdx !== state.currentQuestionIdx);
       window.currentRIdx = state.currentRoundIdx;
       window.currentQIdx = state.currentQuestionIdx;
       currentRound = allRounds[state.currentRoundIdx];
       if (currentRound) {
         currentQ = currentRound.questions[state.currentQuestionIdx];
         document.getElementById('round-indicator').textContent = currentRound.name;
-        renderQuestionUI(currentRound, currentQ, state);
+        if (qChanged || !document.getElementById('q-content').hasChildNodes()) {
+          renderQuestionUI(currentRound, currentQ, state);
+        }
       }
       renderBuzzerSidebar(state);
     } else if (state.currentView === 'winner') {

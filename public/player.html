@@ -625,7 +625,10 @@
         countdownBadge.textContent = `⏳ ${secs}s`;
         countdownBadge.style.background = secs <= 3 ? '#ef4444' : '#f59e0b';
       }
-      renderMobileOptions(state);
+      const optContainer = document.getElementById('mobile-options-container');
+      if (!optContainer.hasChildNodes()) {
+        renderMobileOptions(state);
+      }
       return;
     } else {
       buzzerBox.style.display = 'flex';
