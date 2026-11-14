@@ -630,6 +630,8 @@ wss.on('connection', (ws) => {
         }
 
         case 'START_GAME': {
+          clearAnswerTimer();
+          clearAutoAdvance();
           gameState.currentView = 'game';
           gameState.currentRoundIdx = 0;
           gameState.currentQuestionIdx = 0;
@@ -638,6 +640,7 @@ wss.on('connection', (ws) => {
           gameState.lockedTeamsForQuestion = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
+          gameState.answerCountdown = null;
           gameState.lastAnswerResult = null;
           broadcastState();
           break;

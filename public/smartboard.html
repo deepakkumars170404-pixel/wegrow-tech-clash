@@ -660,13 +660,6 @@
   let lastRenderedRoundIdx = -1;
   let lastRenderedQuestionIdx = -1;
 
-  async function loadData() {
-    try {
-      const res = await fetch('/questions.json');
-      allRounds = await res.json();
-    } catch(e) { console.error('questions load err', e); }
-  }
-
   function connectWs() {
     const loc = window.location;
     const wsUrl = (loc.protocol === 'https:' ? 'wss://' : 'ws://') + loc.host;
@@ -682,10 +675,9 @@
     ws.onclose = () => setTimeout(connectWs, 2000);
   }
 
-  loadData().then(() => {
-    connectWs();
-    initQr();
-  });
+  // Initialize immediately - never block on external fetches!
+  initQr();
+  connectWs();
 
   let currentServerIp = '192.168.29.60';
 
@@ -702,15 +694,19 @@
     if (urlText) urlText.textContent = url;
     const qrEl = document.getElementById('qrcode');
     if (qrEl) {
-      qrEl.innerHTML = '';
-      new QRCode(qrEl, {
-        text: url,
-        width: 170,
-        height: 170,
-        colorDark: '#090d16',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.M
-      });
+      if (typeof QRCode !== 'undefined') {
+        qrEl.innerHTML = '';
+        new QRCode(qrEl, {
+          text: url,
+          width: 170,
+          height: 170,
+          colorDark: '#090d16',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        setTimeout(() => initQr(newIp), 300);
+      }
     }
   }
 
