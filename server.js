@@ -41,7 +41,8 @@ const gameState = {
     activeTeamIdx: 0,
     secondsLeft: 60,
     isRunning: false
-  }
+  },
+  kickedPlayers: new Set()
 };
 
 // Seed 12 Realistic Dummy Players for instant testing!
@@ -417,6 +418,13 @@ wss.on('connection', (ws) => {
         case 'RECONNECT_PLAYER': {
           const pid = data.playerId || ws.playerId;
           ws.playerId = pid;
+
+          // Block auto-reconnect if player was kicked by host
+          if (gameState.kickedPlayers && (gameState.kickedPlayers.has(pid) || (data.name && gameState.kickedPlayers.has(data.name.toLowerCase())))) {
+            try { ws.send(JSON.stringify({ type: 'YOU_WERE_REMOVED' })); } catch (e) {}
+            return;
+          }
+
           let player = gameState.players[pid];
           if (!player && data.name) {
             player = Object.values(gameState.players).find(p => p.name.toLowerCase() === data.name.toLowerCase());
@@ -471,17 +479,27 @@ wss.on('connection', (ws) => {
 
         case 'KICK_PLAYER': {
           const pid = data.playerId;
+          const targetPlayer = gameState.players[pid];
+          const targetName = targetPlayer ? targetPlayer.name : null;
+
           if (gameState.players[pid]) {
             delete gameState.players[pid];
           }
           gameState.teams.forEach(t => {
             t.members = t.members.filter(m => m.id !== pid);
           });
-          // Send specific notification to the kicked client
+          gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.playerId !== pid);
+
+          if (!gameState.kickedPlayers) gameState.kickedPlayers = new Set();
+          gameState.kickedPlayers.add(pid);
+          if (targetName) gameState.kickedPlayers.add(targetName.toLowerCase());
+
+          // Tell the kicked client to clear and disconnect
           wss.clients.forEach(client => {
-            if (client.playerId === pid && client.readyState === 1) {
+            if (client.playerId === pid) {
               try {
                 client.send(JSON.stringify({ type: 'YOU_WERE_REMOVED' }));
+                client.playerId = null;
               } catch (e) {}
             }
           });
@@ -725,6 +743,7 @@ wss.on('connection', (ws) => {
           gameState.lastAnswerResult = null;
           gameState.teams.forEach(t => { t.score = 0; t.correctCount = 0; t.wrongCount = 0; t.members = []; });
           gameState.players = {};
+          gameState.kickedPlayers = new Set();
           updateLeaderboard();
           broadcastState();
           break;

@@ -572,15 +572,17 @@
       teamScorePill.textContent = `🏆 ${foundTeam.score || 0} pts`;
       teamScorePill.style.borderColor = myTeamColor;
     } else {
-      // Re-send registration if not found in any team
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({
-          type: 'RECONNECT_PLAYER',
-          playerId: myPlayerId,
-          name: myName,
-          role: myRole
-        }));
-      }
+      // If student is not present in any team on the server, reset to login
+      localStorage.removeItem('tc_player_id');
+      localStorage.removeItem('tc_player_name');
+      localStorage.removeItem('tc_player_role');
+      myPlayerId = null;
+      myName = '';
+      myTeamId = null;
+      myTeamName = null;
+      document.getElementById('header-team').textContent = 'Connecting...';
+      showScreen('screen-login');
+      return;
     }
 
     // Update personal score
