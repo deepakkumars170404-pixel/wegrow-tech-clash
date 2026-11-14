@@ -270,22 +270,8 @@ function clearAnswerTimer() {
 
 function startAnswerTimer() {
   clearAnswerTimer();
-  gameState.answerCountdown = 10;
-
-  answerTimerInterval = setInterval(() => {
-    if (gameState.buzzerState !== 'buzzing' || !gameState.activeAnsweringTeamId) {
-      clearAnswerTimer();
-      return;
-    }
-
-    gameState.answerCountdown--;
-    broadcastState();
-
-    if (gameState.answerCountdown <= 0) {
-      clearAnswerTimer();
-      handleAnswerTimeout();
-    }
-  }, 1000);
+  // Timer countdown disabled to prevent freezing and network lag
+  gameState.answerCountdown = null;
 }
 
 function handleAnswerTimeout() {

@@ -360,8 +360,8 @@
   <!-- Real-time Mobile Answer Panel for Buzzed Team -->
   <div class="answer-panel" id="mobile-answer-panel">
     <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:10px;">
-      <div style="color: var(--yellow); font-size: 17px; font-weight: 900;">🎯 YOUR TURN!</div>
-      <div id="phone-countdown-badge" style="background:#ef4444; color:white; padding:4px 12px; border-radius:20px; font-size:15px; font-weight:900; animation:pulseGlow 1s infinite alternate;">⏳ 10s</div>
+      <div style="color: var(--yellow); font-size: 17px; font-weight: 900;">🎯 YOUR TURN TO ANSWER!</div>
+      <div style="background:var(--accent); color:#090d16; padding:4px 12px; border-radius:20px; font-size:14px; font-weight:900;">⚡ ACTIVE</div>
     </div>
     <div class="options-btn-grid" id="mobile-options-container">
       <!-- Options or Clue Cards injected by JS -->
@@ -657,12 +657,6 @@
     if (isMyTeamAnswering && state.buzzerState === 'buzzing') {
       buzzerBox.style.display = 'none';
       answerPanel.className = 'answer-panel show';
-      const countdownBadge = document.getElementById('phone-countdown-badge');
-      if (countdownBadge) {
-        const secs = (state.answerCountdown !== undefined) ? state.answerCountdown : 10;
-        countdownBadge.textContent = `⏳ ${secs}s`;
-        countdownBadge.style.background = secs <= 3 ? '#ef4444' : '#f59e0b';
-      }
       const optContainer = document.getElementById('mobile-options-container');
       if (optContainer && optContainer.children.length === 0) {
         renderMobileOptions(state);
