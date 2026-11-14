@@ -230,8 +230,26 @@
     background: rgba(0, 242, 254, 0.12);
     transform: translateY(-2px);
   }
-  .mcq-opt.correct { border-color: var(--green); background: rgba(16, 185, 129, 0.25); color: #6ee7b7; transform: scale(1.02); }
-  .mcq-opt.wrong { border-color: var(--red); background: rgba(244, 63, 94, 0.2); opacity: 0.55; }
+  .mcq-opt.correct {
+    border: 3px solid #10b981 !important;
+    background: rgba(16, 185, 129, 0.4) !important;
+    color: #6ee7b7 !important;
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.85) !important;
+    transform: scale(1.03) !important;
+  }
+  .mcq-opt.wrong {
+    border: 3px solid #ef4444 !important;
+    background: rgba(239, 68, 68, 0.45) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 35px rgba(239, 68, 68, 0.85) !important;
+    animation: flashShake 0.4s ease !important;
+  }
+
+  @keyframes flashShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+  }
 
   /* Round 2: Fact or Fiction Styles */
   .fact-fiction-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 880px; }
@@ -803,6 +821,9 @@
     const banner = document.getElementById('smart-flash-banner');
     const opts = document.querySelectorAll('.mcq-opt, .ff-choice-card');
 
+    const selIdx = (res.selectedOptionIndex !== undefined && res.selectedOptionIndex !== null) ? Number(res.selectedOptionIndex) : null;
+    const corIdx = (res.correctOptionIndex !== undefined && res.correctOptionIndex !== null) ? Number(res.correctOptionIndex) : (currentQ ? Number(currentQ.ans) : null);
+
     if (res.status === 'correct') {
       banner.className = 'smart-flash correct';
       banner.textContent = `✅ ${res.teamName || 'Team'} CORRECT! +100 PTS`;
@@ -814,8 +835,8 @@
       highlightWinningTeamChip(res.teamId);
 
       // Highlight correct option in glowing emerald green
-      if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
-        opts[currentQ.ans].classList.add('correct');
+      if (corIdx !== null && opts[corIdx]) {
+        opts[corIdx].classList.add('correct');
       }
 
       // Automatically advance to next question after 3.5 seconds!
@@ -844,16 +865,12 @@
       if (window.soundFX) window.soundFX.playWrong();
       document.getElementById('q-answer-banner').classList.add('show');
 
-      // Shake/mark red on the selected wrong option, then clear after 1.8s so next team sees clean options
-      if (res.selectedOptionIndex !== undefined && opts[res.selectedOptionIndex]) {
-        opts[res.selectedOptionIndex].classList.add('wrong');
-        setTimeout(() => {
-          if (opts[res.selectedOptionIndex]) opts[res.selectedOptionIndex].classList.remove('wrong');
-        }, 1800);
+      if (selIdx !== null && opts[selIdx]) {
+        opts[selIdx].classList.add('wrong');
       }
       // Highlight correct answer in emerald green
-      if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
-        opts[currentQ.ans].classList.add('correct');
+      if (corIdx !== null && opts[corIdx]) {
+        opts[corIdx].classList.add('correct');
       }
 
       if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
@@ -880,15 +897,15 @@
       if (window.soundFX) window.soundFX.playWrong();
     } else {
       banner.className = 'smart-flash wrong';
-      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING...`;
+      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING TO NEXT TEAM...`;
       if (window.soundFX) window.soundFX.playWrong();
 
-      // Shake/mark red on the selected wrong option, then clear after 1.8s so next team sees clean options
-      if (res.selectedOptionIndex !== undefined && opts[res.selectedOptionIndex]) {
-        opts[res.selectedOptionIndex].classList.add('wrong');
+      // Shake/mark red on the selected wrong option, then clear after 2.2s so next team sees clean options
+      if (selIdx !== null && opts[selIdx]) {
+        opts[selIdx].classList.add('wrong');
         setTimeout(() => {
-          if (opts[res.selectedOptionIndex]) opts[res.selectedOptionIndex].classList.remove('wrong');
-        }, 1800);
+          if (opts[selIdx]) opts[selIdx].classList.remove('wrong');
+        }, 2200);
       }
     }
 

@@ -274,10 +274,9 @@
     // Update Status Pill
     const statusPill = document.getElementById('live-buzzer-status');
     if (state.buzzerState === 'buzzing') {
-      const team = state.teams.find(t => t.id === state.activeAnsweringTeamId);
-      const secs = (state.answerCountdown !== undefined) ? state.answerCountdown : 10;
+      const team = state.teams.find(t => Number(t.id) === Number(state.activeAnsweringTeamId));
       statusPill.className = 'status-pill buzzing';
-      statusPill.textContent = `🎙️ ${team ? team.name : 'TEAM'} (${secs}s)`;
+      statusPill.textContent = `🎙️ ${team ? team.name : 'TEAM'} ANSWERING`;
     } else if (state.buzzerState === 'open') {
       statusPill.className = 'status-pill open';
       statusPill.textContent = '🚨 BUZZER OPEN';

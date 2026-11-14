@@ -649,9 +649,9 @@
       if (optContainer) optContainer.innerHTML = '';
     }
 
-    const isLockedTeam = state.lockedTeamsForQuestion.includes(myTeamId);
-    const isMyTeamAnswering = (state.activeAnsweringTeamId === myTeamId);
-    const myTeamBuzzed = state.buzzerQueue.some(b => b.teamId === myTeamId);
+    const isLockedTeam = state.lockedTeamsForQuestion.some(tid => Number(tid) === Number(myTeamId));
+    const isMyTeamAnswering = (Number(state.activeAnsweringTeamId) === Number(myTeamId));
+    const myTeamBuzzed = state.buzzerQueue.some(b => Number(b.teamId) === Number(myTeamId));
 
     // If my team buzzed first -> Show Option Buttons directly on EVERY member's phone in my team!
     if (isMyTeamAnswering && state.buzzerState === 'buzzing') {
@@ -679,13 +679,13 @@
       pill.className = 'status-pill locked';
       pill.textContent = 'BUZZER LOCKED 🔒';
       btn.className = 'giant-buzzer disabled';
-      const answeringTeam = state.teams.find(t => t.id === state.activeAnsweringTeamId);
+      const answeringTeam = state.teams.find(t => Number(t.id) === Number(state.activeAnsweringTeamId));
       queueInfo.textContent = `⚡ ${answeringTeam ? answeringTeam.name : 'Another team'} buzzed first and is answering now!`;
     } else if (myTeamBuzzed) {
       pill.className = 'status-pill buzzed';
       pill.textContent = 'BUZZED! 🔔';
       btn.className = 'giant-buzzer disabled';
-      const rank = state.buzzerQueue.findIndex(b => b.teamId === myTeamId) + 1;
+      const rank = state.buzzerQueue.findIndex(b => Number(b.teamId) === Number(myTeamId)) + 1;
       queueInfo.textContent = `Your team is #${rank} in the buzzer queue!`;
     } else if (state.buzzerState === 'open') {
       pill.className = 'status-pill ready';
@@ -702,11 +702,20 @@
 
   function renderMobileOptions(state) {
     const container = document.getElementById('mobile-options-container');
+    if (!container) return;
     container.innerHTML = '';
 
     const curRound = allRounds[state.currentRoundIdx];
     const curQ = curRound ? curRound.questions[state.currentQuestionIdx] : null;
-    if (!curQ) return;
+    if (!curQ) {
+      if (!allRounds || allRounds.length === 0) {
+        fetch('/questions.json').then(r => r.json()).then(data => {
+          allRounds = data;
+          renderMobileOptions(state);
+        }).catch(e => console.error(e));
+      }
+      return;
+    }
 
     if (curRound.type === 'fact_fiction') {
       const statementBox = document.createElement('div');
@@ -724,6 +733,7 @@
 
       const factBtn = document.createElement('button');
       factBtn.className = 'phone-opt-btn';
+      factBtn.id = 'phone-opt-0';
       factBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
       factBtn.style.border = 'none';
       factBtn.style.fontSize = '20px';
@@ -736,6 +746,7 @@
 
       const fictBtn = document.createElement('button');
       fictBtn.className = 'phone-opt-btn';
+      fictBtn.id = 'phone-opt-1';
       fictBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
       fictBtn.style.border = 'none';
       fictBtn.style.fontSize = '20px';
@@ -750,6 +761,7 @@
       (curQ.options || []).forEach((opt, idx) => {
         const b = document.createElement('button');
         b.className = 'phone-opt-btn';
+        b.id = `phone-opt-${idx}`;
         b.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
         b.onclick = () => submitAnswer(idx);
         container.appendChild(b);
@@ -758,6 +770,7 @@
       curQ.items.forEach((item, idx) => {
         const b = document.createElement('button');
         b.className = 'phone-opt-btn';
+        b.id = `phone-opt-${idx}`;
         b.textContent = item;
         b.onclick = () => submitAnswer(idx);
         container.appendChild(b);
@@ -781,13 +794,16 @@
   function submitAnswer(idx, text = '') {
     console.log('Player submitting answer:', idx, 'TeamId:', myTeamId, 'PlayerId:', myPlayerId);
     if (navigator.vibrate) navigator.vibrate(80);
-    // Instant visual feedback on button click
+    // Instant visual feedback on button click: mark amber while submitting
     const btns = document.querySelectorAll('.phone-opt-btn');
     if (btns[idx]) {
-      btns[idx].style.background = 'var(--accent)';
-      btns[idx].style.color = '#090d16';
+      btns[idx].style.background = '#f59e0b';
+      btns[idx].style.color = '#000000';
       btns[idx].style.transform = 'scale(0.96)';
     }
+    // Prevent multi-tap
+    btns.forEach(b => b.style.pointerEvents = 'none');
+
     ws.send(JSON.stringify({
       type: 'SUBMIT_STUDENT_ANSWER',
       playerId: myPlayerId,
@@ -798,14 +814,17 @@
   }
 
   function triggerResultFlash(res) {
-    // ONLY show full-screen flash to the team that submitted the answer!
-    if (res.teamId !== myTeamId) {
+    const isMyTeam = (res.teamId !== null && Number(res.teamId) === Number(myTeamId));
+    const selIdx = (res.selectedOptionIndex !== undefined && res.selectedOptionIndex !== null) ? Number(res.selectedOptionIndex) : null;
+    const btns = document.querySelectorAll('.phone-opt-btn');
+
+    if (!isMyTeam) {
       const queueInfo = document.getElementById('buzzer-queue-info');
       if (queueInfo) {
         if (res.status === 'correct') {
-          queueInfo.textContent = `✅ ${res.teamName || 'Team'} answered correctly (+100 PTS)!`;
+          queueInfo.innerHTML = `✅ <span style="color:#10b981; font-weight:900;">${res.teamName || 'Team'}</span> answered CORRECTLY (+100 PTS)!`;
         } else {
-          queueInfo.textContent = `❌ ${res.teamName || 'Team'} answered wrong (-20 PTS)! Turn passing...`;
+          queueInfo.innerHTML = `❌ <span style="color:#ef4444; font-weight:900;">${res.teamName || 'Team'}</span> answered WRONG (-20 PTS)! Turn passing...`;
         }
       }
       return;
@@ -819,25 +838,32 @@
       overlay.className = 'flash-overlay correct';
       title.textContent = 'CORRECT! 🎉';
       sub.textContent = 'YOUR TEAM +100 POINTS';
+      if (selIdx !== null && btns[selIdx]) {
+        btns[selIdx].style.background = '#10b981';
+        btns[selIdx].style.color = '#ffffff';
+        btns[selIdx].style.borderColor = '#34d399';
+        btns[selIdx].style.boxShadow = '0 0 25px #10b981';
+      }
       if (window.soundFX) window.soundFX.playCorrect();
       if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
-    } else if (res.status === 'timeout') {
-      overlay.className = 'flash-overlay wrong';
-      title.textContent = "TIME'S UP! ⏰";
-      sub.textContent = 'YOUR TEAM -20 PTS • LOCKED!';
-      if (window.soundFX) window.soundFX.playWrong();
-      if (navigator.vibrate) navigator.vibrate(400);
     } else {
       overlay.className = 'flash-overlay wrong';
       title.textContent = 'WRONG! ❌';
       sub.textContent = 'YOUR TEAM -20 PTS • LOCKED!';
+      if (selIdx !== null && btns[selIdx]) {
+        btns[selIdx].style.background = '#ef4444';
+        btns[selIdx].style.color = '#ffffff';
+        btns[selIdx].style.borderColor = '#f87171';
+        btns[selIdx].style.boxShadow = '0 0 25px #ef4444';
+      }
       if (window.soundFX) window.soundFX.playWrong();
       if (navigator.vibrate) navigator.vibrate(400);
     }
 
     setTimeout(() => {
       overlay.className = 'flash-overlay';
-    }, 1800);
+    }, 2000);
+  }
   }
 
   function pressBuzzer() {

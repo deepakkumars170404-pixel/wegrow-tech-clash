@@ -6,7 +6,7 @@ const { WebSocketServer } = require('ws');
 
 // Top-level crash guards to ensure 100% server uptime even under unexpected errors
 process.on('uncaughtException', (err) => {
-  console.error('[CRASH GUARD] Caught uncaughtException:', err.message);
+  console.error('[CRASH GUARD] Caught uncaughtException:', err.message, err.stack);
 });
 process.on('unhandledRejection', (reason) => {
   console.error('[CRASH GUARD] Caught unhandledRejection:', reason);
@@ -14,6 +14,17 @@ process.on('unhandledRejection', (reason) => {
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
+
+// Load Questions synchronously from questions.json at startup
+const questionsPath = path.join(PUBLIC_DIR, 'questions.json');
+let allRounds = [];
+try {
+  const qData = fs.readFileSync(questionsPath, 'utf8');
+  allRounds = JSON.parse(qData);
+  console.log(`[QUESTIONS] Successfully loaded ${allRounds.length} rounds from ${questionsPath}`);
+} catch (err) {
+  console.error('[QUESTIONS] Failed to load questions.json:', err.message);
+}
 
 // Global Game State
 const gameState = {
@@ -25,7 +36,7 @@ const gameState = {
   lockedTeamsForQuestion: [], // teamIds that answered wrong for current question
   activeAnsweringTeamId: null, // the team currently answering on their phone
   activeAnsweringPlayerId: null, // the player who buzzed first
-  answerCountdown: 10, // 10-second countdown timer for answering team
+  answerCountdown: null, // Timer countdown removed to eliminate freezing
   lastAnswerResult: null, // { status: 'correct'|'wrong'|'timeout', teamId, teamName, time }
   teams: [
     { id: 1, name: 'Team Alpha', color: '#38bdf8', score: 0, correctCount: 0, wrongCount: 0, members: [] },
@@ -270,85 +281,23 @@ function clearAnswerTimer() {
 
 function startAnswerTimer() {
   clearAnswerTimer();
-  // Timer countdown disabled to prevent freezing and network lag
   gameState.answerCountdown = null;
-}
-
-function handleAnswerTimeout() {
-  const teamId = gameState.activeAnsweringTeamId;
-  const playerId = gameState.activeAnsweringPlayerId;
-  const team = gameState.teams.find(t => t.id === teamId);
-  const player = playerId ? gameState.players[playerId] : null;
-
-  if (team) {
-    team.score = Math.max(0, team.score - 20);
-    team.wrongCount = (team.wrongCount || 0) + 1;
-    gameState.lockedTeamsForQuestion.push(team.id);
-  }
-  if (player) {
-    player.wrongCount = (player.wrongCount || 0) + 1;
-  }
-
-  const currentRound = allRounds[gameState.currentRoundIdx];
-  const currentQ = currentRound ? currentRound.questions[gameState.currentQuestionIdx] : null;
-
-  gameState.lastAnswerResult = {
-    status: 'timeout',
-    teamId: team ? team.id : null,
-    teamName: team ? team.name : 'Team',
-    playerName: player ? player.name : (team ? team.name : 'Team'),
-    correctOptionIndex: currentQ ? currentQ.ans : null,
-    ansText: currentQ ? currentQ.ansText : '',
-    message: `⏰ TIME'S UP! ${team ? team.name : 'Team'} took >10s! (-20 PTS)`,
-    time: Date.now()
-  };
-
-  if (team) {
-    gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== team.id);
-  }
-
-  // Check 2-Chance Rule: If 2 teams have attempted (and failed/timed out)
-  if (gameState.lockedTeamsForQuestion.length >= 2) {
-    console.log(`Question attempt limit reached (2 teams failed/timed out). Auto-locking question and revealing answer.`);
-    gameState.buzzerState = 'locked';
-    gameState.buzzerQueue = [];
-    gameState.activeAnsweringTeamId = null;
-    gameState.activeAnsweringPlayerId = null;
-    gameState.lastAnswerResult = {
-      status: 'max_attempts_exceeded',
-      teamId: team ? team.id : null,
-      teamName: team ? team.name : 'Team',
-      playerName: player ? player.name : (team ? team.name : 'Team'),
-      correctOptionIndex: currentQ ? currentQ.ans : null,
-      ansText: currentQ ? currentQ.ansText : '',
-      message: `2 Teams failed! Revealing correct answer...`,
-      time: Date.now()
-    };
-  } else if (gameState.buzzerQueue.length > 0) {
-    const nextBuzzed = gameState.buzzerQueue[0];
-    gameState.activeAnsweringTeamId = nextBuzzed.teamId;
-    gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
-    gameState.buzzerState = 'buzzing';
-    startAnswerTimer();
-  } else {
-    gameState.activeAnsweringTeamId = null;
-    gameState.activeAnsweringPlayerId = null;
-    gameState.buzzerState = 'open';
-    gameState.answerCountdown = 10;
-  }
-
-  updateLeaderboard();
-  broadcastState();
 }
 
 function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnswer) {
   clearAnswerTimer();
   const currentRound = allRounds[gameState.currentRoundIdx];
   const currentQ = currentRound ? currentRound.questions[gameState.currentQuestionIdx] : null;
-  if (!currentQ) return;
+  if (!currentQ) {
+    console.error(`[ANSWER EVAL ERROR] No question found at round ${gameState.currentRoundIdx}, index ${gameState.currentQuestionIdx}`);
+    return;
+  }
 
-  const team = gameState.teams.find(t => t.id === teamId);
-  const player = playerId ? gameState.players[playerId] : null;
+  const team = gameState.teams.find(t => Number(t.id) === Number(teamId));
+  const player = playerId ? (gameState.players[playerId] || Object.values(gameState.players).find(p => p.id === playerId)) : null;
+
+  const selIdx = (selectedOptionIndex !== undefined && selectedOptionIndex !== null) ? Number(selectedOptionIndex) : null;
+  const correctIdx = (currentQ.ans !== undefined && currentQ.ans !== null) ? Number(currentQ.ans) : null;
 
   let isCorrect = false;
   if (currentRound.type === 'connections') {
@@ -356,18 +305,20 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
     const correctText = (currentQ.ansText || '').trim().toLowerCase();
     if (selectedOptionIndex === 'AUTO_CORRECT' || textAnswer === 'AUTO_CORRECT' || (currentQ.ansText && textAnswer === currentQ.ansText)) {
       isCorrect = true;
-    } else if (currentQ.ans !== undefined && selectedOptionIndex !== undefined && selectedOptionIndex === currentQ.ans) {
+    } else if (correctIdx !== null && selIdx !== null && selIdx === correctIdx) {
       isCorrect = true;
     } else if (userText && correctText && (correctText.includes(userText) || userText.includes(correctText.split(' ')[0]))) {
       isCorrect = true;
     }
   } else if (currentRound.type === 'fact_fiction' || currentRound.type === 'mcq' || currentRound.type === 'millionaire' || currentRound.type === 'rapid' || currentRound.type === 'imposter') {
-    isCorrect = (selectedOptionIndex === currentQ.ans);
+    isCorrect = (selIdx !== null && correctIdx !== null && selIdx === correctIdx);
   } else {
     const userText = (textAnswer || '').trim().toLowerCase();
     const correctText = (currentQ.ansText || '').trim().toLowerCase();
     isCorrect = userText && (correctText.includes(userText) || userText.includes(correctText.split(' ')[0]));
   }
+
+  console.log(`[ANSWER SUBMISSION] Team: ${team ? team.name : teamId}, Player: ${player ? player.name : playerId}, Selected: ${selIdx}, Correct: ${correctIdx} => ${isCorrect ? '✅ CORRECT' : '❌ WRONG'}`);
 
   if (isCorrect) {
     if (team) {
@@ -381,11 +332,11 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
 
     gameState.lastAnswerResult = {
       status: 'correct',
-      teamId: team ? team.id : null,
+      teamId: team ? team.id : teamId,
       teamName: team ? team.name : 'Team',
       playerName: player ? player.name : (team ? team.name : 'Team'),
-      selectedOptionIndex: selectedOptionIndex,
-      correctOptionIndex: currentQ.ans,
+      selectedOptionIndex: selIdx,
+      correctOptionIndex: correctIdx,
       message: `${team ? team.name : 'Team'} answered CORRECTLY! (+100 PTS)`,
       time: Date.now()
     };
@@ -394,7 +345,9 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
     if (team) {
       team.score = Math.max(0, team.score - 20);
       team.wrongCount = (team.wrongCount || 0) + 1;
-      gameState.lockedTeamsForQuestion.push(team.id);
+      if (!gameState.lockedTeamsForQuestion.some(lid => Number(lid) === Number(team.id))) {
+        gameState.lockedTeamsForQuestion.push(team.id);
+      }
     }
     if (player) {
       player.wrongCount = (player.wrongCount || 0) + 1;
@@ -402,17 +355,17 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
 
     gameState.lastAnswerResult = {
       status: 'wrong',
-      teamId: team ? team.id : null,
+      teamId: team ? team.id : teamId,
       teamName: team ? team.name : 'Team',
       playerName: player ? player.name : (team ? team.name : 'Team'),
-      selectedOptionIndex: selectedOptionIndex,
-      correctOptionIndex: currentQ.ans,
+      selectedOptionIndex: selIdx,
+      correctOptionIndex: correctIdx,
       message: `${team ? team.name : 'Team'} WRONG! (-20 PTS)`,
       time: Date.now()
     };
 
     if (team) {
-      gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== team.id);
+      gameState.buzzerQueue = gameState.buzzerQueue.filter(b => Number(b.teamId) !== Number(team.id));
     }
 
     // 2-CHANCE ATTEMPT RULE: Maximum 2 teams can attempt each question!
@@ -424,11 +377,11 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       gameState.activeAnsweringPlayerId = null;
       gameState.lastAnswerResult = {
         status: 'max_attempts_exceeded',
-        teamId: team ? team.id : null,
+        teamId: team ? team.id : teamId,
         teamName: team ? team.name : 'Team',
         playerName: player ? player.name : (team ? team.name : 'Team'),
-        selectedOptionIndex: selectedOptionIndex,
-        correctOptionIndex: currentQ.ans,
+        selectedOptionIndex: selIdx,
+        correctOptionIndex: correctIdx,
         message: `2 Teams answered incorrectly! Revealing correct answer...`,
         time: Date.now()
       };
@@ -437,12 +390,11 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       gameState.activeAnsweringTeamId = nextBuzzed.teamId;
       gameState.activeAnsweringPlayerId = nextBuzzed.playerId;
       gameState.buzzerState = 'buzzing';
-      startAnswerTimer();
     } else {
       gameState.activeAnsweringTeamId = null;
       gameState.activeAnsweringPlayerId = null;
       gameState.buzzerState = 'open';
-      gameState.answerCountdown = 10;
+      gameState.answerCountdown = null;
     }
   }
 
@@ -661,7 +613,7 @@ wss.on('connection', (ws) => {
           gameState.lockedTeamsForQuestion = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
-          gameState.answerCountdown = 10;
+          gameState.answerCountdown = null;
           gameState.lastAnswerResult = null;
           broadcastState();
           break;
@@ -673,7 +625,7 @@ wss.on('connection', (ws) => {
           gameState.buzzerQueue = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
-          gameState.answerCountdown = 10;
+          gameState.answerCountdown = null;
           gameState.lastAnswerResult = null;
           broadcastState();
           break;
@@ -684,9 +636,9 @@ wss.on('connection', (ws) => {
           if (!player || !player.teamId) return;
 
           if (gameState.buzzerState !== 'open') return;
-          if (gameState.lockedTeamsForQuestion.includes(player.teamId)) return;
+          if (gameState.lockedTeamsForQuestion.some(lid => Number(lid) === Number(player.teamId))) return;
 
-          const teamAlreadyBuzzed = gameState.buzzerQueue.some(b => b.teamId === player.teamId);
+          const teamAlreadyBuzzed = gameState.buzzerQueue.some(b => Number(b.teamId) === Number(player.teamId));
           if (teamAlreadyBuzzed) return;
 
           gameState.buzzerQueue.push({
@@ -700,7 +652,6 @@ wss.on('connection', (ws) => {
           if (!gameState.activeAnsweringTeamId) {
             gameState.activeAnsweringTeamId = player.teamId;
             gameState.activeAnsweringPlayerId = player.id;
-            startAnswerTimer();
           }
 
           gameState.buzzerState = 'buzzing';
@@ -716,12 +667,12 @@ wss.on('connection', (ws) => {
           const optIdx = parseInt(data.selectedOptionIndex, 10);
           const answeringTeamId = gameState.activeAnsweringTeamId || (data.teamId ? parseInt(data.teamId, 10) : null);
 
-          console.log(`SUBMIT_STUDENT_ANSWER received: Player: ${player ? player.name : data.playerId}, Team: ${answeringTeamId}, Opt: ${optIdx}`);
+          console.log(`[MOBILE ANSWER] Player: ${player ? player.name : data.playerId}, Team: ${answeringTeamId}, Opt: ${optIdx}`);
 
           if (answeringTeamId) {
             processAnswerSubmission(answeringTeamId, player ? player.id : data.playerId, optIdx, data.textAnswer);
           } else {
-            console.log('SUBMIT_STUDENT_ANSWER ignored: No active answering team.');
+            console.log('[MOBILE ANSWER] Ignored: No active answering team.');
           }
           break;
         }
@@ -732,7 +683,7 @@ wss.on('connection', (ws) => {
 
           // Allow Smartboard host click anytime: if no team buzzed yet, pick the first unlocked team!
           if (!activeTeamId) {
-            const eligibleTeam = gameState.teams.find(t => !gameState.lockedTeamsForQuestion.includes(t.id)) || gameState.teams[0];
+            const eligibleTeam = gameState.teams.find(t => !gameState.lockedTeamsForQuestion.some(lid => Number(lid) === Number(t.id))) || gameState.teams[0];
             if (eligibleTeam) {
               activeTeamId = eligibleTeam.id;
               activePlayerId = eligibleTeam.members[0] ? eligibleTeam.members[0].id : null;
@@ -744,6 +695,7 @@ wss.on('connection', (ws) => {
             return;
           }
           const optIdx = parseInt(data.selectedOptionIndex, 10);
+          console.log(`[SMARTBOARD CLICK] Team ${activeTeamId} selected option ${optIdx}`);
           processAnswerSubmission(activeTeamId, activePlayerId, optIdx, null);
           break;
         }
@@ -777,7 +729,7 @@ wss.on('connection', (ws) => {
               gameState.activeAnsweringTeamId = null;
               gameState.activeAnsweringPlayerId = null;
               gameState.buzzerState = 'open';
-              gameState.answerCountdown = 10;
+              gameState.answerCountdown = null;
             }
             broadcastState();
           }
@@ -931,7 +883,7 @@ wss.on('connection', (ws) => {
               gameState.activeAnsweringTeamId = null;
               gameState.activeAnsweringPlayerId = null;
               gameState.buzzerState = 'open';
-              gameState.answerCountdown = 10;
+              gameState.answerCountdown = null;
             }
           }
           updateLeaderboard();
@@ -969,7 +921,7 @@ wss.on('connection', (ws) => {
           gameState.lockedTeamsForQuestion = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
-          gameState.answerCountdown = 10;
+          gameState.answerCountdown = null;
           gameState.lastAnswerResult = null;
           gameState.teams.forEach(t => { t.score = 0; t.correctCount = 0; t.wrongCount = 0; t.members = []; });
           gameState.players = {};
