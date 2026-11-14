@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Host Master Answer Key — VIP Access</title>
+<style>
+  :root {
+    --bg: #090d16;
+    --card: #131b2e;
+    --accent: #00f2fe;
+    --emerald: #10b981;
+    --purple: #8b5cf6;
+    --yellow: #fbbf24;
+    --red: #ef4444;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 16px; }
+
+  /* Login Screen */
+  .auth-card {
+    background: #0f172a;
+    border: 2px solid var(--accent);
+    border-radius: 18px;
+    padding: 30px 24px;
+    max-width: 420px;
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 242, 254, 0.25);
+  }
+  .auth-title { font-size: 24px; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+  .auth-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .input-field {
+    width: 100%;
+    background: #1e293b;
+    border: 2px solid #334155;
+    color: white;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 18px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .input-field:focus { border-color: var(--accent); }
+  .auth-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #0284c7, #00f2fe);
+    border: none;
+    color: #090d16;
+    font-size: 17px;
+    font-weight: 900;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .auth-btn:hover { transform: scale(1.02); }
+  .auth-err { color: #f87171; font-size: 13px; font-weight: 700; margin-top: 14px; display: none; }
+
+  /* VIP Dashboard */
+  #dashboard-view { display: none; width: 100%; max-width: 650px; }
+  .dash-header {
+    background: #0f172a;
+    border: 2px solid #1e293b;
+    border-radius: 16px;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .vip-badge {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid var(--emerald);
+    color: var(--emerald);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .live-card {
+    background: #0f172a;
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  }
+  .live-glow {
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--purple), var(--emerald));
+  }
+  .round-tag {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .q-number { font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
+  .q-text { font-size: 18px; line-height: 1.45; color: #f1f5f9; font-weight: 600; margin-bottom: 20px; }
+
+  .options-preview { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 20px; }
+  .opt-item {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #cbd5e1;
+  }
+  .opt-item.correct {
+    background: rgba(16, 185, 129, 0.2);
+    border: 2px solid var(--emerald);
+    color: #34d399;
+    font-weight: 800;
+  }
+
+  .ans-box {
+    background: rgba(16, 185, 129, 0.15);
+    border: 2px solid var(--emerald);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+  }
+  .ans-label { font-size: 13px; font-weight: 900; color: #34d399; text-transform: uppercase; margin-bottom: 4px; }
+  .ans-value { font-size: 26px; font-weight: 900; color: white; }
+
+  .expl-box {
+    background: #1e293b;
+    border-left: 4px solid var(--yellow);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #e2e8f0;
+  }
+
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 20px;
+  }
+  .status-pill.buzzing { background: rgba(245, 158, 11, 0.2); color: var(--yellow); border: 1px solid var(--yellow); }
+  .status-pill.open { background: rgba(16, 185, 129, 0.2); color: var(--emerald); border: 1px solid var(--emerald); }
+  .status-pill.locked { background: rgba(148, 163, 184, 0.2); color: var(--muted); border: 1px solid #334155; }
+</style>
+</head>
+<body>
+
+<!-- 1. LOGIN SCREEN -->
+<div class="auth-card" id="login-view">
+  <div style="font-size: 46px; margin-bottom: 10px;">🔐</div>
+  <div class="auth-title">Host Master Key</div>
+  <div class="auth-sub">Enter authorized email address to reveal live tournament answers</div>
+
+  <input type="email" id="host-email-input" class="input-field" placeholder="Enter Authorized Email" autocomplete="email">
+  <button type="button" class="auth-btn" onclick="verifyHostEmail()">ACCESS LIVE ANSWERS 🔑</button>
+  <div class="auth-err" id="auth-err-msg">❌ Access Denied! Only authorized email allowed.</div>
+</div>
+
+<!-- 2. LIVE ANSWERS DASHBOARD -->
+<div id="dashboard-view">
+  <div class="dash-header">
+    <div>
+      <div style="font-size:16px; font-weight:900; color:var(--accent);">⚡ LIVE ANSWER KEY STREAM</div>
+      <div style="font-size:12px; color:var(--muted);" id="user-display-email">deepakkumars170404@gmail.com</div>
+    </div>
+    <div class="vip-badge">VIP AUTHORIZED 👑</div>
+  </div>
+
+  <div class="live-card">
+    <div class="live-glow"></div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div class="round-tag" id="live-round-name">Round 1: Loading...</div>
+      <div id="live-buzzer-status" class="status-pill locked">LOCKED</div>
+    </div>
+
+    <div class="q-number" id="live-q-badge">Question 1 of 25</div>
+    <div class="q-text" id="live-q-text">Loading question text...</div>
+
+    <div class="options-preview" id="live-options-list">
+      <!-- Options preview with correct marked in green -->
+    </div>
+
+    <div class="ans-box">
+      <div class="ans-label">🎯 Correct Answer:</div>
+      <div class="ans-value" id="live-correct-ans">—</div>
+    </div>
+
+    <div class="expl-box">
+      <b style="color:var(--yellow);">💡 Explanation:</b>
+      <div id="live-expl-text" style="margin-top:4px;">Explanation will appear here...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ALLOWED_EMAIL = 'deepakkumars170404@gmail.com';
+  let ws = null;
+  let allRounds = [];
+  let currentGameState = null;
+
+  async function loadData() {
+    try {
+      const res = await fetch('/questions.json');
+      allRounds = await res.json();
+    } catch (e) {
+      console.error('Error loading questions.json:', e);
+    }
+  }
+
+  function verifyHostEmail() {
+    const input = document.getElementById('host-email-input').value.trim().toLowerCase();
+    const errMsg = document.getElementById('auth-err-msg');
+
+    if (input === ALLOWED_EMAIL.toLowerCase()) {
+      localStorage.setItem('tc_host_vip_email', input);
+      showDashboard();
+    } else {
+      errMsg.style.display = 'block';
+    }
+  }
+
+  function showDashboard() {
+    document.getElementById('login-view').style.display = 'none';
+    document.getElementById('dashboard-view').style.display = 'block';
+    connectWs();
+  }
+
+  function connectWs() {
+    const loc = window.location;
+    const wsUrl = (loc.protocol === 'https:' ? 'wss://' : 'ws://') + loc.host;
+    ws = new WebSocket(wsUrl);
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'INIT' || data.type === 'STATE_UPDATE') {
+        currentGameState = data.state;
+        updateLiveAnswerCard(data.state);
+      }
+    };
+
+    ws.onclose = () => {
+      setTimeout(connectWs, 2000);
+    };
+  }
+
+  function updateLiveAnswerCard(state) {
+    if (!allRounds || allRounds.length === 0) return;
+
+    const roundIdx = state.currentRoundIdx || 0;
+    const questionIdx = state.currentQuestionIdx || 0;
+
+    const curRound = allRounds[roundIdx];
+    if (!curRound) return;
+
+    const curQ = curRound.questions ? curRound.questions[questionIdx] : null;
+    if (!curQ) return;
+
+    document.getElementById('live-round-name').textContent = curRound.name;
+    document.getElementById('live-q-badge').textContent = `Question ${questionIdx + 1} of ${curRound.questions.length}`;
+    document.getElementById('live-q-text').textContent = curQ.q || curQ.statement || curQ.topic || 'Challenge Question';
+
+    // Update Status Pill
+    const statusPill = document.getElementById('live-buzzer-status');
+    if (state.buzzerState === 'buzzing') {
+      const team = state.teams.find(t => t.id === state.activeAnsweringTeamId);
+      const secs = (state.answerCountdown !== undefined) ? state.answerCountdown : 10;
+      statusPill.className = 'status-pill buzzing';
+      statusPill.textContent = `🎙️ ${team ? team.name : 'TEAM'} (${secs}s)`;
+    } else if (state.buzzerState === 'open') {
+      statusPill.className = 'status-pill open';
+      statusPill.textContent = '🚨 BUZZER OPEN';
+    } else {
+      statusPill.className = 'status-pill locked';
+      statusPill.textContent = '🔒 LOCKED';
+    }
+
+    // Render Options List
+    const optsContainer = document.getElementById('live-options-list');
+    optsContainer.innerHTML = '';
+
+    if (curQ.options) {
+      curQ.options.forEach((opt, idx) => {
+        const div = document.createElement('div');
+        const isAns = (idx === curQ.ans);
+        div.className = 'opt-item' + (isAns ? ' correct' : '');
+        div.innerHTML = `${String.fromCharCode(65 + idx)}) ${opt} ${isAns ? '✅ (CORRECT)' : ''}`;
+        optsContainer.appendChild(div);
+      });
+    } else if (curQ.items) {
+      curQ.items.forEach((item, idx) => {
+        const div = document.createElement('div');
+        const isAns = (idx === curQ.ans);
+        div.className = 'opt-item' + (isAns ? ' correct' : '');
+        div.innerHTML = `${item} ${isAns ? '✅ (CORRECT IMPOSTER)' : ''}`;
+        optsContainer.appendChild(div);
+      });
+    }
+
+    // Update Correct Answer Box
+    let ansDisplay = curQ.ansText || (curQ.options && curQ.ans !== undefined ? curQ.options[curQ.ans] : (curQ.items ? curQ.items[curQ.ans] : '—'));
+    if (curQ.ans !== undefined && curQ.options) {
+      ansDisplay = `${String.fromCharCode(65 + curQ.ans)}) ${ansDisplay}`;
+    }
+    document.getElementById('live-correct-ans').textContent = ansDisplay;
+
+    // Update Explanation Box
+    document.getElementById('live-expl-text').textContent = curQ.expl || curQ.reality || 'No extra explanation provided.';
+  }
+
+  // Auto-login if previously verified
+  loadData().then(() => {
+    const saved = localStorage.getItem('tc_host_vip_email');
+    if (saved && saved.toLowerCase() === ALLOWED_EMAIL.toLowerCase()) {
+      showDashboard();
+    }
+  });
+</script>
+
+</body>
+</html>
