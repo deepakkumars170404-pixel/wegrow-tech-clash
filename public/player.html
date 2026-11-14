@@ -631,6 +631,9 @@
     }
   }
 
+  let lastRenderedQIdx = -1;
+  let lastRenderedRIdx = -1;
+
   function updateGameUI(state) {
     const pill = document.getElementById('buzzer-pill');
     const btn = document.getElementById('buzzer-btn');
@@ -638,11 +641,19 @@
     const answerPanel = document.getElementById('mobile-answer-panel');
     const buzzerBox = document.getElementById('buzzer-main-box');
 
+    // Reset options cache if question or round changed
+    if (lastRenderedQIdx !== state.currentQuestionIdx || lastRenderedRIdx !== state.currentRoundIdx) {
+      lastRenderedQIdx = state.currentQuestionIdx;
+      lastRenderedRIdx = state.currentRoundIdx;
+      const optContainer = document.getElementById('mobile-options-container');
+      if (optContainer) optContainer.innerHTML = '';
+    }
+
     const isLockedTeam = state.lockedTeamsForQuestion.includes(myTeamId);
     const isMyTeamAnswering = (state.activeAnsweringTeamId === myTeamId);
     const myTeamBuzzed = state.buzzerQueue.some(b => b.teamId === myTeamId);
 
-    // If my team buzzed first -> Show Option Buttons directly on my phone!
+    // If my team buzzed first -> Show Option Buttons directly on EVERY member's phone in my team!
     if (isMyTeamAnswering && state.buzzerState === 'buzzing') {
       buzzerBox.style.display = 'none';
       answerPanel.className = 'answer-panel show';
@@ -653,7 +664,7 @@
         countdownBadge.style.background = secs <= 3 ? '#ef4444' : '#f59e0b';
       }
       const optContainer = document.getElementById('mobile-options-container');
-      if (!optContainer.hasChildNodes()) {
+      if (optContainer && !optContainer.hasChildNodes()) {
         renderMobileOptions(state);
       }
       return;
