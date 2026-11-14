@@ -728,13 +728,14 @@ wss.on('connection', (ws) => {
             player = gameState.players[data.playerId];
           }
           const optIdx = parseInt(data.selectedOptionIndex, 10);
-          const answeringTeamId = gameState.activeAnsweringTeamId;
+          const answeringTeamId = gameState.activeAnsweringTeamId || (data.teamId ? parseInt(data.teamId, 10) : null);
 
-          // If the player belongs to the currently answering team, or answeringTeam is active
-          if (player && player.teamId === answeringTeamId) {
-            processAnswerSubmission(player.teamId, player.id, optIdx, data.textAnswer);
-          } else if (answeringTeamId) {
-            processAnswerSubmission(answeringTeamId, player ? player.id : null, optIdx, data.textAnswer);
+          console.log(`SUBMIT_STUDENT_ANSWER received: Player: ${player ? player.name : data.playerId}, Team: ${answeringTeamId}, Opt: ${optIdx}`);
+
+          if (answeringTeamId) {
+            processAnswerSubmission(answeringTeamId, player ? player.id : data.playerId, optIdx, data.textAnswer);
+          } else {
+            console.log('SUBMIT_STUDENT_ANSWER ignored: No active answering team.');
           }
           break;
         }

@@ -664,15 +664,16 @@
         countdownBadge.style.background = secs <= 3 ? '#ef4444' : '#f59e0b';
       }
       const optContainer = document.getElementById('mobile-options-container');
-      if (optContainer && !optContainer.hasChildNodes()) {
+      if (optContainer && optContainer.children.length === 0) {
         renderMobileOptions(state);
       }
       return;
     } else {
       buzzerBox.style.display = 'flex';
       answerPanel.className = 'answer-panel';
+      // Only clear if not buzzing or not my turn
       const optContainer = document.getElementById('mobile-options-container');
-      if (optContainer) optContainer.innerHTML = '';
+      if (optContainer && state.buzzerState !== 'buzzing') optContainer.innerHTML = '';
     }
 
     if (isLockedTeam) {
@@ -784,6 +785,15 @@
   }
 
   function submitAnswer(idx, text = '') {
+    console.log('Player submitting answer:', idx, 'TeamId:', myTeamId, 'PlayerId:', myPlayerId);
+    if (navigator.vibrate) navigator.vibrate(80);
+    // Instant visual feedback on button click
+    const btns = document.querySelectorAll('.phone-opt-btn');
+    if (btns[idx]) {
+      btns[idx].style.background = 'var(--accent)';
+      btns[idx].style.color = '#090d16';
+      btns[idx].style.transform = 'scale(0.96)';
+    }
     ws.send(JSON.stringify({
       type: 'SUBMIT_STUDENT_ANSWER',
       playerId: myPlayerId,
