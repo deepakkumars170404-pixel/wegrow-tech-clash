@@ -587,6 +587,38 @@ wss.on('connection', (ws) => {
           break;
         }
 
+        case 'MOVE_PLAYER_TEAM': {
+          const pid = data.playerId;
+          const targetTeamId = parseInt(data.targetTeamId, 10);
+          const player = gameState.players[pid];
+          const targetTeam = gameState.teams.find(t => t.id === targetTeamId);
+
+          if (player && targetTeam) {
+            // Remove player from all existing team rosters
+            gameState.teams.forEach(t => {
+              t.members = t.members.filter(m => m.id !== pid);
+            });
+
+            // Assign to the new target team
+            player.teamId = targetTeam.id;
+            player.teamName = targetTeam.name;
+            targetTeam.members.push({ id: player.id, name: player.name, role: player.role || 'player' });
+
+            // If player was in buzzer queue, update team info
+            gameState.buzzerQueue.forEach(b => {
+              if (b.playerId === pid) {
+                b.teamId = targetTeam.id;
+                b.teamName = targetTeam.name;
+              }
+            });
+
+            console.log(`[DRAG & DROP] Moved '${player.name}' to ${targetTeam.name}`);
+            updateLeaderboard();
+            broadcastState();
+          }
+          break;
+        }
+
         case 'START_GAME': {
           gameState.currentView = 'game';
           gameState.currentRoundIdx = 0;

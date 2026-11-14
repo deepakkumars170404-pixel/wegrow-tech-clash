@@ -133,11 +133,31 @@
     border-radius: 12px;
     padding: 16px;
     text-align: left;
-    min-height: 170px;
+    min-height: 180px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .team-roster-card.drag-over {
+    background: rgba(0, 242, 254, 0.15) !important;
+    border-color: var(--accent) !important;
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
   }
   .team-roster-card h3 { font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid #334155; padding-bottom: 6px; }
-  .member-list { list-style: none; font-size: 14px; color: var(--muted); }
-  .member-list li { padding: 3px 0; }
+  .member-list { list-style: none; font-size: 14px; color: var(--muted); min-height: 90px; }
+  .member-list li {
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .member-list li:active { cursor: grabbing; opacity: 0.6; }
+  .member-list li:hover { background: rgba(255,255,255,0.1); border: 1px dashed var(--accent); }
 
   .lobby-action-bar { display: flex; gap: 14px; margin-top: 24px; }
   .action-btn {
@@ -873,6 +893,38 @@
     }, 2800);
   }
 
+  let draggedPlayerId = null;
+
+  function handleDragStart(e, playerId) {
+    draggedPlayerId = playerId;
+    e.dataTransfer.setData('text/plain', playerId);
+    e.dataTransfer.effectAllowed = 'move';
+  }
+
+  function handleDragOver(e, teamCard) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    teamCard.classList.add('drag-over');
+  }
+
+  function handleDragLeave(e, teamCard) {
+    teamCard.classList.remove('drag-over');
+  }
+
+  function handleDrop(e, targetTeamId, teamCard) {
+    e.preventDefault();
+    teamCard.classList.remove('drag-over');
+    const playerId = e.dataTransfer.getData('text/plain') || draggedPlayerId;
+    if (playerId) {
+      if (window.soundFX) window.soundFX.playTick();
+      ws.send(JSON.stringify({
+        type: 'MOVE_PLAYER_TEAM',
+        playerId: playerId,
+        targetTeamId: targetTeamId
+      }));
+    }
+  }
+
   function renderLobbyRosters(teams) {
     const grid = document.getElementById('teams-preview-grid');
     grid.innerHTML = '';
@@ -880,17 +932,29 @@
       const card = document.createElement('div');
       card.className = 'team-roster-card';
       card.style.borderColor = t.color;
+      card.setAttribute('data-team-id', t.id);
+
+      // Drag and Drop container listeners on the team card
+      card.ondragover = (e) => handleDragOver(e, card);
+      card.ondragleave = (e) => handleDragLeave(e, card);
+      card.ondrop = (e) => handleDrop(e, t.id, card);
 
       let membersHtml = t.members.map(m => `
-        <li style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; padding:3px 6px; border-radius:6px; background:rgba(255,255,255,0.03);">
-          <span>• ${m.name}</span>
+        <li draggable="true" ondragstart="handleDragStart(event, '${m.id}')" title="Drag to another team card to reassign!">
+          <span style="display:flex; align-items:center; gap:6px;">
+            <span style="cursor:grab; opacity:0.6;">⠿</span>
+            <b>${m.name}</b>
+          </span>
           <button onclick="kickPlayer('${m.id}', '${m.name.replace(/'/g, "\\'")}')" style="background:#ef444425; border:1px solid #ef4444; color:#f87171; border-radius:4px; padding:2px 7px; font-size:11px; font-weight:900; cursor:pointer;" title="Remove student from team">✕</button>
         </li>
       `).join('');
-      if (!membersHtml) membersHtml = '<li style="color:#64748b;">No players yet</li>';
+      if (!membersHtml) membersHtml = '<li style="color:#64748b; cursor:default; background:none;">No players yet (Drop here)</li>';
 
       card.innerHTML = `
-        <h3 style="color:${t.color};">${t.name} (${t.members.length})</h3>
+        <h3 style="color:${t.color}; display:flex; justify-content:space-between; align-items:center;">
+          <span>${t.name}</span>
+          <span style="font-size:14px; background:rgba(255,255,255,0.08); padding:2px 8px; border-radius:12px;">${t.members.length}</span>
+        </h3>
         <ul class="member-list">${membersHtml}</ul>
       `;
       grid.appendChild(card);
