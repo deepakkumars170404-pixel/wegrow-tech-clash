@@ -466,7 +466,7 @@
     };
   }
 
-  loadData().then(connectWs);
+  connectWs();
 
   // Background tab & Call Protection: auto-resume WebSocket when returning from phone call or app switch!
   document.addEventListener('visibilitychange', () => {
@@ -705,19 +705,10 @@
     if (!container) return;
     container.innerHTML = '';
 
-    const curRound = allRounds[state.currentRoundIdx];
-    const curQ = curRound ? curRound.questions[state.currentQuestionIdx] : null;
-    if (!curQ) {
-      if (!allRounds || allRounds.length === 0) {
-        fetch('/questions.json').then(r => r.json()).then(data => {
-          allRounds = data;
-          renderMobileOptions(state);
-        }).catch(e => console.error(e));
-      }
-      return;
-    }
+    const curQ = state.currentQuestion;
+    if (!curQ) return;
 
-    if (curRound.type === 'fact_fiction') {
+    if (curQ.roundType === 'fact_fiction') {
       const statementBox = document.createElement('div');
       statementBox.style.background = '#1e293b';
       statementBox.style.border = '2px solid var(--accent)';
@@ -757,7 +748,7 @@
       fictBtn.innerHTML = '🔴 FICTION / MYTH';
       fictBtn.onclick = () => submitAnswer(1);
       container.appendChild(fictBtn);
-    } else if (curRound.type === 'mcq' || curRound.type === 'millionaire' || curRound.type === 'rapid') {
+    } else if (curQ.roundType === 'mcq' || curQ.roundType === 'millionaire' || curQ.roundType === 'rapid' || (curQ.options && curQ.options.length > 0)) {
       (curQ.options || []).forEach((opt, idx) => {
         const b = document.createElement('button');
         b.className = 'phone-opt-btn';
@@ -766,8 +757,8 @@
         b.onclick = () => submitAnswer(idx);
         container.appendChild(b);
       });
-    } else if (curRound.type === 'imposter') {
-      curQ.items.forEach((item, idx) => {
+    } else if (curQ.roundType === 'imposter' || (curQ.items && curQ.items.length > 0)) {
+      (curQ.items || []).forEach((item, idx) => {
         const b = document.createElement('button');
         b.className = 'phone-opt-btn';
         b.id = `phone-opt-${idx}`;

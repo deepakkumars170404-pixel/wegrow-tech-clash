@@ -754,8 +754,21 @@
       renderLobbyRosters(state.teams);
     } else if (state.currentView === 'game') {
       const qChanged = (lastRenderedRoundIdx !== state.currentRoundIdx || lastRenderedQuestionIdx !== state.currentQuestionIdx);
-      currentRound = allRounds[state.currentRoundIdx];
-      if (currentRound) {
+      if (state.currentQuestion) {
+        currentQ = state.currentQuestion;
+        currentRound = {
+          name: state.currentQuestion.roundName,
+          type: state.currentQuestion.roundType,
+          questions: { length: state.currentQuestion.totalQuestions }
+        };
+        document.getElementById('round-indicator').textContent = currentRound.name;
+        if (qChanged || !document.getElementById('q-content').hasChildNodes()) {
+          lastRenderedRoundIdx = state.currentRoundIdx;
+          lastRenderedQuestionIdx = state.currentQuestionIdx;
+          renderQuestionUI(currentRound, currentQ, state);
+        }
+      } else if (allRounds && allRounds[state.currentRoundIdx]) {
+        currentRound = allRounds[state.currentRoundIdx];
         currentQ = currentRound.questions[state.currentQuestionIdx];
         document.getElementById('round-indicator').textContent = currentRound.name;
         if (qChanged || !document.getElementById('q-content').hasChildNodes()) {

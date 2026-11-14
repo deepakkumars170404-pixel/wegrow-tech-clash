@@ -200,6 +200,30 @@ function broadcast(msgObj) {
   });
 }
 
+function getCurrentQuestionData() {
+  const round = allRounds[gameState.currentRoundIdx];
+  if (!round) return null;
+  const q = round.questions[gameState.currentQuestionIdx];
+  if (!q) return null;
+  return {
+    roundName: round.name,
+    roundType: round.type,
+    roundIdx: gameState.currentRoundIdx,
+    questionIdx: gameState.currentQuestionIdx,
+    totalQuestions: round.questions.length,
+    q: q.q || q.statement || q.topic || '',
+    statement: q.statement || '',
+    options: q.options || null,
+    items: q.items || null,
+    clue1: q.clue1 || '',
+    clue2: q.clue2 || '',
+    clue3: q.clue3 || '',
+    expl: q.expl || '',
+    ans: q.ans !== undefined ? q.ans : null,
+    ansText: q.ansText || q.reality || ''
+  };
+}
+
 function broadcastState() {
   updateLeaderboard();
   broadcast({
@@ -208,6 +232,7 @@ function broadcastState() {
       currentView: gameState.currentView,
       currentRoundIdx: gameState.currentRoundIdx,
       currentQuestionIdx: gameState.currentQuestionIdx,
+      currentQuestion: getCurrentQuestionData(),
       buzzerState: gameState.buzzerState,
       buzzerQueue: gameState.buzzerQueue,
       lockedTeamsForQuestion: gameState.lockedTeamsForQuestion,
@@ -464,6 +489,7 @@ wss.on('connection', (ws) => {
       currentView: gameState.currentView,
       currentRoundIdx: gameState.currentRoundIdx,
       currentQuestionIdx: gameState.currentQuestionIdx,
+      currentQuestion: getCurrentQuestionData(),
       buzzerState: gameState.buzzerState,
       buzzerQueue: gameState.buzzerQueue,
       lockedTeamsForQuestion: gameState.lockedTeamsForQuestion,
