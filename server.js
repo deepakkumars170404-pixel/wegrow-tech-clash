@@ -648,6 +648,38 @@ wss.on('connection', (ws) => {
           break;
         }
 
+        case 'NEXT_QUESTION': {
+          clearAnswerTimer();
+          clearAutoAdvance();
+          let nextQ = gameState.currentQuestionIdx + 1;
+          let nextR = gameState.currentRoundIdx;
+          const curRound = allRounds[nextR];
+
+          if (curRound && nextQ >= curRound.questions.length) {
+            nextR++;
+            nextQ = 0;
+          }
+
+          if (nextR >= allRounds.length) {
+            gameState.currentView = 'winner';
+            broadcastState();
+            break;
+          }
+
+          gameState.currentRoundIdx = nextR;
+          gameState.currentQuestionIdx = nextQ;
+          gameState.buzzerState = 'locked';
+          gameState.buzzerQueue = [];
+          gameState.lockedTeamsForQuestion = [];
+          gameState.activeAnsweringTeamId = null;
+          gameState.activeAnsweringPlayerId = null;
+          gameState.answerCountdown = null;
+          gameState.lastAnswerResult = null;
+          console.log(`[HOST NEXT_QUESTION] Advanced to Round ${nextR + 1}, Question ${nextQ + 1}`);
+          broadcastState();
+          break;
+        }
+
         case 'CHANGE_QUESTION': {
           clearAnswerTimer();
           clearAutoAdvance();

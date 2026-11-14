@@ -657,6 +657,8 @@
   let prevQueueLength = 0;
   let lastResultHandledTime = 0;
   let currentGameState = null;
+  let lastRenderedRoundIdx = -1;
+  let lastRenderedQuestionIdx = -1;
 
   async function loadData() {
     try {
@@ -751,14 +753,14 @@
       document.getElementById('round-indicator').textContent = `Lobby (${state.playerCount} Players)`;
       renderLobbyRosters(state.teams);
     } else if (state.currentView === 'game') {
-      const qChanged = (window.currentRIdx !== state.currentRoundIdx || window.currentQIdx !== state.currentQuestionIdx);
-      window.currentRIdx = state.currentRoundIdx;
-      window.currentQIdx = state.currentQuestionIdx;
+      const qChanged = (lastRenderedRoundIdx !== state.currentRoundIdx || lastRenderedQuestionIdx !== state.currentQuestionIdx);
       currentRound = allRounds[state.currentRoundIdx];
       if (currentRound) {
         currentQ = currentRound.questions[state.currentQuestionIdx];
         document.getElementById('round-indicator').textContent = currentRound.name;
         if (qChanged || !document.getElementById('q-content').hasChildNodes()) {
+          lastRenderedRoundIdx = state.currentRoundIdx;
+          lastRenderedQuestionIdx = state.currentQuestionIdx;
           renderQuestionUI(currentRound, currentQ, state);
         }
       }
@@ -1244,40 +1246,19 @@
     if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
     if (isAdvancingQuestion) return;
     isAdvancingQuestion = true;
-    setTimeout(() => { isAdvancingQuestion = false; }, 800);
+    setTimeout(() => { isAdvancingQuestion = false; }, 300);
 
     if (window.soundFX) window.soundFX.playTick();
-    const curRIdx = (currentGameState && currentGameState.currentRoundIdx !== undefined) ? currentGameState.currentRoundIdx : (window.currentRIdx || 0);
-    const curQIdx = (currentGameState && currentGameState.currentQuestionIdx !== undefined) ? currentGameState.currentQuestionIdx : (window.currentQIdx || 0);
-
-    let nextQ = curQIdx + 1;
-    let nextR = curRIdx;
-    const curRound = allRounds[nextR];
-
-    if (curRound && nextQ >= curRound.questions.length) {
-      nextR++;
-      nextQ = 0;
-    }
-
-    if (nextR >= allRounds.length) {
-      ws.send(JSON.stringify({ type: 'DECLARE_WINNER' }));
-      return;
-    }
-
-    window.currentRIdx = nextR;
-    window.currentQIdx = nextQ;
-
-    ws.send(JSON.stringify({
-      type: 'CHANGE_QUESTION',
-      roundIdx: nextR,
-      questionIdx: nextQ
-    }));
+    console.log('[SMARTBOARD] Sending NEXT_QUESTION');
+    ws.send(JSON.stringify({ type: 'NEXT_QUESTION' }));
   }
 
   function resetTournament() {
     if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-    window.currentRIdx = 0;
-    window.currentQIdx = 0;
+    lastRenderedRoundIdx = -1;
+    lastRenderedQuestionIdx = -1;
+    ws.send(JSON.stringify({ type: 'RESET_ALL' }));
+  }
     ws.send(JSON.stringify({ type: 'RESET_ALL' }));
   }
 
