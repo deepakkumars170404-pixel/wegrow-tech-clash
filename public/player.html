@@ -671,6 +671,8 @@
     } else {
       buzzerBox.style.display = 'flex';
       answerPanel.className = 'answer-panel';
+      const optContainer = document.getElementById('mobile-options-container');
+      if (optContainer) optContainer.innerHTML = '';
     }
 
     if (isLockedTeam) {

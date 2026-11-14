@@ -348,6 +348,7 @@ function handleAnswerTimeout() {
     gameState.activeAnsweringTeamId = null;
     gameState.activeAnsweringPlayerId = null;
     gameState.buzzerState = 'open';
+    gameState.answerCountdown = 10;
   }
 
   updateLeaderboard();
@@ -455,6 +456,7 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       gameState.activeAnsweringTeamId = null;
       gameState.activeAnsweringPlayerId = null;
       gameState.buzzerState = 'open';
+      gameState.answerCountdown = 10;
     }
   }
 
@@ -738,12 +740,22 @@ wss.on('connection', (ws) => {
         }
 
         case 'SMARTBOARD_SELECT_OPTION': {
-          const activeTeamId = gameState.activeAnsweringTeamId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].teamId : null);
+          let activeTeamId = gameState.activeAnsweringTeamId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].teamId : null);
+          let activePlayerId = gameState.activeAnsweringPlayerId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].playerId : null);
+
+          // If host taps smartboard directly while buzzer is open, pick first eligible team if none buzzed
+          if (!activeTeamId && gameState.buzzerState === 'open') {
+            const eligibleTeam = gameState.teams.find(t => !gameState.lockedTeamsForQuestion.includes(t.id));
+            if (eligibleTeam) {
+              activeTeamId = eligibleTeam.id;
+              activePlayerId = eligibleTeam.members[0] ? eligibleTeam.members[0].id : null;
+            }
+          }
+
           if (!activeTeamId) {
-            console.log('SMARTBOARD_SELECT_OPTION ignored: No team currently buzzing/answering.');
+            console.log('SMARTBOARD_SELECT_OPTION ignored: No active team or buzzer is locked.');
             return;
           }
-          const activePlayerId = gameState.activeAnsweringPlayerId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].playerId : null);
           const optIdx = parseInt(data.selectedOptionIndex, 10);
           processAnswerSubmission(activeTeamId, activePlayerId, optIdx, null);
           break;
@@ -778,6 +790,7 @@ wss.on('connection', (ws) => {
               gameState.activeAnsweringTeamId = null;
               gameState.activeAnsweringPlayerId = null;
               gameState.buzzerState = 'open';
+              gameState.answerCountdown = 10;
             }
             broadcastState();
           }
@@ -931,6 +944,7 @@ wss.on('connection', (ws) => {
               gameState.activeAnsweringTeamId = null;
               gameState.activeAnsweringPlayerId = null;
               gameState.buzzerState = 'open';
+              gameState.answerCountdown = 10;
             }
           }
           updateLeaderboard();

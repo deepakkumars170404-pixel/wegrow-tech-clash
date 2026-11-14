@@ -846,9 +846,12 @@
       if (window.soundFX) window.soundFX.playWrong();
       document.getElementById('q-answer-banner').classList.add('show');
 
-      // Shake/mark red on the selected wrong option
+      // Shake/mark red on the selected wrong option, then clear after 1.8s so next team sees clean options
       if (res.selectedOptionIndex !== undefined && opts[res.selectedOptionIndex]) {
         opts[res.selectedOptionIndex].classList.add('wrong');
+        setTimeout(() => {
+          if (opts[res.selectedOptionIndex]) opts[res.selectedOptionIndex].classList.remove('wrong');
+        }, 1800);
       }
       // Highlight correct answer in emerald green
       if (currentQ && currentQ.ans !== undefined && opts[currentQ.ans]) {
@@ -882,9 +885,12 @@
       banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING...`;
       if (window.soundFX) window.soundFX.playWrong();
 
-      // Shake/mark red on the selected wrong option
+      // Shake/mark red on the selected wrong option, then clear after 1.8s so next team sees clean options
       if (res.selectedOptionIndex !== undefined && opts[res.selectedOptionIndex]) {
         opts[res.selectedOptionIndex].classList.add('wrong');
+        setTimeout(() => {
+          if (opts[res.selectedOptionIndex]) opts[res.selectedOptionIndex].classList.remove('wrong');
+        }, 1800);
       }
     }
 
@@ -1180,8 +1186,8 @@
   }
 
   function onSmartboardOptionClick(idx) {
-    if (!currentGameState || currentGameState.buzzerState !== 'buzzing') {
-      console.log('Cannot select option on smartboard: no team is currently answering.');
+    if (!currentGameState || (currentGameState.buzzerState !== 'buzzing' && currentGameState.buzzerState !== 'open')) {
+      console.log('Cannot select option on smartboard: buzzer is locked.');
       return;
     }
     if (window.soundFX) window.soundFX.playTick();
