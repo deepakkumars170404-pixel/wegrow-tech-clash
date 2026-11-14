@@ -393,6 +393,11 @@
   <div class="flash-sub" id="flash-sub">+100 POINTS 🎉</div>
 </div>
 
+<!-- Anti-Exit Warning Toast -->
+<div id="exit-warning-toast" style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ef4444; color:white; padding:12px 24px; border-radius:30px; font-weight:900; font-size:15px; box-shadow:0 8px 30px rgba(239,68,68,0.7); display:none; z-index:99999; text-align:center; animation:popDown 0.3s ease;">
+  ⚠️ EXIT BLOCKED! Live tournament is active. Stay on this screen!
+</div>
+
 <script>
   let ws = null;
   let allRounds = [];
@@ -463,7 +468,7 @@
 
   loadData().then(connectWs);
 
-  // Background tab & Call Protection: auto-resume WebSocket when returning!
+  // Background tab & Call Protection: auto-resume WebSocket when returning from phone call or app switch!
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       if (!ws || ws.readyState !== WebSocket.OPEN) {
@@ -472,11 +477,33 @@
     }
   });
 
-  // Warn before accidental refresh
+  // Anti-Back / Anti-Exit Guard: Lock History so pressing phone back button does NOT leave the game!
+  function lockBrowserBackNavigation() {
+    window.history.pushState({ page: 'arena' }, '', window.location.href);
+    window.addEventListener('popstate', (event) => {
+      // Re-push state immediately so user cannot go back
+      window.history.pushState({ page: 'arena' }, '', window.location.href);
+      showExitWarning();
+    });
+  }
+
+  function showExitWarning() {
+    const toast = document.getElementById('exit-warning-toast');
+    if (toast) {
+      toast.style.display = 'block';
+      if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
+      setTimeout(() => { toast.style.display = 'none'; }, 3200);
+    }
+  }
+
+  lockBrowserBackNavigation();
+
+  // Warn and block before accidental tab close / reload
   window.addEventListener('beforeunload', (e) => {
     if (myName) {
       e.preventDefault();
-      e.returnValue = 'Tournament is active. Continue session?';
+      e.returnValue = 'Tournament is active. You cannot leave the arena!';
+      return 'Tournament is active. You cannot leave the arena!';
     }
   });
 
