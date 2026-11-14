@@ -743,9 +743,9 @@ wss.on('connection', (ws) => {
           let activeTeamId = gameState.activeAnsweringTeamId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].teamId : null);
           let activePlayerId = gameState.activeAnsweringPlayerId || (gameState.buzzerQueue[0] ? gameState.buzzerQueue[0].playerId : null);
 
-          // If host taps smartboard directly while buzzer is open, pick first eligible team if none buzzed
-          if (!activeTeamId && gameState.buzzerState === 'open') {
-            const eligibleTeam = gameState.teams.find(t => !gameState.lockedTeamsForQuestion.includes(t.id));
+          // Allow Smartboard host click anytime: if no team buzzed yet, pick the first unlocked team!
+          if (!activeTeamId) {
+            const eligibleTeam = gameState.teams.find(t => !gameState.lockedTeamsForQuestion.includes(t.id)) || gameState.teams[0];
             if (eligibleTeam) {
               activeTeamId = eligibleTeam.id;
               activePlayerId = eligibleTeam.members[0] ? eligibleTeam.members[0].id : null;
@@ -753,7 +753,7 @@ wss.on('connection', (ws) => {
           }
 
           if (!activeTeamId) {
-            console.log('SMARTBOARD_SELECT_OPTION ignored: No active team or buzzer is locked.');
+            console.log('SMARTBOARD_SELECT_OPTION ignored: No team available.');
             return;
           }
           const optIdx = parseInt(data.selectedOptionIndex, 10);

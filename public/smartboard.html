@@ -1186,10 +1186,6 @@
   }
 
   function onSmartboardOptionClick(idx) {
-    if (!currentGameState || (currentGameState.buzzerState !== 'buzzing' && currentGameState.buzzerState !== 'open')) {
-      console.log('Cannot select option on smartboard: buzzer is locked.');
-      return;
-    }
     if (window.soundFX) window.soundFX.playTick();
     ws.send(JSON.stringify({
       type: 'SMARTBOARD_SELECT_OPTION',
