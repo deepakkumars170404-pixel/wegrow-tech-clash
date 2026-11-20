@@ -918,12 +918,14 @@
       }, 3500);
 
     } else if (res.status === 'timeout') {
+      const penaltyStr = res.penalty ? `-${res.penalty} PTS` : '-20 PTS';
       banner.className = 'smart-flash wrong';
-      banner.textContent = `⏰ ${res.teamName || 'Team'} TIME'S UP (-20 PTS)! PASSING...`;
+      banner.textContent = `⏰ ${res.teamName || 'Team'} TIME'S UP (${penaltyStr})! PASSING...`;
       if (window.soundFX) window.soundFX.playWrong();
     } else {
+      const penaltyStr = res.penalty ? `-${res.penalty} PTS` : '-20 PTS';
       banner.className = 'smart-flash wrong';
-      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (-20 PTS)! PASSING TO NEXT TEAM...`;
+      banner.textContent = `❌ ${res.teamName || 'Team'} WRONG (${penaltyStr})!`;
       if (window.soundFX) window.soundFX.playWrong();
 
       // Shake/mark red on the selected wrong option, then clear after 2.2s so next team sees clean options

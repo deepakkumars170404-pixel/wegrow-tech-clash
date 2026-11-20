@@ -394,8 +394,11 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
     gameState.buzzerState = 'locked';
     advanceToNextQuestion(3500);
   } else {
+    const isMythbuster = (currentRound.type === 'fact_fiction');
+    const penaltyPoints = isMythbuster ? 50 : 20;
+
     if (team) {
-      team.score = Math.max(0, team.score - 20);
+      team.score = Math.max(0, team.score - penaltyPoints);
       team.wrongCount = (team.wrongCount || 0) + 1;
       if (!gameState.lockedTeamsForQuestion.some(lid => Number(lid) === Number(team.id))) {
         gameState.lockedTeamsForQuestion.push(team.id);
@@ -412,7 +415,8 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       playerName: player ? player.name : (team ? team.name : 'Team'),
       selectedOptionIndex: selIdx,
       correctOptionIndex: correctIdx,
-      message: `${team ? team.name : 'Team'} WRONG! (-20 PTS)`,
+      penalty: penaltyPoints,
+      message: `${team ? team.name : 'Team'} WRONG! (-${penaltyPoints} PTS)`,
       time: Date.now()
     };
 
@@ -420,9 +424,11 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
       gameState.buzzerQueue = gameState.buzzerQueue.filter(b => Number(b.teamId) !== Number(team.id));
     }
 
-    // 2-CHANCE ATTEMPT RULE: Maximum 2 teams can attempt each question!
-    if (gameState.lockedTeamsForQuestion.length >= 2) {
-      console.log(`[ATTEMPT LIMIT] 2 teams failed on question. Auto-advancing in 3.5 seconds.`);
+    // Single-attempt rule for Tech Mythbusters (fact_fiction), 2-chance attempt for other rounds
+    const maxAttempts = isMythbuster ? 1 : 2;
+
+    if (gameState.lockedTeamsForQuestion.length >= maxAttempts) {
+      console.log(`[ATTEMPT LIMIT] ${maxAttempts} team(s) failed on question. Auto-advancing in 3.5 seconds.`);
       gameState.buzzerState = 'locked';
       gameState.buzzerQueue = [];
       gameState.activeAnsweringTeamId = null;
@@ -434,7 +440,8 @@ function processAnswerSubmission(teamId, playerId, selectedOptionIndex, textAnsw
         playerName: player ? player.name : (team ? team.name : 'Team'),
         selectedOptionIndex: selIdx,
         correctOptionIndex: correctIdx,
-        message: `2 Teams answered incorrectly! Revealing correct answer...`,
+        penalty: penaltyPoints,
+        message: isMythbuster ? `Wrong answer! Revealing answer & moving to next question...` : `2 Teams answered incorrectly! Revealing correct answer...`,
         time: Date.now()
       };
       advanceToNextQuestion(3500);
@@ -937,9 +944,13 @@ wss.on('connection', (ws) => {
         case 'HOST_MARK_WRONG': {
           clearAnswerTimer();
           if (gameState.activeAnsweringTeamId) {
+            const curRound = allRounds[gameState.currentRoundIdx];
+            const isMythbuster = (curRound && curRound.type === 'fact_fiction');
+            const penaltyPoints = isMythbuster ? 50 : 20;
+
             const team = gameState.teams.find(t => t.id === gameState.activeAnsweringTeamId);
             if (team) {
-              team.score = Math.max(0, team.score - 20);
+              team.score = Math.max(0, team.score - penaltyPoints);
               team.wrongCount = (team.wrongCount || 0) + 1;
             }
 
@@ -948,14 +959,15 @@ wss.on('connection', (ws) => {
               status: 'wrong',
               teamId: gameState.activeAnsweringTeamId,
               teamName: team ? team.name : 'Team',
-              message: `${team ? team.name : 'Team'} WRONG! (-20 PTS)`,
+              penalty: penaltyPoints,
+              message: `${team ? team.name : 'Team'} WRONG! (-${penaltyPoints} PTS)`,
               time: Date.now()
             };
 
             gameState.buzzerQueue = gameState.buzzerQueue.filter(b => b.teamId !== gameState.activeAnsweringTeamId);
 
-            // 2-CHANCE ATTEMPT RULE: Maximum 2 teams can attempt each question!
-            if (gameState.lockedTeamsForQuestion.length >= 2) {
+            const maxAttempts = isMythbuster ? 1 : 2;
+            if (gameState.lockedTeamsForQuestion.length >= maxAttempts) {
               const curR = allRounds[gameState.currentRoundIdx];
               const curQ = curR ? curR.questions[gameState.currentQuestionIdx] : null;
               gameState.buzzerState = 'locked';
@@ -966,7 +978,8 @@ wss.on('connection', (ws) => {
                 status: 'max_attempts_exceeded',
                 teamId: team ? team.id : null,
                 teamName: team ? team.name : 'Team',
-                message: `2 Teams answered incorrectly! Revealing correct answer...`,
+                penalty: penaltyPoints,
+                message: isMythbuster ? `Wrong answer! Revealing correct answer...` : `2 Teams answered incorrectly! Revealing correct answer...`,
                 correctOptionIndex: curQ ? curQ.ans : null,
                 ansText: curQ ? curQ.ansText : '',
                 time: Date.now()

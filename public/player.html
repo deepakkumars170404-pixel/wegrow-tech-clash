@@ -882,7 +882,8 @@
         } else if (res.status === 'max_attempts_exceeded') {
           queueInfo.innerHTML = `⚠️ <span style="color:#f59e0b; font-weight:900;">2 Teams answered incorrectly!</span> Revealing answer & moving to next question in 3.5s...`;
         } else {
-          queueInfo.innerHTML = `❌ <span style="color:#ef4444; font-weight:900;">${res.teamName || 'Team'}</span> answered WRONG (-20 PTS)! Turn passing...`;
+          const penaltyStr = res.penalty ? `-${res.penalty} PTS` : '-20 PTS';
+          queueInfo.innerHTML = `❌ <span style="color:#ef4444; font-weight:900;">${res.teamName || 'Team'}</span> answered WRONG (${penaltyStr})!`;
         }
       }
       return;
