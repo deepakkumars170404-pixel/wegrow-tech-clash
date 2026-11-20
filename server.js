@@ -200,39 +200,23 @@ function broadcast(msgObj) {
   });
 }
 
-function getCurrentQuestionData() {
-  const round = allRounds[gameState.currentRoundIdx];
-  if (!round) return null;
-  const q = round.questions[gameState.currentQuestionIdx];
-  if (!q) return null;
-  return {
-    roundName: round.name,
-    roundType: round.type,
-    roundIdx: gameState.currentRoundIdx,
-    questionIdx: gameState.currentQuestionIdx,
-    totalQuestions: round.questions.length,
-    q: q.q || q.statement || q.topic || '',
-    statement: q.statement || '',
-    options: q.options || null,
-    items: q.items || null,
-    clue1: q.clue1 || '',
-    clue2: q.clue2 || '',
-    clue3: q.clue3 || '',
-    expl: q.expl || '',
-    ans: q.ans !== undefined ? q.ans : null,
-    ansText: q.ansText || q.reality || ''
-  };
-}
-
 function broadcastState() {
   updateLeaderboard();
+  const curRound = allRounds[gameState.currentRoundIdx];
+  const curQ = curRound ? curRound.questions[gameState.currentQuestionIdx] : null;
+
   broadcast({
     type: 'STATE_UPDATE',
     state: {
       currentView: gameState.currentView,
       currentRoundIdx: gameState.currentRoundIdx,
       currentQuestionIdx: gameState.currentQuestionIdx,
-      currentQuestion: getCurrentQuestionData(),
+      currentQuestion: curQ ? {
+        ...curQ,
+        roundName: curRound.name,
+        roundType: curRound.type,
+        totalQuestions: curRound.questions.length
+      } : null,
       buzzerState: gameState.buzzerState,
       buzzerQueue: gameState.buzzerQueue,
       lockedTeamsForQuestion: gameState.lockedTeamsForQuestion,
@@ -481,6 +465,9 @@ wss.on('connection', (ws) => {
   const playerId = 'p_' + Math.random().toString(36).substr(2, 9);
   ws.playerId = playerId;
 
+  const curRound = allRounds[gameState.currentRoundIdx];
+  const curQ = curRound ? curRound.questions[gameState.currentQuestionIdx] : null;
+
   updateLeaderboard();
   ws.send(JSON.stringify({
     type: 'INIT',
@@ -489,7 +476,12 @@ wss.on('connection', (ws) => {
       currentView: gameState.currentView,
       currentRoundIdx: gameState.currentRoundIdx,
       currentQuestionIdx: gameState.currentQuestionIdx,
-      currentQuestion: getCurrentQuestionData(),
+      currentQuestion: curQ ? {
+        ...curQ,
+        roundName: curRound.name,
+        roundType: curRound.type,
+        totalQuestions: curRound.questions.length
+      } : null,
       buzzerState: gameState.buzzerState,
       buzzerQueue: gameState.buzzerQueue,
       lockedTeamsForQuestion: gameState.lockedTeamsForQuestion,
@@ -630,8 +622,6 @@ wss.on('connection', (ws) => {
         }
 
         case 'START_GAME': {
-          clearAnswerTimer();
-          clearAutoAdvance();
           gameState.currentView = 'game';
           gameState.currentRoundIdx = 0;
           gameState.currentQuestionIdx = 0;
@@ -640,7 +630,6 @@ wss.on('connection', (ws) => {
           gameState.lockedTeamsForQuestion = [];
           gameState.activeAnsweringTeamId = null;
           gameState.activeAnsweringPlayerId = null;
-          gameState.answerCountdown = null;
           gameState.lastAnswerResult = null;
           broadcastState();
           break;
@@ -673,38 +662,6 @@ wss.on('connection', (ws) => {
             }
           });
           updateLeaderboard();
-          broadcastState();
-          break;
-        }
-
-        case 'NEXT_QUESTION': {
-          clearAnswerTimer();
-          clearAutoAdvance();
-          let nextQ = gameState.currentQuestionIdx + 1;
-          let nextR = gameState.currentRoundIdx;
-          const curRound = allRounds[nextR];
-
-          if (curRound && nextQ >= curRound.questions.length) {
-            nextR++;
-            nextQ = 0;
-          }
-
-          if (nextR >= allRounds.length) {
-            gameState.currentView = 'winner';
-            broadcastState();
-            break;
-          }
-
-          gameState.currentRoundIdx = nextR;
-          gameState.currentQuestionIdx = nextQ;
-          gameState.buzzerState = 'locked';
-          gameState.buzzerQueue = [];
-          gameState.lockedTeamsForQuestion = [];
-          gameState.activeAnsweringTeamId = null;
-          gameState.activeAnsweringPlayerId = null;
-          gameState.answerCountdown = null;
-          gameState.lastAnswerResult = null;
-          console.log(`[HOST NEXT_QUESTION] Advanced to Round ${nextR + 1}, Question ${nextQ + 1}`);
           broadcastState();
           break;
         }

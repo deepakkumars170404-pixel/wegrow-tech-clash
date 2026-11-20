@@ -223,6 +223,26 @@
     transition: all 0.15s;
   }
   .phone-opt-btn:active { background: var(--accent); color: #090d16; transform: scale(0.98); }
+  .phone-opt-btn.cooldown-disabled {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    filter: grayscale(40%);
+  }
+
+  /* Discussion Countdown Banner */
+  .cooldown-banner {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.25));
+    border: 2px dashed #f59e0b;
+    color: #fbbf24;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 12px;
+    animation: pulse 1s infinite alternate;
+  }
 
   .player-hero-card {
     background: #0f172a;
@@ -645,6 +665,7 @@
     if (lastRenderedQIdx !== state.currentQuestionIdx || lastRenderedRIdx !== state.currentRoundIdx) {
       lastRenderedQIdx = state.currentQuestionIdx;
       lastRenderedRIdx = state.currentRoundIdx;
+      if (optionsCooldownTimer) { clearInterval(optionsCooldownTimer); optionsCooldownTimer = null; }
       const optContainer = document.getElementById('mobile-options-container');
       if (optContainer) optContainer.innerHTML = '';
     }
@@ -667,7 +688,10 @@
       answerPanel.className = 'answer-panel';
       // Only clear if not buzzing or not my turn
       const optContainer = document.getElementById('mobile-options-container');
-      if (optContainer && state.buzzerState !== 'buzzing') optContainer.innerHTML = '';
+      if (optContainer && state.buzzerState !== 'buzzing') {
+        if (optionsCooldownTimer) { clearInterval(optionsCooldownTimer); optionsCooldownTimer = null; }
+        optContainer.innerHTML = '';
+      }
     }
 
     if (isLockedTeam) {
@@ -700,6 +724,8 @@
     }
   }
 
+  let optionsCooldownTimer = null;
+
   function renderMobileOptions(state) {
     const container = document.getElementById('mobile-options-container');
     if (!container) return;
@@ -707,6 +733,13 @@
 
     const curQ = state.currentQuestion;
     if (!curQ) return;
+
+    // 2-3s Cooldown Banner to prevent accidental double-tap and allow discussion
+    const cooldownBanner = document.createElement('div');
+    cooldownBanner.className = 'cooldown-banner';
+    cooldownBanner.id = 'cooldown-timer-banner';
+    cooldownBanner.innerHTML = '⏳ <b>Discuss with your team!</b> Unlocking options in <span id="cooldown-secs" style="font-size:16px; font-weight:900; color:#fff;">2s</span>...';
+    container.appendChild(cooldownBanner);
 
     if (curQ.roundType === 'fact_fiction') {
       const statementBox = document.createElement('div');
@@ -723,7 +756,7 @@
       container.appendChild(statementBox);
 
       const factBtn = document.createElement('button');
-      factBtn.className = 'phone-opt-btn';
+      factBtn.className = 'phone-opt-btn cooldown-disabled';
       factBtn.id = 'phone-opt-0';
       factBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
       factBtn.style.border = 'none';
@@ -736,7 +769,7 @@
       container.appendChild(factBtn);
 
       const fictBtn = document.createElement('button');
-      fictBtn.className = 'phone-opt-btn';
+      fictBtn.className = 'phone-opt-btn cooldown-disabled';
       fictBtn.id = 'phone-opt-1';
       fictBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
       fictBtn.style.border = 'none';
@@ -751,7 +784,7 @@
     } else if (curQ.roundType === 'mcq' || curQ.roundType === 'millionaire' || curQ.roundType === 'rapid' || (curQ.options && curQ.options.length > 0)) {
       (curQ.options || []).forEach((opt, idx) => {
         const b = document.createElement('button');
-        b.className = 'phone-opt-btn';
+        b.className = 'phone-opt-btn cooldown-disabled';
         b.id = `phone-opt-${idx}`;
         b.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
         b.onclick = () => submitAnswer(idx);
@@ -760,7 +793,7 @@
     } else if (curQ.roundType === 'imposter' || (curQ.items && curQ.items.length > 0)) {
       (curQ.items || []).forEach((item, idx) => {
         const b = document.createElement('button');
-        b.className = 'phone-opt-btn';
+        b.className = 'phone-opt-btn cooldown-disabled';
         b.id = `phone-opt-${idx}`;
         b.textContent = item;
         b.onclick = () => submitAnswer(idx);
@@ -768,6 +801,7 @@
       });
     } else {
       // Free text / verbal confirm for detective/debate
+      cooldownBanner.style.display = 'none';
       const b = document.createElement('div');
       b.style.textAlign = 'center';
       b.style.padding = '18px';
@@ -779,7 +813,38 @@
       b.style.color = '#38bdf8';
       b.innerHTML = '🎙️ Speak your answer aloud to the host / Smartboard!';
       container.appendChild(b);
+      return;
     }
+
+    // Start 2.5s safe unlock timer
+    if (optionsCooldownTimer) clearInterval(optionsCooldownTimer);
+    let remainingMs = 2500;
+    const interval = 100;
+    optionsCooldownTimer = setInterval(() => {
+      remainingMs -= interval;
+      const secsEl = document.getElementById('cooldown-secs');
+      if (secsEl) {
+        secsEl.textContent = (remainingMs / 1000).toFixed(1) + 's';
+      }
+
+      if (remainingMs <= 0) {
+        clearInterval(optionsCooldownTimer);
+        optionsCooldownTimer = null;
+        const banner = document.getElementById('cooldown-timer-banner');
+        if (banner) {
+          banner.style.background = 'rgba(16, 185, 129, 0.2)';
+          banner.style.borderColor = '#10b981';
+          banner.style.color = '#34d399';
+          banner.innerHTML = '⚡ <b>OPTIONS UNLOCKED!</b> Choose your answer now!';
+        }
+        // Enable buttons
+        const disabledBtns = document.querySelectorAll('.phone-opt-btn.cooldown-disabled');
+        disabledBtns.forEach(btn => {
+          btn.classList.remove('cooldown-disabled');
+        });
+        if (navigator.vibrate) navigator.vibrate([40, 60, 40]);
+      }
+    }, interval);
   }
 
   function submitAnswer(idx, text = '') {

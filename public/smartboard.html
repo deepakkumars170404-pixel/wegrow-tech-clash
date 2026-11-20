@@ -710,7 +710,20 @@
     ws.onclose = () => setTimeout(connectWs, 2000);
   }
 
+  async function loadData() {
+    try {
+      const res = await fetch('/questions.json');
+      allRounds = await res.json();
+      if (currentGameState && currentGameState.currentView === 'game') {
+        renderGlobalState(currentGameState);
+      }
+    } catch(e) {
+      console.error('questions.json load error:', e);
+    }
+  }
+
   // Initialize immediately
+  loadData();
   initQr();
   connectWs();
 
