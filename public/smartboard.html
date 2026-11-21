@@ -865,8 +865,7 @@
         opts[corIdx].classList.add('correct');
       }
 
-      // Automatically advance to next question after 3.5 seconds!
-      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      // Show message that server will advance to next question
       const ansBanner = document.getElementById('q-answer-banner');
       let autoTimerDiv = document.getElementById('auto-advance-msg');
       if (!autoTimerDiv) {
@@ -880,14 +879,10 @@
       }
       autoTimerDiv.textContent = '⚡ Moving to next question automatically in 3 seconds...';
 
-      autoAdvanceTimer = setTimeout(() => {
-        nextQuestion();
-      }, 3500);
-
     } else if (res.status === 'max_attempts_exceeded') {
       // 2 TEAMS FAILED - Reveal Answer & Auto Advance
       banner.className = 'smart-flash wrong';
-      banner.textContent = `⚠️ 2 TEAMS ATTEMPTED & WRONG! REVEALING ANSWER...`;
+      banner.textContent = `⚠️ ATTEMPT LIMIT REACHED! REVEALING ANSWER...`;
       if (window.soundFX) window.soundFX.playWrong();
       document.getElementById('q-answer-banner').classList.add('show');
 
@@ -899,7 +894,6 @@
         opts[corIdx].classList.add('correct');
       }
 
-      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
       const ansBanner = document.getElementById('q-answer-banner');
       let autoTimerDiv = document.getElementById('auto-advance-msg');
       if (!autoTimerDiv) {
@@ -911,11 +905,7 @@
         autoTimerDiv.style.fontWeight = '900';
         ansBanner.appendChild(autoTimerDiv);
       }
-      autoTimerDiv.textContent = '⏳ Max attempts reached! Moving to next question in 3.5 seconds...';
-
-      autoAdvanceTimer = setTimeout(() => {
-        nextQuestion();
-      }, 3500);
+      autoTimerDiv.textContent = '⏳ Moving to next question automatically in 3.5 seconds...';
 
     } else if (res.status === 'timeout') {
       const penaltyStr = res.penalty ? `-${res.penalty} PTS` : '-20 PTS';
